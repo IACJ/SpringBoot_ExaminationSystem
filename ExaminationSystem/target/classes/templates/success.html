@@ -8,8 +8,10 @@
 </head>
 <body>
 <!--thymeleaf模板-->
+<h1>欢迎</h1>
 <p>你已经登录成功</p>
-<p th:text="用户名：+${name}"></p>
-<p th:text="密码：+${password}"></p>
+<p th:text="用户名：+${account}"></p>
+<p th:text="姓名：+${name}"></p>
+<p th:text="权限：+${permission}"></p>
 </body>
 </html>

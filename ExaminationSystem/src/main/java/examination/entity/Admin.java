@@ -1,11 +1,12 @@
 package examination.entity;
 
-public class User {
+public class Admin extends User {
     long id;
     String account;
     String password;
     String name;
-    String permission = "User";
+
+    final String permission = "Admin";
 
     public long getId() {
         return id;
@@ -45,7 +46,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Admin{" +
                 "id=" + id +
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
