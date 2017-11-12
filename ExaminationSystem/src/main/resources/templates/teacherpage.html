@@ -1,16 +1,72 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"></html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"  />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"  />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css"  />
+    <link rel="stylesheet" type="text/css" href="css/aaa.css"  />
 </head>
+
 <body>
-<!--thymeleaf模板-->
-<h1>欢迎老师</h1>
-<p>你已经登录成功</p>
-<p th:text="姓名：+${name}"></p>
-<p th:text="权限：+${permission}"></p>
+<div class="background_main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <img alt="140x140" src="images/scut.png" class="img-circle" />
+                    </div>
+                    <div class="span6">
+                        <div class="page-header">
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <h1>华南理工大学数据库考试系统</h1>
+                        </div>
+                    </div>
+                    <div class="logout">
+                        <span th:text="'欢迎你！' +${name} + ' ' +${permission}"></span>
+                        <span style="color: blue;"><u>&nbsp;&nbsp;&nbsp;退出</u></span>
+                    </div>
+
+                </div>
+                <div class="row-fluid">
+                    <div class="span4"></div>
+                    <div class="span4">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#">首页</a></li>
+                            <li><a href="#">发布考试</a></li>
+                            <li><a href="#">批改试卷</a></li>
+                            <li><a href="#">查看考试情况</a></li>
+                        </ul>
+                    </div>
+                    <div class="span4">
+                    </div>
+                </div>
+                <div class="background1">
+                    <blockquote><p><strong>功能介绍</strong></p>	</blockquote>
+                    <h2>欢迎使用数据库系统</h2>
+                    <p><strong>学生功能</strong></p>
+                    <p>1.在线考试：选择时限内的考试并作答</p>
+                    <p>2.成绩查询：查询考试的成绩</p>
+                    <p>3.考题提交状态查询：查询考试中提交的答案判题状态</p>
+                    <p>4.在线练习：进行数据库在线练习</p>
+                    <p>5.练习提交状态查询：查询在线练习中提交答案的判题状态</p>
+                    <p><strong>教师功能</strong></p>
+                    <p>1.添加考试：开展一次新的考试</p>
+                    <p>2.考题管理：管理考试题目</p>
+                    <p>3.题库管理：管理基本题库</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

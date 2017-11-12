@@ -3,8 +3,28 @@ package examination.entity;
 public class Student extends User {
     long id;
     String account;
-    String password;
     String name;
+    String sex;
+    String password;
+    String classid;
+
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getClassid() {
+        return classid;
+    }
+
+    public void setClassid(String classid) {
+        this.classid = classid;
+    }
+
     final String permission = "Student";
 
     public long getId() {
@@ -48,8 +68,11 @@ public class Student extends User {
         return "Student{" +
                 "id=" + id +
                 ", account='" + account + '\'' +
-                ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", password='" + password + '\'' +
+                ", classid='" + classid + '\'' +
+                ", permission='" + permission + '\'' +
                 '}';
     }
 }
