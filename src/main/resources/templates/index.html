@@ -2,13 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>MY HTML</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <link href="css/bbb.css" type="text/css" rel="stylesheet" media="screen" />
+    <link href="css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
     <script
             src="http://apps.bdimg.com/libs/prototype/1.7.1.0/prototype.js">
     </script>
@@ -29,17 +30,27 @@
                     <form class="form-horizontal" action="/doLogin" method="post">
                         <div class="login_margin1">
                             <div class="login_input_outer">
-                                <input name="account" id="inputEmail" class="login_input" type="text" placeholder="账号"></input>
+                                <input name="account" id="inputEmail" class="login_input" type="text"
+                                       placeholder="账号"></input>
                             </div>
                         </div>
                         <div class="login_margin1">
                             <div class="login_input_outer">
-                                <input name="password" id="inputPassword" class="login_input" type="password" placeholder="密码"></input>
+                                <input name="password" id="inputPassword" class="login_input" type="password"
+                                       placeholder="密码"></input>
+                            </div>
+
+                        </div>
+                        <div class="login_margin1">
+                            <div>
+                                <!-- 验证码 -->
+                                <img alt="验证码" onclick="this.src='/defaultKaptcha?'" src="/defaultKaptcha"/>
+                                <input type="text" name="vrifyCode"/>
                             </div>
 
                         </div>
                         <div class="login_margin2">
-                            <label class="checkbox"><input type="checkbox" />记住密码</label>
+                            <label class="checkbox"><input type="checkbox"/>记住密码</label>
                         </div>
                         <div class="login_margin1">
                             <button class="login_btn1" type="submit">登陆</button>
@@ -63,7 +74,13 @@
         kdkfaj | kdalksdjf | djksajf | 2017.11.12
     </div>
 </div>
+<!--弹出验证码错误-->
+<script th:inline="javascript">
 
+    console.log([[${session.kaptcha}]]);
+    if ([[${session.kaptcha}]])
+        alert([[${session.kaptcha}]]);
+</script>
 </body>
 
 </html>
