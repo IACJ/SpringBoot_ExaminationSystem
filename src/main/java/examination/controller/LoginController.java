@@ -15,6 +15,11 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    @RequestMapping(value = "/")
+    String index() {
+        return "index";
+    }
+
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
     String doLogin(Model model, String account, String password,HttpSession httpSession) {
         User user;
@@ -25,58 +30,12 @@ public class LoginController {
             httpSession.setAttribute("name", user.getName());
             httpSession.setAttribute("permission", user.getPermission());
 
-            String pageName = user.getPermission().toLowerCase() + "page";
+            String pageName = user.getPermission().toLowerCase();
             return "redirect:/"+pageName;
         }
         return "wrongpassward";
     }
 
-    @RequestMapping(value = "/")
-    String index() {
-        return "index";
-    }
-
-    @RequestMapping(value = "/adminpage")
-    String adminpage(Model model,HttpSession httpSession) {
-        if (httpSession.getAttribute("permission")==null){
-            return "redirect:/notlogin";
-        }
-        if ( "Admin" != httpSession.getAttribute("permission") ){
-            return "notpermission";
-        }
-
-        model.addAttribute("name", httpSession.getAttribute("name"));
-        model.addAttribute("permission", httpSession.getAttribute("permission"));
-        return "adminpage";
-    }
-
-    @RequestMapping(value = "/teacherpage")
-    String teacherpage(Model model,HttpSession httpSession) {
-        if (httpSession.getAttribute("permission")==null){
-            return "redirect:/notlogin";
-        }
-        if ( "Teacher" != httpSession.getAttribute("permission") ){
-            return "notpermission";
-        }
-
-        model.addAttribute("name", httpSession.getAttribute("name"));
-        model.addAttribute("permission", httpSession.getAttribute("permission"));
-        return "teacherpage";
-    }
-
-    @RequestMapping(value = "/studentpage")
-    String studentpage(Model model, HttpSession httpSession) {
-        if (httpSession.getAttribute("permission")==null){
-            return "redirect:/notlogin";
-        }
-        if ( "Student" != httpSession.getAttribute("permission") ){
-            return "notpermission";
-        }
-
-        model.addAttribute("name", httpSession.getAttribute("name"));
-        model.addAttribute("permission", httpSession.getAttribute("permission"));
-        return "studentpage";
-    }
 
     @RequestMapping(value = "/session")
     String session(Model model,HttpSession httpSession) {
