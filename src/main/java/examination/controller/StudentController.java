@@ -21,6 +21,6 @@ public class StudentController {
 
         model.addAttribute("name", httpSession.getAttribute("name"));
         model.addAttribute("permission", httpSession.getAttribute("permission"));
-        return "studentpage";
+        return "student/studentpage";
     }
 }

@@ -1,2 +1,5 @@
 # 忽略生成的target
 target
+
+.idea/workspace.xml
+*/vcs.xml

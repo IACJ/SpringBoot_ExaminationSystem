@@ -1,7 +1,8 @@
 
-body {
+
+.background_main {
     background-color: #cfdbe9;
-    background-image:url("images/backgroung_scut.png");
+    background-image:url("../images/backgroung_scut.png");
     background-repeat:no-repeat;
 }
 
