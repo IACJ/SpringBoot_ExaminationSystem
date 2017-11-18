@@ -10,7 +10,14 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
+    final static String path = "teacher/";
+
     @RequestMapping(value = "")
+    String index(Model model,HttpSession httpSession) {
+        return "redirect:"+path+"teacherpage";
+    }
+
+    @RequestMapping(value = "teacherpage")
     String adminpage(Model model,HttpSession httpSession) {
         if (httpSession.getAttribute("permission")==null){
             return "redirect:/notlogin";
@@ -21,6 +28,6 @@ public class TeacherController {
 
         model.addAttribute("name", httpSession.getAttribute("name"));
         model.addAttribute("permission", httpSession.getAttribute("permission"));
-        return "teacherpage";
+        return path+"teacherpage";
     }
 }
