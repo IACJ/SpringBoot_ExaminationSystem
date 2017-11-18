@@ -12,13 +12,9 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
+
     @Autowired
     LoginService loginService;
-
-    @RequestMapping(value = "/")
-    String index() {
-        return "index";
-    }
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
     String doLogin(Model model, String account, String password,HttpSession httpSession) {
@@ -33,9 +29,18 @@ public class LoginController {
             String pageName = user.getPermission().toLowerCase();
             return "redirect:/"+pageName;
         }
-        return "wrongpassward";
+        return "redirect:/wrongpassword";
     }
 
+
+    @RequestMapping(value = "/")
+    String index() {
+        return "redirect:/login";
+    }
+    @RequestMapping(value = "/login")
+    String login() {
+        return "login";
+    }
 
     @RequestMapping(value = "/session")
     String session(Model model,HttpSession httpSession) {
@@ -53,7 +58,12 @@ public class LoginController {
         return "logout";
     }
     @RequestMapping(value = "/notlogin")
-    String notlogin(Model model,HttpSession httpSession) {
+    String notlogin(Model model) {
         return "notlogin";
+    }
+
+    @RequestMapping(value = "/wrongpassword")
+    String wrongpassword(Model model) {
+        return "wrongpassword";
     }
 }
