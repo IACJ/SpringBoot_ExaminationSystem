@@ -1,6 +1,5 @@
 package examination.interceptor;
 
-import com.google.code.kaptcha.Constants;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -8,23 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class CaptchaInterceptor implements HandlerInterceptor {
-
+public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        String captchaId = (String) httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        String parameter = httpServletRequest.getParameter("vrifyCode");
-        System.out.println("Session  vrifyCode " + captchaId + " form vrifyCode " + parameter);
-        HttpSession session=httpServletRequest.getSession();
-        if (!captchaId.equals(parameter)) {
-            session.setAttribute("kaptcha", "错误的验证码");
+        System.out.println("enter in LoginInterceptor");
+        HttpSession session = httpServletRequest.getSession();
+        if (session.getAttribute("permission") == null) {
+            session.setAttribute("login", "请先登录");
             //避免多个弹出框
-            session.removeAttribute("login");
-            httpServletResponse.sendRedirect("/");
+            session.removeAttribute("kaptcha");
+            httpServletResponse.sendRedirect("/login");
             return false;
         }
-        session.removeAttribute("kaptcha");
+        session.removeAttribute("login");
         return true;
+
     }
 
     @Override

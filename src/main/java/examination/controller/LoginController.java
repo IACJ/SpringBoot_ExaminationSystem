@@ -57,9 +57,9 @@ public class LoginController {
 
         return "logout";
     }
-    @RequestMapping(value = "/notlogin")
+    @RequestMapping(value = "/notpermission")
     String notlogin(Model model) {
-        return "notlogin";
+        return "notpermission";
     }
 
     @RequestMapping(value = "/wrongpassword")

@@ -17,15 +17,8 @@ public class AdminController {
         return "redirect:"+path+"adminpage";
     }
 
-    @RequestMapping(value = "/adminpage")
+    @RequestMapping(value = {"/adminpage"})
     String adminpage(Model model,HttpSession httpSession) {
-        if (httpSession.getAttribute("permission")==null){
-            return "redirect:/notlogin";
-        }
-        if ( "Admin" != httpSession.getAttribute("permission") ){
-            return "notpermission";
-        }
-
         model.addAttribute("name", httpSession.getAttribute("name"));
         model.addAttribute("permission", httpSession.getAttribute("permission"));
         return path+"adminpage";
