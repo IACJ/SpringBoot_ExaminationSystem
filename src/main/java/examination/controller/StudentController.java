@@ -1,9 +1,13 @@
 package examination.controller;
 
 
+import examination.entity.Question.Choicedba;
+import examination.service.ExerciseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +15,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/student")
 public class StudentController {
     final static String path = "student/";
+
+    @Autowired
+    ExerciseService exerciseService;
 
     @RequestMapping(value = "")
     String index(Model model,HttpSession httpSession) {
@@ -85,4 +92,23 @@ public class StudentController {
         model.addAttribute("permission", httpSession.getAttribute("permission"));
         return path+"student_test";
     }
+
+    @RequestMapping(value = "student_exercise_ing")
+    String student_exercise_ing(Model model,HttpSession httpSession) {
+
+        return path+"student_exercise_ing";
+    }
+
+    @RequestMapping(value = "student_exercise_ing_get_question")
+    @ResponseBody
+    Choicedba student_exercise_ing_get_question(Model model, HttpSession httpSession, Long id) {
+        return  exerciseService.getChoicedbaById_noAns(id);
+    }
+
+    @RequestMapping(value = "student_exercise_ing_get_ans")
+    @ResponseBody
+    Choicedba student_exercise_ing_get_ans(Model model, HttpSession httpSession, Long id) {
+        return  exerciseService.getChoicedbaById_Ans(id);
+    }
+
 }

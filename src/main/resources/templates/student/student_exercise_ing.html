@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<title>客观题练习中</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
+</head>
+
+<body>
+	<h1>客观题练习中</h1>
+
+    <br/>  <br/>  <br/>
+
+    <h2 id="question">问题区</h2>
+    <br/>
+    <h3 id="op1" class ="op">选项区1</h3>
+    <h3 id="op2" class ="op">选项区2</h3>
+    <h3 id="op3" class ="op">选项区3</h3>
+    <h3 id="op4" class ="op">选项区4</h3>
+    <h4 id="jx">解析区</h4>
+
+<script>
+
+
+    var id = Math.floor(Math.random()*6) +1;
+
+    $("#jx").hide()
+    $.get("/student/student_exercise_ing_get_question?id="+id,function(data,status){
+        $("#question").text(data.question);
+        $("#op1").text(data.option1);
+        $("#op2").text(data.option2);
+        $("#op3").text(data.option3);
+        $("#op4").text(data.option4);
+    });
+
+    $(".op").click(function(){
+
+        $.get("/student/student_exercise_ing_get_ans?id="+id,function(data,status){
+            $("#jx").text(data.rightanswer);
+            $("#jx").show();
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
