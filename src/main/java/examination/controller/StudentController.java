@@ -2,6 +2,8 @@ package examination.controller;
 
 
 import examination.entity.Question.Choicedba;
+import examination.entity.Question.Judgedba;
+import examination.entity.Question.Subdba;
 import examination.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,22 +66,63 @@ public class StudentController {
         return path + "student_test";
     }
 
-    @RequestMapping(value = "student_exercise_ing")
-    String student_exercise_ing(Model model,HttpSession httpSession) {
+    @RequestMapping(value = "student_exercise_choice")
+    String student_exercise_choice(Model model,HttpSession httpSession) {
 
-        return path+"student_exercise_ing";
+        return path+"student_exercise_choice";
     }
 
-    @RequestMapping(value = "student_exercise_ing_get_question")
+    @RequestMapping(value = "student_exercise_choice_get_question")
     @ResponseBody
-    Choicedba student_exercise_ing_get_question(Model model, HttpSession httpSession, Long id) {
+    Choicedba student_exercise_choice_get_question(Model model, HttpSession httpSession, Long id) {
         return  exerciseService.getChoicedbaById_noAns(id);
     }
 
-    @RequestMapping(value = "student_exercise_ing_get_ans")
+    @RequestMapping(value = "student_exercise_choice_get_ans")
     @ResponseBody
-    Choicedba student_exercise_ing_get_ans(Model model, HttpSession httpSession, Long id) {
+    Choicedba student_exercise_choice_get_ans(Model model, HttpSession httpSession, Long id) {
         return  exerciseService.getChoicedbaById_Ans(id);
     }
 
+    @RequestMapping(value = "student_exercise_truefalse")
+    String student_exercise_truefalse(Model model,HttpSession httpSession) {
+
+        return path+"student_exercise_truefalse";
+    }
+
+    @RequestMapping(value = "student_exercise_truefalse_get_question")
+    @ResponseBody
+    Judgedba student_exercise_truefalse_get_question(Model model, HttpSession httpSession, Long id) {
+        return  exerciseService.getJudgedbaById_noAns(id);
+    }
+
+    @RequestMapping(value = "student_exercise_truefalse_get_ans")
+    @ResponseBody
+    Judgedba student_exercise_truefalse_get_ans(Model model, HttpSession httpSession, Long id) {
+        return  exerciseService.getJudgedbaById_Ans(id);
+    }
+
+    @RequestMapping(value = "student_exercise_sub")
+    String student_exercise_sub(Model model,HttpSession httpSession) {
+
+        return path+"student_exercise_sub";
+    }
+
+    @RequestMapping(value = "student_exercise_sub_get_question")
+    @ResponseBody
+    Subdba student_exercise_sub_get_question(Model model, HttpSession httpSession, Long id) {
+        return  exerciseService.getSubdbaById_noAns(id);
+    }
+
+    @RequestMapping(value = "student_exercise_sub_get_ans")
+    @ResponseBody
+    Subdba student_exercise_sub_get_ans(Model model, HttpSession httpSession, Long id) {
+        return  exerciseService.getSubdbaById_Ans(id);
+    }
+
+
+    @RequestMapping(value = "student_test_ing")
+    String student_test_ing(Model model,HttpSession httpSession) {
+        return path+"student_test_ing";
+    }
 }

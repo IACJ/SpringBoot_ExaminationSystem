@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-11-18 10:14:22
+-- Generation Time: 2017-11-25 09:00:10
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `examination`
+-- Database: `airing`
 --
 
 -- --------------------------------------------------------
@@ -42,7 +42,8 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`id`, `account`, `name`, `password`) VALUES
 (1, 'acj', '贾中昊', 'acj'),
 (2, 'wty', '王腾叶', 'wty'),
-(3, 'zyr', '钟燕榕', 'zyr');
+(3, 'zyr', '钟燕榕', 'zyr'),
+(4, 'lyt', '鲁雅婷', 'lyt');
 
 -- --------------------------------------------------------
 
@@ -56,6 +57,36 @@ CREATE TABLE `ansrecord` (
   `objrecord` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `subrecord` varchar(1000) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `choicedba`
+--
+
+CREATE TABLE `choicedba` (
+  `id` bigint(20) NOT NULL,
+  `question` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `option1` varchar(300) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `option2` varchar(300) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `option3` varchar(300) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `option4` varchar(300) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `rightanswer` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- 转存表中的数据 `choicedba`
+--
+
+INSERT INTO `choicedba` (`id`, `question`, `option1`, `option2`, `option3`, `option4`, `rightanswer`) VALUES
+(1, '数据库三级模式中，真正存在的是（ ）。\r\n\r\n', '外模式', '子模式', '模式', '内模式', 'D'),
+(2, '关系数据库中的关键字是指（ ）。', '能唯一决定关系的字段', '不可改动的专用保留字', '关键的很重要的字段\r\n', '能唯一标识元组的属性或属性集合\r\n', 'D'),
+(3, '数据库的三级模式之间存在的映象关系正确的是（ ）。\r\n', '外模式/内模式', '外模式/模式', '外模式/外模式', '模式/模式\r\n', 'B'),
+(4, '数据库三级结构从内到外的三个层次为（ ）。', '外模式、模式、内模式', '内模式、模式、外模式\r\n', '模式、外模式、内模式', '内模式、外模式、模式\r\n', 'B'),
+(5, '下述关于数据库系统的正确叙述是（ ）。\r\n', '数据库系统减少了数据冗余', '数据库系统避免了一切冗余', '数据库系统中数据的一致性是指数据类型一致', '数据库系统比文件系统能管理更多的数据', 'A'),
+(6, '数据库系统和文件系统的主要区别是（ ）。', '数据库系统复杂，而文件系统简单', '文件系统不能解决数据冗余和数据独立性问题，而数据库系统能够解决', '文件系统只能管理文件，而数据库系统还能管理其他类型的数据', '文件系统只能用于小型、微型机，而数据库系统还能用于大型机', 'B'),
+(7, '在数据库中存储的是（ ）。', '数据', '数据模型', '数据及数据间的联系', '信息', 'C'),
+(8, '数据库的概念模型独立于（ ）。', '具体的机器和DBMS', 'E-R图', '信息世界', '现实世界', 'A');
 
 -- --------------------------------------------------------
 
@@ -84,26 +115,30 @@ INSERT INTO `class` (`classid`, `teacherid`, `classname`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `objdba`
+-- 表的结构 `judgedba`
 --
 
-CREATE TABLE `objdba` (
-  `objid` bigint(20) NOT NULL,
-  `question` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `rightanswer` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+CREATE TABLE `judgedba` (
+  `id` bigint(20) NOT NULL,
+  `question` varchar(500) COLLATE utf8_bin NOT NULL,
+  `rightanswer` varchar(2) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- 转存表中的数据 `objdba`
+-- 转存表中的数据 `judgedba`
 --
 
-INSERT INTO `objdba` (`objid`, `question`, `rightanswer`) VALUES
-(1, '5、数据库三级模式中，真正存在的是（ ）。\r\n\r\nA 外模式 B 子模式\r\n\r\nC 模式 D 内模式\r\n\r\n', '答案：D'),
-(2, '6、关系数据库中的关键字是指（ ）。\r\n\r\nA 能唯一决定关系的字段\r\n\r\nB 不可改动的专用保留字\r\n\r\nC 关键的很重要的字段\r\n\r\nD 能唯一标识元组的属性或属性集合\r\n', '答案：D'),
-(3, '1、数据库的三级模式之间存在的映象关系正确的是（ ）。\r\n\r\nA 外模式/内模式 B 外模式/模式\r\n\r\nC 外模式/外模式 D 模式/模式\r\n', '答案：B'),
-(4, '2、数据库三级结构从内到外的三个层次为（ ）。\r\n\r\nA 外模式、模式、内模式 B 内模式、模式、外模式\r\n\r\nC 模式、外模式、内模式 D 内模式、外模式、模式\r\n', '答案：B'),
-(5, '3、下述关于数据库系统的正确叙述是（ ）。\r\n\r\nA 数据库系统减少了数据冗余\r\n\r\nB 数据库系统避免了一切冗余\r\n\r\nC 数据库系统中数据的一致性是指数据类型一致\r\n\r\nD 数据库系统比文件系统能管理更多的数据\r\n', '答案：A'),
-(6, '4、数据库系统和文件系统的主要区别是（ ）。\r\n\r\nA 数据库系统复杂，而文件系统简单\r\n\r\nB 文件系统不能解决数据冗余和数据独立性问题，而数据库系统能够解决\r\n\r\nC 文件系统只能管理文件，而数据库系统还能管理其他类型的数据\r\n\r\nD 文件系统只能用于小型、微型机，而数据库系统还能用于大型机\r\n', '答案：B');
+INSERT INTO `judgedba` (`id`, `question`, `rightanswer`) VALUES
+(1, '数据是表示信息的具体形式，信息是数据表达的内容。', 'T'),
+(2, '在数据库的三级模式结构中内模式可以有多个。', 'F'),
+(3, '数据独立性指数据的存储与应用程序无关，数据存储结构的改变不影响应用程序的正常运行。', 'T'),
+(4, '当数据库的存储结构改变了，由数据库管理员对模式／内模式映射作相应改变，可以使模式保持不变，从而保证了数据的物理独立性。', 'T'),
+(5, '数据处理是将信息转换成数据的过程。', 'F'),
+(6, '数据库在计算机系统中不是以文件方式存储的。', 'F'),
+(7, '数据库系统其实就是一个应用软件。', 'F'),
+(8, '三级模式结构也就是从逻辑上对数据库的组织从内到外进行的3个层次描述。', 'T'),
+(9, '三级模式间存在三个映射关系。', 'F'),
+(10, 'DBMS不需要操作系统的支持就可以实现其功能。', 'F');
 
 -- --------------------------------------------------------
 
@@ -176,8 +211,8 @@ INSERT INTO `student` (`id`, `account`, `name`, `sex`, `password`, `classid`) VA
 --
 
 CREATE TABLE `subdba` (
-  `subid` bigint(20) NOT NULL,
-  `qustion` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `question` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `refanswer` varchar(500) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -185,7 +220,7 @@ CREATE TABLE `subdba` (
 -- 转存表中的数据 `subdba`
 --
 
-INSERT INTO `subdba` (`subid`, `qustion`, `refanswer`) VALUES
+INSERT INTO `subdba` (`id`, `question`, `refanswer`) VALUES
 (1, '1.数据与信息有何区别，有何联系？', '答：数据是一组对客观事物定性或定量描述的原始物理符号的集合，包括文本、图形\r\n、图像、声音等形式，也是数据库存储和加工的基本对象。信息是一种已经被加工为\r\n特定形式的数据，是对现实世界事物存在方式或运动状态的反映。\r\n'),
 (2, '2.简述数据库、数据库管理系统、数据库系统的概念。\r\n\r\n', '答：数据库：简单理解就是数据的仓库，长期存储可共享，冗余小，独立性高的数据\r\n      的集合。\r\n    数据库管理系统：用来操纵和管理数据库的软件，介于用户和操作系统之间，对\r\n      数据库进行统一的管理和控制。\r\n    数据库系统：数据库系统是数据库应用系统的简称，是计算机系统引入数据库之\r\n      后的系统，由计算机、数据库、数据库管理系统、应用程序和用户组成。\r\n'),
 (3, '3.数据库管理技术经历了哪几个阶段？各阶段主要特点是什么？', '答：人工管理阶段：\r\n       1.数据不能长期保存；2.系统没有专用的软件对数据进行管理；3.程序与数\r\n         据不具有独立性；4.数据无法共享。\r\n    文件系统阶段：\r\n       1.数据可以长期保存；2.程序与数据有一定的独立性；3.文件系统对数据进\r\n    行统一管理，文件形式多种多样；\r\n       4.数据冗余度大；5数据独立性低。\r\n    数据库系统阶段：\r\n       1.数据整体结构化；2.数据共享性高，冗余度高，易扩展；3.数据独立性高；\r\n    4.数据由数据库管理系统统一管理。\r\n'),
@@ -224,17 +259,17 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `choicedba`
+--
+ALTER TABLE `choicedba`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `class`
 --
 ALTER TABLE `class`
   ADD PRIMARY KEY (`classid`),
   ADD KEY `teacher_id` (`teacherid`);
-
---
--- Indexes for table `objdba`
---
-ALTER TABLE `objdba`
-  ADD PRIMARY KEY (`objid`);
 
 --
 -- Indexes for table `paper`
@@ -253,7 +288,7 @@ ALTER TABLE `student`
 -- Indexes for table `subdba`
 --
 ALTER TABLE `subdba`
-  ADD PRIMARY KEY (`subid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `teacher`
@@ -270,19 +305,19 @@ ALTER TABLE `teacher`
 -- 使用表AUTO_INCREMENT `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- 使用表AUTO_INCREMENT `choicedba`
+--
+ALTER TABLE `choicedba`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用表AUTO_INCREMENT `class`
 --
 ALTER TABLE `class`
   MODIFY `classid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- 使用表AUTO_INCREMENT `objdba`
---
-ALTER TABLE `objdba`
-  MODIFY `objid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `paper`
@@ -300,7 +335,7 @@ ALTER TABLE `student`
 -- 使用表AUTO_INCREMENT `subdba`
 --
 ALTER TABLE `subdba`
-  MODIFY `subid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `teacher`
