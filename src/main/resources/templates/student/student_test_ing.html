@@ -35,18 +35,16 @@
     <br/>  <br/>  <br/>
 <script>
 
-    var F_get_choice = function(id,ord) {
+    var F_get_choice = function(id) {
         $.get("/student/student_exercise_choice_get_question?id=" + id, function (data, status) {
             var str = '<div><h2>'+data.question+'</h2>' +
-                '<input type="radio"  display="inline" name="' +ord +'" value="A" /><p>'+data.option1+'</p>' +
-                '<input type="radio"  display="inline" name="'+ ord +'" value="B" /><p>'+data.option2+'</p>' +
-                '<input type="radio"  display="inline" name="'+ ord +'" value="C" /><p>'+data.option3+'</p>' +
-                '<input type="radio"  display="inline" name="'+ ord +'" value="D" /><p>'+data.option4+'</p></div>';
+                '<input type="radio"  display="inline" name="cho_' +data.id +'" value="A" /><p>'+data.option1+'</p>' +
+                '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="B" /><p>'+data.option2+'</p>' +
+                '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="C" /><p>'+data.option3+'</p>' +
+                '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="D" /><p>'+data.option4+'</p></div>';
             $("#choice").append(str);
         });
     };
-
-
 
     var F_get_truefalse = function(id) {
         $.get("/student/student_exercise_truefalse_get_question?id=" + id, function (data, status) {
@@ -57,7 +55,6 @@
         });
     };
 
-
     var F_get_sub = function(id) {
         $.get("/student/student_exercise_sub_get_question?id=" + id, function (data, status) {
             var str = '<div><h2>'+data.question+'</h2>' +
@@ -66,21 +63,22 @@
         });
     };
 
-
+    var choiids;
+    var judgids;
+    var subids;
 
     $(document).ready(function() {
         var id = 1;
-
         $.get("/student/student_test_get_paper?id=" + id,function (data, status) {
             console.log(data);
             $('#examName').text(data.name);
 
-            var choiids = data.choi.split(',');
-            var judgids = data.judg.split(',');
-            var subids = data.sub.split(',');
+            choiids = data.choi.split(',');
+            judgids = data.judg.split(',');
+            subids = data.sub.split(',');
 
             for (i in choiids){
-                F_get_choice(choiids[i],i);
+                F_get_choice(choiids[i]);
             }
             for (i in judgids){
                 F_get_truefalse(choiids[i]);
@@ -95,20 +93,27 @@
     $('#examForm').submit(function() {
         event.preventDefault()
         var AjaxURL= "/student/student_test_submit";
-        console.log($('#examForm').serialize());
+        var d = {};
+        var t = $('form').serializeArray();
+        $.each(t, function() {
+            d[this.name] = this.value;
+        });
+
         $.ajax({
             type: "POST",
             url: AjaxURL,
-                data: $('#examForm').serialize(),
-                success: function (data) {
-                    alert("提交成功");
-                },
-                error: function(data) {
-                    alert("提交失败！请重试！");
-                }
-            });
-        }
-    );
+            data:  "ans="+JSON.stringify(d),
+            success: function (data) {
+                alert("提交成功");
+            },
+            error: function(data) {
+                alert("提交失败！请重试！");
+            }
+        });
+    });
+
+
+
 
 </script>
 
