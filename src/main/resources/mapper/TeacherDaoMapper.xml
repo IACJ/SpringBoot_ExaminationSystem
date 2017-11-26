@@ -5,4 +5,15 @@
         SELECT * from teacher where account=#{account} and password=#{password}
     </select>
 
+    <insert id="add">
+        INSERT INTO teacher(account,name,password) VALUE(#{account},#{name},'123456');
+    </insert>
+
+    <select id="findById" resultType="Teacher">
+        SELECT * from teacher where id=#{id}
+    </select>
+
+    <update id="update">
+        UPDATE teacher set account=#{account},name=#{name},password=#{password} WHERE id=#{id}
+    </update>
 </mapper>
