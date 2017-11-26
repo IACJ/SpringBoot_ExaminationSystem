@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -125,4 +127,12 @@ public class StudentController {
     String student_test_ing(Model model,HttpSession httpSession) {
         return path+"student_test_ing";
     }
+
+    @RequestMapping(value = "student_test_submit",method= RequestMethod.POST)
+    @ResponseBody
+    String student_test_submit(HttpServletRequest request) {
+        System.out.println(" 接收:"+request.getQueryString());
+        return  "提交成功";
+    }
+
 }

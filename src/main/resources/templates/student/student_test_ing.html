@@ -9,8 +9,12 @@
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
 	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
-    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
 </head>
+
+
 
 <body>
 	<h1>学生考试中</h1>
@@ -18,40 +22,78 @@
     <br/>  <br/>  <br/>
 
     <div id="mainPage">
+        <form id="examForm">
+        <div id="choice"></div>
+        <div id="truefalse"></div>
+        <div id="sub"></div>
+        <br/>
+        <div>    <input id="submit" type="submit" value="提交" /> </div>
+        </form>
     </div>
-
+    <br/>  <br/>  <br/>
 <script>
+
+    var F_get_choice = function (data, status) {
+        var str = '<div><h2>'+data.question+'</h2>' +
+            '<input type="radio"  display="inline" name="cho_' +data.id +'" value="A" /><p>'+data.option1+'</p>' +
+            '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="B" /><p>'+data.option2+'</p>' +
+            '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="C" /><p>'+data.option3+'</p>' +
+            '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="D" /><p>'+data.option4+'</p></div>';
+        $("#choice").append(str);
+    };
+
+    var F_get_truefalse = function (data, status) {
+        var str = '<div><h2>'+data.question+'</h2>' +
+            '<input type="radio"  display="inline" name="tf_' +data.id +'" value="T" /><p>True</p>' +
+            '<input type="radio"  display="inline" name="tf_'+ data.id +'" value="F" /><p>False</p></div>';
+        $("#truefalse").append(str);
+    };
+    var F_get_sub = function (data, status) {
+        var str = '<div><h2>'+data.question+'</h2>' +
+            ' <textarea name="sub_' +data.id +'" style="width:400px;height:180px;">这里写内容</textarea></div>';
+        $("#sub").append(str);
+    };
 
 
     $(document).ready(function() {
         var id = 1;
-        $.get("/student/student_exercise_choice_get_question?id=" + id, function (data, status) {
-            var str = " <div><h2>"+data.question+"</h2>" +
-                "<h3>"+data.option1+"</h3>" +
-                "<h3>"+data.option2+"</h3>" +
-                "<h3>"+data.option3+"</h3>" +
-                "<h3>"+data.option4+"</h3></div>";
-            $("#mainPage").append(str);
-        });
+        $.get("/student/student_exercise_choice_get_question?id=" + id, F_get_choice);
+        var id = 2;
+        $.get("/student/student_exercise_choice_get_question?id=" + id, F_get_choice);
         var id = 3;
-        $.get("/student/student_exercise_choice_get_question?id=" + id, function (data, status) {
-            var str = " <div><h2>"+data.question+"</h2>" +
-                "<h3>"+data.option1+"</h3>" +
-                "<h3>"+data.option2+"</h3>" +
-                "<h3>"+data.option3+"</h3>" +
-                "<h3>"+data.option4+"</h3></div>";
-            $("#mainPage").append(str);
-        });
-        var id = 4;
-        $.get("/student/student_exercise_choice_get_question?id=" + id, function (data, status) {
-            var str = " <div><h2>"+data.question+"</h2>" +
-                "<h3>"+data.option1+"</h3>" +
-                "<h3>"+data.option2+"</h3>" +
-                "<h3>"+data.option3+"</h3>" +
-                "<h3>"+data.option4+"</h3></div>";
-            $("#mainPage").append(str);
-        });
+        $.get("/student/student_exercise_choice_get_question?id=" + id, F_get_choice);
+        var id = 1;
+        $.get("/student/student_exercise_truefalse_get_question?id=" + id, F_get_truefalse);
+        var id = 2;
+        $.get("/student/student_exercise_truefalse_get_question?id=" + id, F_get_truefalse);
+        var id = 3;
+        $.get("/student/student_exercise_truefalse_get_question?id=" + id, F_get_truefalse);
+        var id = 1;
+        $.get("/student/student_exercise_truefalse_get_question?id=" + id, F_get_sub);
+        var id = 2;
+        $.get("/student/student_exercise_truefalse_get_question?id=" + id, F_get_sub);
+
     });
+    var choosed = 0;
+
+    //ajax提交form表单的方式
+    $('#examForm').submit(function() {
+        event.preventDefault()
+        var AjaxURL= "/student/student_test_submit";
+        console.log($('#examForm').serialize());
+        $.ajax({
+            type: "POST",
+            url: AjaxURL,
+                data: $('#examForm').serialize(),
+                success: function (data) {
+                    alert("提交成功");
+                },
+                error: function(data) {
+                    alert("提交失败！请重试！");
+                }
+            });
+        }
+    );
 
 </script>
 
