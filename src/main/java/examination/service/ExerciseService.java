@@ -2,6 +2,8 @@ package examination.service;
 
 import examination.dao.QuestionDao;
 import examination.entity.Question.Choicedba;
+import examination.entity.Question.Judgedba;
+import examination.entity.Question.Subdba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,22 @@ public class ExerciseService {
 
     public Choicedba getChoicedbaById_noAns (Long id){
         return questionDao.findChoicedbaById_noAns(id);
+    }
+
+    public Judgedba getJudgedbaById_Ans (Long id){
+        return questionDao.findJudgedbaById_Ans(id);
+    }
+
+    public Judgedba getJudgedbaById_noAns (Long id){
+        return questionDao.findJudgedbaById_noAns(id);
+    }
+
+    public Subdba getSubdbaById_Ans (Long id){
+        return questionDao.findSubdbaById_Ans(id);
+    }
+
+    public Subdba getSubdbaById_noAns (Long id){
+        return questionDao.findSubdbaById_noAns(id);
     }
 
 }

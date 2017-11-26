@@ -8,4 +8,21 @@
     <select id="findChoicedbaById_noAns" resultType="Choicedba">
         SELECT `id`, `question`, `option1`, `option2`, `option3`, `option4` FROM `choicedba` WHERE `id`=#{id}
     </select>
+
+
+    <select id="findJudgedbaById_Ans" resultType="Judgedba">
+        SELECT * FROM `Judgedba` WHERE `id`=#{id}
+    </select>
+
+    <select id="findJudgedbaById_noAns" resultType="Judgedba">
+        SELECT `id`, `question` FROM `Judgedba` WHERE `id`=#{id}
+    </select>
+
+    <select id="findSubdbaById_Ans" resultType="Subdba">
+        SELECT * FROM `Subdba` WHERE `id`=#{id}
+    </select>
+
+    <select id="findSubdbaById_noAns" resultType="Subdba">
+        SELECT `id`, `question` FROM `Subdba` WHERE `id`=#{id}
+    </select>
 </mapper>
