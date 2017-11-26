@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+添加学生信息
+<form id="add">
+    账户：<input type="text" name="account"/>
+    名字：<input type="text" name="name"/>
+    性别：<input type="text" name="sex"/>
+    班级名称：<input type="text" name="classid"/>
+    提交：<input type="submit"/>
+</form>
+<br/>
+修改学生信息
+
+<form id="update">
+    输入id查信息：<input type="text" name="id" id="id"/><input type="button" value="查询" onclick="getStudentById()"/>
+    账户：<input type="text" name="account" id="account"/>
+    名字：<input type="text" name="name" id="name"/>
+    性别：<input type="text" name="sex" id="sex"/>
+    密码：<input type="text" name="password" id="password"/>
+    班级名称：<input type="text" name="classid" id="classid"/>
+    提交：<input type="submit" value="修改"/>
+</form>
+删除学生信息
+
+
+<script>
+    $('#add').submit(function (e) {
+        e.preventDefault();
+        $.post("/admin/student/add", $('#add').serialize(), function (data) {
+            if (data)
+                alert("添加成功！");
+            else
+                alert("添加失败！");
+        })
+    })
+
+    function getStudentById() {
+        $.get("/admin/find_student_by_id?id=" + $('#id').val(), function (data, status) {
+            if (data) {
+                $("#account").val(data.account);
+                $("#name").val(data.name);
+                $("#sex").val(data.sex);
+                $("#password").val(data.password);
+                $("#classid").val(data.classid);
+            } else {
+                $("#account").val("");
+                $("#name").val("");
+                $("#sex").val("");
+                $("#password").val("");
+                $("#classid").val("");
+                alert("该学生不存在！")
+            }
+
+        });
+    }
+
+    $('#update').submit(function (e) {
+        e.preventDefault();
+        $.post("/admin/student/update", $('#update').serialize(), function (data) {
+            if (data)
+                alert("修改成功！");
+            else
+                alert("修改失败！");
+
+        })
+    })
+
+</script>
+</body>
+</html>
