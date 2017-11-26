@@ -1,9 +1,11 @@
 package examination.controller;
 
 
+import examination.entity.Paper;
 import examination.entity.Question.Choicedba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
+import examination.service.ExamService;
 import examination.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class StudentController {
 
     @Autowired
     ExerciseService exerciseService;
+    @Autowired
+    ExamService examService;
 
     @RequestMapping(value = "")
     String index(Model model, HttpSession httpSession) {
@@ -127,6 +131,13 @@ public class StudentController {
     String student_test_ing(Model model,HttpSession httpSession) {
         return path+"student_test_ing";
     }
+
+    @RequestMapping(value = "student_test_get_paper")
+    @ResponseBody
+    Paper student_test_get_paper(long id) {
+        return  examService.getPaperById(id);
+    }
+
 
     @RequestMapping(value = "student_test_submit",method= RequestMethod.POST)
     @ResponseBody
