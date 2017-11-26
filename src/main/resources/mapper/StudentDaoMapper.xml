@@ -5,4 +5,18 @@
         SELECT * from student where account=#{account} and password=#{password}
     </select>
 
+    <insert id="add">
+        INSERT INTO student(account,name,sex,password,classid)
+        VALUE(#{account},#{name},#{sex},'123456',#{classid});
+    </insert>
+
+    <select id="findById" resultType="Student">
+        SELECT * from student where id=#{id}
+    </select>
+
+    <update id="update">
+        UPDATE student set account=#{account},name=#{name},sex=#{sex}
+        ,password=#{password},classid=#{classid} WHERE id=#{id}
+    </update>
+
 </mapper>
