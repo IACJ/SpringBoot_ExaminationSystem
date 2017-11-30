@@ -7,6 +7,11 @@ public class Teacher extends User {
     String name;
     final String permission = "Teacher";
 
+    public Teacher(String account, String name) {
+        this.account = account;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

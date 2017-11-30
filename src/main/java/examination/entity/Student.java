@@ -8,6 +8,12 @@ public class Student extends User {
     String password;
     String classid;
 
+    public Student(String account, String name, String sex, String classid) {
+        this.account = account;
+        this.name = name;
+        this.sex = sex;
+        this.classid = classid;
+    }
 
     public String getSex() {
         return sex;

@@ -4,6 +4,8 @@ import examination.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface StudentDao {
     Student findByLogin(@Param("account") String account, @Param("password") String password);
@@ -13,4 +15,6 @@ public interface StudentDao {
     Student findById(@Param("id") long id);
 
     int update(Student student);
+
+    int addByList(List<Student> students);
 }
