@@ -75,8 +75,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/{type}/upload")
+    @ResponseBody
     public boolean upload(@PathVariable String type, @RequestParam(value = "file") MultipartFile file) {
-        System.out.println(file);
         try {
             if ("student".equals(type))
                 return adminservice.addStudentByExcel(file.getInputStream()) != 0;

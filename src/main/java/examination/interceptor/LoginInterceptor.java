@@ -13,15 +13,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("enter in LoginInterceptor");
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("permission") == null) {
-            session.setAttribute("login", "请先登录");
-            //避免多个弹出框
-            session.removeAttribute("kaptcha");
             httpServletResponse.sendRedirect("/login");
             return false;
         }
-        session.removeAttribute("login");
         return true;
-
     }
 
     @Override

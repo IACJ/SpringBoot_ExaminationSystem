@@ -79,14 +79,29 @@
         if ($("#file").val() == "") {
             alert("请上传文件");
         } else {
-            var d = new FormData($('#file'));
-            $.post("/admin/student/upload", d, function (data) {
-                if (data)
-                    alert("添加成功！");
-                else
-                    alert("添加失败！");
+            var d = new FormData($('#upload')[0]);
+            console.log(d);
+//            $.post("/admin/student/upload", d, function (data) {
+//                if (data)
+//                    alert("添加成功！");
+//                else
+//                    alert("添加失败！");
+//
+//            })
+            $.ajax({
+                url: "/admin/student/upload",
+                type: 'POST',
+                data: d,
+                processData: false,
+                contentType: false,
 
-            })
+                success: function (data) {
+                    if (data)
+                        alert("添加成功！");
+                    else
+                        alert("添加失败！");
+                }
+            });
         }
     })
 </script>

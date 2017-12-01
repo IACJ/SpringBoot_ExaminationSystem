@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ public class LoginController {
     LoginService loginService;
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
+    @ResponseBody
     String doLogin(Model model, String account, String password,HttpSession httpSession) {
         User user;
         user = loginService.doLogin(account, password);
@@ -27,9 +29,9 @@ public class LoginController {
             httpSession.setAttribute("permission", user.getPermission());
 
             String pageName = user.getPermission().toLowerCase();
-            return "redirect:/"+pageName;
+            return "/"+pageName;
         }
-        return "redirect:/wrongpassword";
+        return "/wrongpassword";
     }
 
 

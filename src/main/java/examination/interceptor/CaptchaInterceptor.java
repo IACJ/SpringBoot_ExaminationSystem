@@ -6,25 +6,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 public class CaptchaInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String captchaId = (String) httpServletRequest.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        String parameter = httpServletRequest.getParameter("vrifyCode");
-        System.out.println("Session  vrifyCode " + captchaId + " form vrifyCode " + parameter);
-        HttpSession session=httpServletRequest.getSession();
-        if (!captchaId.equals(parameter)) {
-            session.setAttribute("kaptcha", "错误的验证码");
-            //避免多个弹出框
-            session.removeAttribute("login");
-            httpServletResponse.sendRedirect("/");
-            return false;
+        String parameter = httpServletRequest.getParameter("verifyCode");
+        System.out.println("Session  verifyCode " + captchaId + " form verifyCode " + parameter);
+
+        if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
+            if (!captchaId.equals(parameter)) {
+                PrintWriter out = httpServletResponse.getWriter();
+                out.print("verifyCodeError");//session失效
+                out.flush();
+                return false;
+            }
+            return true;
         }
-        session.removeAttribute("kaptcha");
-        return true;
+        return false;
     }
 
     @Override
