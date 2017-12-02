@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>ECharts</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.2/echarts.min.js"></script>
@@ -14,7 +14,7 @@
     $(document).ready(function () {
         var myChart = echarts.init(document.getElementById('main'));
         $.get("/student/get/chart", function (data) {
-            myChart.setOption(data);
+            myChart.setOption($.parseJSON(data));
         })
     });
 
