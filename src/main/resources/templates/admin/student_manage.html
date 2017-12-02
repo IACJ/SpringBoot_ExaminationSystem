@@ -26,8 +26,11 @@
     班级名称：<input type="text" name="classid" id="classid"/>
     提交：<input type="submit" value="修改"/>
 </form>
-删除学生信息
-
+<a href="/admin/student/download">下载模板</a>
+<form id="upload" enctype="multipart/form-data" method="post">
+    <input type="file" id="file" name="file"/>
+    <input type="submit" value="批量添加"/>
+</form>
 
 <script>
     $('#add').submit(function (e) {
@@ -71,6 +74,36 @@
         })
     })
 
+    $('#upload').submit(function (e) {
+        e.preventDefault();
+        if ($("#file").val() == "") {
+            alert("请上传文件");
+        } else {
+            var d = new FormData($('#upload')[0]);
+            console.log(d);
+//            $.post("/admin/student/upload", d, function (data) {
+//                if (data)
+//                    alert("添加成功！");
+//                else
+//                    alert("添加失败！");
+//
+//            })
+            $.ajax({
+                url: "/admin/student/upload",
+                type: 'POST',
+                data: d,
+                processData: false,
+                contentType: false,
+
+                success: function (data) {
+                    if (data)
+                        alert("添加成功！");
+                    else
+                        alert("添加失败！");
+                }
+            });
+        }
+    })
 </script>
 </body>
 </html>

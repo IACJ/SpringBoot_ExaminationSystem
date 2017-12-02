@@ -6,10 +6,17 @@ import examination.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin")
@@ -38,22 +45,45 @@ public class AdminController {
     @RequestMapping(value = "/student/add")
     @ResponseBody
     boolean addStudent(Student student) {
-        if(adminservice.addStudent(student)!=0)
-            return true;
-        return false;
+
+        return adminservice.addStudent(student) != 0;
     }
 
     @RequestMapping(value = "/find_student_by_id")
     @ResponseBody
     Student findStudentById(long id) {
-       return adminservice.findStudentById(id);
+        return adminservice.findStudentById(id);
     }
 
     @RequestMapping(value = "student/update")
     @ResponseBody()
-    boolean updateStudent(Student student){
-        if(adminservice.updateStudent(student)!=0)
-            return true;
+    boolean updateStudent(Student student) {
+        return adminservice.updateStudent(student) != 0;
+    }
+
+    @RequestMapping(value = "/{type}/download")
+    public void download(@PathVariable String type, HttpServletResponse res) {
+        res.setHeader("Content-Disposition", "attachment; filename=" + type + "_template.xlsx");
+        res.setContentType("application/octet-stream; charset=utf-8");
+        try {
+            String path = "src/main/resources/templates/excel/" + type + "_template.xlsx";
+            System.out.println(path);
+            FileCopyUtils.copy(new FileInputStream(path), res.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/{type}/upload")
+    @ResponseBody
+    public boolean upload(@PathVariable String type, @RequestParam(value = "file") MultipartFile file) {
+        try {
+            if ("student".equals(type))
+                return adminservice.addStudentByExcel(file.getInputStream()) != 0;
+            return adminservice.addTeacherByExcel(file.getInputStream()) != 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

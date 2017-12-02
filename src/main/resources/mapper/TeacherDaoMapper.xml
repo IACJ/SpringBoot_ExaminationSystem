@@ -16,4 +16,12 @@
     <update id="update">
         UPDATE teacher set account=#{account},name=#{name},password=#{password} WHERE id=#{id}
     </update>
+
+    <insert id="addByList">
+        INSERT INTO teacher(account,name,password)
+        VALUE
+        <foreach collection="list" item="teacher" separator=",">
+            (#{teacher.account},#{teacher.name},"123456")
+        </foreach>
+    </insert>
 </mapper>

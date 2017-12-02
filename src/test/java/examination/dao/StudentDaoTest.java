@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ExaminationApplication.class)
 public class StudentDaoTest {
@@ -23,11 +26,7 @@ public class StudentDaoTest {
 
     @Test
     public void add() throws Exception {
-        Student student=new Student();
-        student.setName("233");
-        student.setAccount("233");
-        student.setSex("男");
-        student.setClassid("1");
+        Student student=new Student("233","233","男","1");
         System.out.println(studentDao.add(student));
     }
 
@@ -44,4 +43,13 @@ public class StudentDaoTest {
         studentDao.update(student);
     }
 
+    @Test
+    public void addByList() throws Exception {
+        Student student=new Student("1","1","1","1");
+        Student student2=new Student("w","w","w","1");
+        List<Student> students=new ArrayList<Student>();
+        students.add(student);
+        students.add(student2);
+        System.out.println(studentDao.addByList(students));
+    }
 }

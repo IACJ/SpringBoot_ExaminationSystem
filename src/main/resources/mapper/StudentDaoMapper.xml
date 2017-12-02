@@ -19,4 +19,11 @@
         ,password=#{password},classid=#{classid} WHERE id=#{id}
     </update>
 
+    <insert id="addByList">
+        INSERT INTO student(account,name,sex,password,classid)
+        VALUE
+        <foreach collection="list" item="student" separator=",">
+            (#{student.account},#{student.name},#{student.sex},"123456",#{student.classid})
+        </foreach>
+    </insert>
 </mapper>
