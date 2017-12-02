@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
-    final static String path = "student/";
+    final static String path = "/student/";
 
     @Autowired
     ExerciseService exerciseService;

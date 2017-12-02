@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<title>判断题随机练习</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
+</head>
+
+<body>
+	<h1>判断题随机练习</h1>
+
+    <br/>  <br/>  <br/>
+
+    <h2 id="question">问题区</h2>
+    <br/>
+    <h3 id="opT" class ="op">True</h3>
+    <h3 id="opF" class ="op">False</h3>
+    <h4 id="jx" >&nbsp; </h4>
+    <br/>  <br/>  <br/>
+    <h1 id="next">下一题</h1>
+
+<script>
+
+
+    var id = Math.floor(Math.random()*6) +1;
+    var choosed = 0;
+
+    $.get("/student/student_exercise_truefalse_get_question?id="+id,function(data,status){
+        $("#question").text(data.question);
+    });
+
+    $(".op").click(function(){
+        if (choosed === 0){
+            choosed = 1;
+            $(this).css("color","red");
+            $.get("/student/student_exercise_truefalse_get_ans?id="+id,function(data,status){
+                $("#jx").text(data.rightanswer);
+                $("#op"+data.rightanswer).css("color","green");
+            });
+        }
+    });
+
+    $("#next").click(function(){
+        location.reload();
+    });
+
+</script>
+
+</body>
+</html>

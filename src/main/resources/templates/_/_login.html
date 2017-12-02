@@ -6,7 +6,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>数据库在线系统</title>
+    <title>MY HTML</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <link href="css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
@@ -18,11 +18,11 @@
 <body>
 <div class="container">
     <div class="header">
-        <img src="images/login_icon.png" style="width:30px;margin-left:21px;margin-top:11px;"/>
+        <img src="images/login_icon.png" style="margin:5px; padding: 5px;"/>
     </div>
     <div class="content">
         <div class="content_wrapper">
-            <div id="login" class="login_container" style="visibility: visbel;">
+            <div id="login" class="login_container" style="width: 334px; height: 387px; visibility: visbel;">
                 <div class="login_title">
                     LOGIN
                 </div>
@@ -39,19 +39,21 @@
                                 <input name="password" id="inputPassword" class="login_input" type="password"
                                        placeholder="密码"></input>
                             </div>
-                            <div class="login_margin1">
-                                <div class="login_vrifyCode">
-                                    <!-- 验证码 -->
-                                    <img alt="验证码" onclick="this.src='/defaultKaptcha?'" src="/defaultKaptcha"/>
-                                </div>
-                                <div class="login_vrifyText">
-                                    <input type="text" name="vrifyCode" class="input_vrifyCode" placeholder="验证码"/>
-                                </div>
+
+                        </div>
+                        <div class="login_margin1">
+                            <div>
+                                <!-- 验证码 -->
+                                <img alt="验证码" onclick="this.src='/defaultKaptcha?'" src="/defaultKaptcha"/>
+                                <input type="text" name="vrifyCode"/>
                             </div>
+
+                        </div>
+                        <div class="login_margin2">
+                            <label class="checkbox"><input type="checkbox"/>记住密码</label>
                         </div>
                         <div class="login_margin1">
                             <button class="login_btn1" type="submit">登陆</button>
-                            <p>&nbsp; </p>
                         </div>
                     </form>
                 </div>
