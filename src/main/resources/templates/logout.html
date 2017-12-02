@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>登出</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen" />
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <img src="images/login_icon.png" style="width:30px;margin-left:21px;margin-top:11px;"/>
+    </div>
+    <div class="content">
+        <div class="logout_info">
+            您已成功退出。<br/><br/>
+            <span id="logout_count_num">5</span>秒后自动跳转至登陆界面，如未能跳转，<a href="index.html">请点击</a>
+        </div>
+        <img src="/images/logout_1.png"/>
+    </div>
+
+    <div class="footer">
+        kdkfaj | kdalksdjf | djksajf | 2017.11.12
+    </div>
+</div>
+<script type="text/javascript">
+		logout_count();
+		function logout_count()
+		{
+			var cnt=document.getElementById("logout_count_num");
+			var cnt_num=cnt.innerHTML;
+			var t=setTimeout(logout_count,1000);
+			if(cnt_num>0)
+			{
+				cnt_num--;
+				cnt.innerHTML=cnt_num;
+			}
+			else
+			{
+				clearTimeout(t);
+				window.location.href="login.html";
+			}
+		}
+    </script>
+</body>
+
+</html>

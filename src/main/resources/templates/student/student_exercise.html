@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<title>数据库在线系统</title>
+	<link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+</head>
+
+<body>
+	<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+		<div class="container-fluid">
+			<img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+			<div class="nav-header">
+				<a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+			</div>
+			<ul class="nav navbar-nav nav-right" style="float:right;">
+				<li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+				<li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="row-fluid">
+					<div class="span4"></div>
+
+					<div class="span4" style="margin-top:130px;margin-bottom:50px;">
+						<ul class="nav nav-pills">
+							<li><a href="studentpage.html">首页</a></li>
+							<li><a href="student_test.html">在线考试</a></li>
+							<li><a href="student_grade.html">成绩查询</a></li>
+							<li class="active"><a href="student_exercise.html">在线练习</a></li>
+							<li><a href="student_status.html">状态查询</a></li>
+						</ul>
+					</div>
+					<div class="span4">
+					</div>
+				</div>
+				<div class="block_all">
+					<div class="block_three">
+						<p><a href="student_exercise_choice.html" style="text-decoration:none;">随机选择题练习</a></p>
+					</div>
+					<div class="block_three">
+						<p><a href="student_exercise_truefalse.html" style="text-decoration:none;">随机判断题练习</a></p>
+					</div>
+					<div class="block_three">
+						<p><a href="student_exercise_sub.html" style="text-decoration:none;">随机主观题练习</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		kdkfaj | kdalksdjf | djksajf | 2017.11.12
+	</div>
+</body>
+
+</html>

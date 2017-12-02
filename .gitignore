@@ -1,0 +1,10 @@
+# 忽略生成的target
+target
+
+# 忽略idea的自动文件修改
+.idea/workspace.xml
+*/vcs.xml
+.idea
+.idea/
+.idea*
+.idea/*

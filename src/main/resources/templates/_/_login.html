@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>MY HTML</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <link href="css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <script
+            src="http://apps.bdimg.com/libs/prototype/1.7.1.0/prototype.js">
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <img src="images/login_icon.png" style="margin:5px; padding: 5px;"/>
+    </div>
+    <div class="content">
+        <div class="content_wrapper">
+            <div id="login" class="login_container" style="width: 334px; height: 387px; visibility: visbel;">
+                <div class="login_title">
+                    LOGIN
+                </div>
+                <div class="login_div">
+                    <form class="form-horizontal" action="/doLogin" method="post">
+                        <div class="login_margin1">
+                            <div class="login_input_outer">
+                                <input name="account" id="inputEmail" class="login_input" type="text"
+                                       placeholder="账号"></input>
+                            </div>
+                        </div>
+                        <div class="login_margin1">
+                            <div class="login_input_outer">
+                                <input name="password" id="inputPassword" class="login_input" type="password"
+                                       placeholder="密码"></input>
+                            </div>
+
+                        </div>
+                        <div class="login_margin1">
+                            <div>
+                                <!-- 验证码 -->
+                                <img alt="验证码" onclick="this.src='/defaultKaptcha?'" src="/defaultKaptcha"/>
+                                <input type="text" name="vrifyCode"/>
+                            </div>
+
+                        </div>
+                        <div class="login_margin2">
+                            <label class="checkbox"><input type="checkbox"/>记住密码</label>
+                        </div>
+                        <div class="login_margin1">
+                            <button class="login_btn1" type="submit">登陆</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="login_pictures">
+                <div class="login_pictures_picture">
+                </div>
+                <div class="login_pictures_txt">
+                    WELCOME TO<br/>
+                    &nbsp;&nbsp;&nbsp;华南理工大学数据库考试系统
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        kdkfaj | kdalksdjf | djksajf | 2017.11.12
+    </div>
+</div>
+<!--弹出验证码错误-->
+<script th:inline="javascript">
+
+    console.log([[${session.kaptcha}]]);
+    if ([[${session.kaptcha}]])
+        alert([[${session.kaptcha}]]);
+
+    console.log([[${session.login}]]);
+    if ([[${session.login}]])
+        alert([[${session.login}]]);
+</script>
+</body>
+
+</html>

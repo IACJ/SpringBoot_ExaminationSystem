@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="examination.dao.TeacherDao">
+    <select id="findByLogin" resultType="Teacher">
+        SELECT * from teacher where account=#{account} and password=#{password}
+    </select>
+
+    <insert id="add">
+        INSERT INTO teacher(account,name,password) VALUE(#{account},#{name},'123456');
+    </insert>
+
+    <select id="findById" resultType="Teacher">
+        SELECT * from teacher where id=#{id}
+    </select>
+
+    <update id="update">
+        UPDATE teacher set account=#{account},name=#{name},password=#{password} WHERE id=#{id}
+    </update>
+
+    <insert id="addByList">
+        INSERT INTO teacher(account,name,password)
+        VALUE
+        <foreach collection="list" item="teacher" separator=",">
+            (#{teacher.account},#{teacher.name},"123456")
+        </foreach>
+    </insert>
+</mapper>

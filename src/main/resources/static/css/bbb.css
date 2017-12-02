@@ -1,0 +1,210 @@
+
+
+body {
+    background-color: #fefefe;
+    font-family: Verdana,Tahoma,Arial;
+    margin: 0;
+}
+
+.container {
+    min-height: 500px;
+}
+
+.header, .footer {
+    min-width: 1070px;
+}
+
+.header {
+    height: 53px;
+    overflow: hidden;
+    border-bottom: 1px solid #d6dfea;
+    background: #eff4fa;
+}
+
+.content {
+    width: 960px;
+    margin: 32px auto;
+    padding: 0 24px;
+}
+
+.content_wrapper::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    clear: both;
+}
+
+.content_wrapper {
+    min-height: 372px;
+    padding-top: 40px;
+    margin: 0 20px 60px 25px;
+}
+
+
+.login_container {
+    float: right;
+    border: 1px solid #a0b1c4;
+    width: 334px;
+    height: 400px;
+    background-color: #fff;
+    position: relative;
+    z-index: 12;
+    padding: 0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.login_pictures {
+    position: relative;
+    margin-right: 395px;
+}
+
+
+.login_pictures_picture {
+    background-image:url('../images/login_1.png');
+    background-position:right 100px;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 570px;
+    background-repeat: no-repeat;
+
+    z-index: -1;
+}
+
+
+.login_pictures_txt {
+    line-height: 45px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-weight: normal;
+    color: #6f95c8;
+}
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    clear: both;
+    line-height: 36px;
+    text-align: center;
+    color: #b6b6b6;
+    background-color: #eff4fa;
+    border-top: 1px solid #d6dfea;
+}
+
+.login_title {
+    text-align: center;
+    margin: 50px;
+
+    line-height: 26px;
+    font-size: 30px;
+    font-weight: normal;
+    color: #6f95c8;
+}
+
+.login_div {
+    text-align: center;
+    margin:0 auto;
+}
+
+.login_btn1 {
+    background-color: #44A454;
+    border: 2px solid #4CAF50;
+    border-radius: 2px;
+    color:white;
+    border: none;
+    padding: 5px 32px;
+    width: 284px;
+    height: 38px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 10px 4px 5px;
+    cursor: pointer;
+}
+
+.login_btn1:hover {
+    background-color: #4CAF50;
+}
+
+.login_margin1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login_margin2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #6f95c8;
+}
+
+.login_margin3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input_vrifyCode {
+    width: 136px;
+    height: 41px;
+    border: 1px solid #96a5b4;
+    border-radius: 2px;
+    padding-left: 10px;
+}
+
+.login_vrifyCode {
+    float:left;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.login_vrifyText {
+    float:left;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.login_input_outer {
+    background: none;
+    border: 1px solid #96a5b4;
+    height: 38px;
+    width: 282px;
+    border-radius: 2px;
+    margin:0 auto;
+}
+
+.login_input {
+
+    padding: 10px 40px 10px 10px;
+    border-radius: 3px;
+    width: 232px;
+
+    display: block;
+
+    height: 18px;
+    line-height: 18px;
+    border: none;
+    background: 0 0;
+    color: #333;
+    font-size: 16px;
+}
+
+
+.logout_info {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 130px 0 120px;
+}
+

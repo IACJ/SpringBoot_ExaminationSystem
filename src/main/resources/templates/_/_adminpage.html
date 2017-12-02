@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<!--thymeleaf模板-->
+<h1>欢迎管理员</h1>
+<p>你已经登录成功</p>
+<p th:text="姓名：+${name}"></p>
+<p th:text="权限：+${permission}"></p>
+</body>
+</html>

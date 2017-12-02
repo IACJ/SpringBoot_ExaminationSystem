@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>选择题练习</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
+
+</head>
+
+<body>
+<div class="background_main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <img src="/images/scut.png" class="img-circle" />
+                    </div>
+                    <div class="span6">
+                        <div class="page-header">
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <h1>华南理工大学数据库考试系统</h1>
+                        </div>
+                    </div>
+                    <div class="logout">
+							<span th:text="'欢迎你！' +${session.name} + ' ' +${session.permission}">
+								&nbsp;&nbsp;&nbsp;<a href="logout.html">退出</a></span>
+                    </div>
+                    <div class="span4"></div>
+                </div>
+                <div class="background1">
+                    <div class="span12">
+                        <blockquote><p><strong>选择题随机练习</strong></p></blockquote>
+                    </div>
+                    <p id="question">问题区</p>
+                    <div class="option">
+                        <img src="/images/option_default.png" id="img_opA" width="20px" />
+                        <span id="opA" class ="op">选项区1</span>
+                    </div>
+                    <div class="option">
+                        <img src="/images/option_default.png" id="img_opB" width="20px" />
+                        <span id="opB" class ="op">选项区2</span>
+                    </div>
+                    <div class="option">
+                        <img src="/images/option_default.png" id="img_opC" width="20px" />
+                        <span id="opC" class ="op">选项区3</span>
+                    </div>
+                    <div class="option">
+                        <img src="/images/option_default.png" id="img_opD" width="20px" />
+                        <span id="opD" class ="op">选项区4</span>
+                    </div>
+                    <div class="ans">
+                        <span id="jx" >&nbsp; </span>
+                    </div>
+                    <button id="next" class="btn btn-default">下一题</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id = Math.floor(Math.random()*6) +1;
+    var choosed = 0;
+
+    $.get("/student/student_exercise_choice_get_question?id="+id,function(data,status){
+        $("#question").text(data.question);
+        $("#opA").text(data.option1);
+        $("#opB").text(data.option2);
+        $("#opC").text(data.option3);
+        $("#opD").text(data.option4);
+    });
+
+    $(".op").click(function(){
+        if (choosed === 0){
+            choosed = 1;
+            $(this).css("color","red");
+            $("#img_"+this.id).attr("src","/images/option_wrong.png");
+            $.get("/student/student_exercise_choice_get_ans?id="+id,function(data,status){
+                $("#jx").text(data.rightanswer);
+                $("#op"+data.rightanswer).css("color","green");
+                $("#img_op"+data.rightanswer).attr("src","/images/option_correct.png");
+            });
+        }
+    });
+
+    $("#next").click(function(){
+        location.reload();
+    });
+
+</script>
+</body>
+
+</html>
