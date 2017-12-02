@@ -18,8 +18,8 @@ public class LoginController {
     LoginService loginService;
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
-    @ResponseBody
     String doLogin(Model model, String account, String password,HttpSession httpSession) {
+        System.out.println("fuck");
         User user;
         user = loginService.doLogin(account, password);
         if (null != user) {
@@ -29,7 +29,7 @@ public class LoginController {
             httpSession.setAttribute("permission", user.getPermission());
 
             String pageName = user.getPermission().toLowerCase();
-            return "/"+pageName;
+            return "redirect:/"+pageName;
         }
         return "/wrongpassword";
     }
