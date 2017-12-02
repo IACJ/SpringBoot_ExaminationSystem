@@ -16,6 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             httpServletResponse.sendRedirect("/login");
             return false;
         }
+        System.out.println("WTF!!");
         return true;
     }
 

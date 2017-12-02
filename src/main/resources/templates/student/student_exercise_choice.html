@@ -4,71 +4,82 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <title>选择题练习</title>
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
     <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
 
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
 
 </head>
 
 <body>
-<div class="background_main">
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="row-fluid">
-                    <div class="span2">
-                        <img src="/images/scut.png" class="img-circle" />
-                    </div>
-                    <div class="span6">
-                        <div class="page-header">
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>
-                            <h1>华南理工大学数据库考试系统</h1>
-                        </div>
-                    </div>
-                    <div class="logout">
-							<span th:text="'欢迎你！' +${session.name} + ' ' +${session.permission}">
-								&nbsp;&nbsp;&nbsp;<a href="logout.html">退出</a></span>
-                    </div>
-                    <div class="span4"></div>
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+                <div class="span4"></div>
+
+                <div class="span4" style="margin-top:130px;margin-bottom:50px;">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="student_exercise_choice.html">选择题练习</a></li>
+                        <li><a href="student_exercise_truefalse.html">判断题练习</a></li>
+                        <li><a href="student_exercise_sub.html">主观题练习</a></li>
+                        <li><a href="student_exercise.html">返回</a></li>
+                    </ul>
                 </div>
-                <div class="background1">
-                    <div class="span12">
-                        <blockquote><p><strong>选择题随机练习</strong></p></blockquote>
-                    </div>
-                    <p id="question">问题区</p>
-                    <div class="option">
-                        <img src="/images/option_default.png" id="img_opA" width="20px" />
-                        <span id="opA" class ="op">选项区1</span>
-                    </div>
-                    <div class="option">
-                        <img src="/images/option_default.png" id="img_opB" width="20px" />
-                        <span id="opB" class ="op">选项区2</span>
-                    </div>
-                    <div class="option">
-                        <img src="/images/option_default.png" id="img_opC" width="20px" />
-                        <span id="opC" class ="op">选项区3</span>
-                    </div>
-                    <div class="option">
-                        <img src="/images/option_default.png" id="img_opD" width="20px" />
-                        <span id="opD" class ="op">选项区4</span>
-                    </div>
-                    <div class="ans">
-                        <span id="jx" >&nbsp; </span>
-                    </div>
-                    <button id="next" class="btn btn-default">下一题</button>
+                <div class="span4">
+                </div>
+            </div>
+            <div class="background1">
+                <div class="span12">
+                    <blockquote><p style="color:#09679e;"><strong>选择题随机练习</strong></p></blockquote>
+                </div>
+                <p id="question" class="question">问题区</p>
+                <div class="op" id="opA">
+                    <img src="/images/option_default.png" id="img_opA" width="20px" />
+                    <span id="text_opA">选项区1</span>
+                </div>
+                <div class="op" id="opB">
+                    <img src="/images/option_default.png" id="img_opB" width="20px" />
+                    <span id="text_opB">选项区2</span>
+                </div>
+                <div class="op" id="opC">
+                    <img src="/images/option_default.png" id="img_opC" width="20px" />
+                    <span id="text_opC">选项区3</span>
+                </div>
+                <div class="op" id="opD">
+                    <img src="/images/option_default.png" id="img_opD" width="20px" />
+                    <span id="text_opD">选项区4</span>
+                </div>
+                <br/>
+                <button id="next" class="exercise_btn1">下一题</button>
+                <div class="ans">
+                    <span id="jx" >&nbsp; </span>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="footer">
+    kdkfaj | kdalksdjf | djksajf | 2017.11.12
 </div>
 <script>
     var id = Math.floor(Math.random()*6) +1;
@@ -76,20 +87,20 @@
 
     $.get("/student/student_exercise_choice_get_question?id="+id,function(data,status){
         $("#question").text(data.question);
-        $("#opA").text(data.option1);
-        $("#opB").text(data.option2);
-        $("#opC").text(data.option3);
-        $("#opD").text(data.option4);
+        $("#text_opA").text(data.option1);
+        $("#text_opB").text(data.option2);
+        $("#text_opC").text(data.option3);
+        $("#text_opD").text(data.option4);
     });
 
     $(".op").click(function(){
         if (choosed === 0){
             choosed = 1;
-            $(this).css("color","red");
+            $("#text_"+this.id).css("color","red");
             $("#img_"+this.id).attr("src","/images/option_wrong.png");
             $.get("/student/student_exercise_choice_get_ans?id="+id,function(data,status){
-                $("#jx").text(data.rightanswer);
-                $("#op"+data.rightanswer).css("color","green");
+                $("#jx").text("正确答案是："+data.rightanswer);
+                $("#text_op"+data.rightanswer).css("color","green");
                 $("#img_op"+data.rightanswer).attr("src","/images/option_correct.png");
             });
         }

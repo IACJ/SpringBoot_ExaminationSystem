@@ -15,7 +15,7 @@ body {
 }
 
 .header {
-    height: 62px;
+    height: 53px;
     overflow: hidden;
     border-bottom: 1px solid #d6dfea;
     background: #eff4fa;
@@ -46,7 +46,7 @@ body {
     float: right;
     border: 1px solid #a0b1c4;
     width: 334px;
-    height: 387px;
+    height: 400px;
     background-color: #fff;
     position: relative;
     z-index: 12;
@@ -62,14 +62,14 @@ body {
 
 
 .login_pictures_picture {
-    background-image:url('../images/assd.png');
+    background-image:url('../images/login_1.png');
     background-position:right 100px;
 
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
-    height: 400px;
+    height: 570px;
     background-repeat: no-repeat;
 
     z-index: -1;
@@ -105,7 +105,7 @@ body {
     margin: 50px;
 
     line-height: 26px;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: normal;
     color: #6f95c8;
 }
@@ -116,7 +116,7 @@ body {
 }
 
 .login_btn1 {
-    background-color: #44A454; 
+    background-color: #44A454;
     border: 2px solid #4CAF50;
     border-radius: 2px;
     color:white;
@@ -128,7 +128,7 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 10px;
+    margin: 4px 10px 4px 5px;
     cursor: pointer;
 }
 
@@ -151,6 +151,28 @@ body {
 .login_margin3 {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.input_vrifyCode {
+    width: 136px;
+    height: 41px;
+    border: 1px solid #96a5b4;
+    border-radius: 2px;
+    padding-left: 10px;
+}
+
+.login_vrifyCode {
+    float:left;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.login_vrifyText {
+    float:left;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .login_input_outer {
@@ -177,3 +199,12 @@ body {
     color: #333;
     font-size: 16px;
 }
+
+
+.logout_info {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 130px 0 120px;
+}
+

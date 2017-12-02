@@ -1,10 +1,17 @@
 
-
-.background_main {
-    background-color: #cfdbe9;
-    background-image:url("../images/backgroung_scut.png");
-    background-repeat:no-repeat;
+body {
+    background-color: #f6f7e9;
+    background-image:url("../images/background_1.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-position-x: left;
+    background-position-y: top;
+    background-size: auto auto;
+    font-family: "微软雅黑";
 }
+
 
 .logout{
     float:right;
@@ -23,8 +30,10 @@
 .background1{
     border-radius: 15px;
     border: 1px solid #eeeeee;
-    background-color: #b0cce6;
+    background-color: #ffffff;
     padding: 20px;
+    width: 900px;
+    margin: 0 auto;
 }
 
 .biaogekuang{
@@ -35,6 +44,75 @@
 	background-color: #cfdbe9;
 }
 
+.block_all {
+    padding: 20px;
+    width: 900px;
+    margin: 0 auto;
+}
 
+.block_three {
+    width: 250px;
+    height: 200px;
+    float: left;
+    padding-top: 60px;
+    margin: 10px;
+    text-align:center;
+    font-size: 22px;
+    border-radius: 15px;
+    background-image:url("../images/three_choice2.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-position-x: left;
+    background-position-y: top;
+    background-size: auto auto;
+}
 
+.question {
+    margin: 20px;
+    font-size: 18px;
 
+}
+
+.op {
+    margin: 16px;
+    font-size: 16px;
+    cursor:pointer
+}
+
+.ans {
+    margin: 16px;
+    font-size: 16px;
+}
+
+.textareaStyle {
+    width: 826px;
+    height: 160px;
+    border-radius: 5px;
+    border:1px solid #4090ba;
+    margin-left: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.exercise_btn1 {
+    background-color: #62b5dd;
+    border: 2px solid #4CAF50;
+    border-radius: 2px;
+    color:white;
+    border: none;
+    width: 110px;
+    height: 38px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 16px;
+    cursor: pointer;
+}
+
+.exercise_btn1:hover {
+    background-color: #3e9be8;
+}
