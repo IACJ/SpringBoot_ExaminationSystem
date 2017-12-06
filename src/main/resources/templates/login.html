@@ -77,8 +77,10 @@
         $.post("/doLogin", $('#loginForm').serialize(), function (data) {
             if (data=="verifyCodeError")
                 alert("验证码错误！");
-            else
+            else{
                 window.location.href=data;
+            }
+
 
         })
     })
