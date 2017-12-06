@@ -5,6 +5,7 @@ import examination.entity.Paper;
 import examination.entity.Question.Choicedba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
+import examination.service.ChartService;
 import examination.service.ExamService;
 import examination.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -26,7 +29,8 @@ public class StudentController {
     ExerciseService exerciseService;
     @Autowired
     ExamService examService;
-
+    @Autowired
+    ChartService chartService;
     @RequestMapping(value = "")
     String index(Model model, HttpSession httpSession) {
         return "redirect:" + path + "studentpage";
@@ -147,4 +151,16 @@ public class StudentController {
         return  "提交成功";
     }
 
+    @RequestMapping(value = "student_chart")
+    String studentChart(){
+        return path + "student_chart";
+    }
+
+    @RequestMapping(value = "get/chart")
+    @ResponseBody
+    String getChart(){
+        List<String> name = Arrays.asList("第一章","第二章","第三章","第四章","第五章","第六章");
+        List<Integer> data=Arrays.asList(80,90,80,90,80,90);
+        return chartService.studentGetChart(name,data);
+    }
 }
