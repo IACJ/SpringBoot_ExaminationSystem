@@ -141,8 +141,9 @@ public class StudentController {
 
     @RequestMapping(value = "student_test_submit",method= RequestMethod.POST)
     @ResponseBody
-    String student_test_submit(HttpServletRequest request) {
-        System.out.println(" 接收:"+request.getQueryString());
+    String student_test_submit(HttpServletRequest request,String ans,HttpSession httpSession ) {
+        System.out.println(" 接收:"+ans);
+        System.out.println(httpSession.getAttribute("userid"));
         return  "提交成功";
     }
 
