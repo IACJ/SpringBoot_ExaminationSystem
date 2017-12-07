@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="examination.dao.ChartDao">
+    <select id="getPaperName" resultType="string">
+        SELECT name from paper,record where pid=id and sid=#{studentId};
+    </select>
+
+    <select id="getScore" resultType="byte">
+        SELECT score from record where sid=#{studentId};
+    </select>
+</mapper>
