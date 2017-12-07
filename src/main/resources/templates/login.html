@@ -79,9 +79,9 @@
             if (data == "verifyCodeError") {
                 $('#verifyImg').attr('src', "/defaultKaptcha");
                 alert("验证码错误！");
+            }else{
+                window.location.href=data;
             }
-            else
-                window.location.href = data;
 
         })
     })

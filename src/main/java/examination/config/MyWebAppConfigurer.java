@@ -13,7 +13,7 @@ public class MyWebAppConfigurer
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(new CaptchaInterceptor()).addPathPatterns("/doLogin");
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login","/","/defaultKaptcha","/doLogin");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login","/","/defaultKaptcha","/doLogin","/wrongpassword");
         registry.addInterceptor(new StudentInterceptor()).addPathPatterns("/student/**");
         registry.addInterceptor(new TeacherInterceptor()).addPathPatterns("/teacher/**");
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**");
