@@ -52,22 +52,22 @@
                 <div class="span12">
                     <blockquote><p style="color:#09679e;"><strong>选择题随机练习</strong></p></blockquote>
                 </div>
-                <p id="question" class="question">问题区</p>
+                <p id="question" class="question">&nbsp; </p>
                 <div class="op" id="opA">
                     <img src="/images/option_default.png" id="img_opA" width="20px" />
-                    <span id="text_opA">选项区1</span>
+                    <span id="text_opA">&nbsp; </span>
                 </div>
                 <div class="op" id="opB">
                     <img src="/images/option_default.png" id="img_opB" width="20px" />
-                    <span id="text_opB">选项区2</span>
+                    <span id="text_opB">&nbsp; </span>
                 </div>
                 <div class="op" id="opC">
                     <img src="/images/option_default.png" id="img_opC" width="20px" />
-                    <span id="text_opC">选项区3</span>
+                    <span id="text_opC">&nbsp; </span>
                 </div>
                 <div class="op" id="opD">
                     <img src="/images/option_default.png" id="img_opD" width="20px" />
-                    <span id="text_opD">选项区4</span>
+                    <span id="text_opD">&nbsp; </span>
                 </div>
                 <br/>
                 <button id="next" class="exercise_btn1">下一题</button>
@@ -82,7 +82,8 @@
     kdkfaj | kdalksdjf | djksajf | 2017.11.12
 </div>
 <script>
-    var id = Math.floor(Math.random()*6) +1;
+    var  Question_num = 99;
+    var id = Math.floor(Math.random()*Question_num) +1;
     var choosed = 0;
 
     $.get("/student/student_exercise_choice_get_question?id="+id,function(data,status){

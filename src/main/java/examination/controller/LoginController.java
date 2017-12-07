@@ -17,11 +17,24 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+
+    @ResponseBody
+    @RequestMapping("/hello")
+    public String hello() {
+        return "Hello World";
+    }
+
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
-    String doLogin(Model model, String account, String password,HttpSession httpSession) {
-        System.out.println("fuck");
-        User user;
-        user = loginService.doLogin(account, password);
+    @ResponseBody
+    String doLogin(String account, String password,HttpSession httpSession) {
+        User user = null;
+        try{
+            user = loginService.doLogin(account, password);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("笨！你又忘开数据库了");
+        }
+
         if (null != user) {
 
             httpSession.setAttribute("userid", user.getId());
@@ -29,7 +42,7 @@ public class LoginController {
             httpSession.setAttribute("permission", user.getPermission());
 
             String pageName = user.getPermission().toLowerCase();
-            return "redirect:/"+pageName;
+            return "/"+pageName;
         }
         return "/wrongpassword";
     }

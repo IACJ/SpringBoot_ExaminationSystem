@@ -66,10 +66,10 @@
     var choiids;
     var judgids;
     var subids;
-
+    var pid = 2;
     $(document).ready(function() {
-        var id = 1;
-        $.get("/student/student_test_get_paper?id=" + id,function (data, status) {
+
+        $.get("/student/student_test_get_paper?id=" + pid,function (data, status) {
             console.log(data);
             $('#examName').text(data.name);
 
@@ -77,14 +77,22 @@
             judgids = data.judg.split(',');
             subids = data.sub.split(',');
 
-            for (i in choiids){
-                F_get_choice(choiids[i]);
+            if (choiids[0] !=="" ){
+                for (i in choiids){
+                    F_get_choice(choiids[i]);
+                }
             }
-            for (i in judgids){
-                F_get_truefalse(choiids[i]);
+
+
+            if (judgids[0] !== ""){
+                for (i in judgids){
+                    F_get_truefalse(judgids[i]);
+                }
             }
-            for (i in subids){
-                F_get_sub(choiids[i]);
+            if (subids[0] !=="" ) {
+                for (i in subids) {
+                    F_get_sub(subids[i]);
+                }
             }
         });
     });
@@ -102,7 +110,7 @@
         $.ajax({
             type: "POST",
             url: AjaxURL,
-            data:  "ans="+JSON.stringify(d),
+            data:  "ans="+JSON.stringify(d)+'&amp;'+"pid="+pid,
             success: function (data) {
                 alert("提交成功");
             },

@@ -3,16 +3,14 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+>
 
 <head>
     <title>数据库在线系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <link href="css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
-    <script
-            src="http://apps.bdimg.com/libs/prototype/1.7.1.0/prototype.js">
-    </script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -22,12 +20,12 @@
     </div>
     <div class="content">
         <div class="content_wrapper">
-            <div id="login" class="login_container" style="visibility: visbel;">
+            <div id="login" class="login_container" style="visibility: visible;">
                 <div class="login_title">
                     LOGIN
                 </div>
                 <div class="login_div">
-                    <form class="form-horizontal" action="/doLogin" method="post">
+                    <form class="form-horizontal"  method="post" id="loginForm">
                         <div class="login_margin1">
                             <div class="login_input_outer">
                                 <input name="account" id="inputEmail" class="login_input" type="text"
@@ -73,15 +71,19 @@
     </div>
 </div>
 <!--弹出验证码错误-->
-<script th:inline="javascript">
+<script>
+    $('#loginForm').submit(function (e) {
+        e.preventDefault();
+        $.post("/doLogin", $('#loginForm').serialize(), function (data) {
+            if (data=="verifyCodeError")
+                alert("验证码错误！");
+            else{
+                window.location.href=data;
+            }
 
-    console.log([[${session.kaptcha}]]);
-    if ([[${session.kaptcha}]])
-        alert([[${session.kaptcha}]]);
 
-    console.log([[${session.login}]]);
-    if ([[${session.login}]])
-        alert([[${session.login}]]);
+        })
+    })
 </script>
 </body>
 
