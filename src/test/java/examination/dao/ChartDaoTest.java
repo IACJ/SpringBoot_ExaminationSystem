@@ -1,6 +1,7 @@
 package examination.dao;
 
 import examination.ExaminationApplication;
+import examination.entity.ChoiceQuestion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +14,17 @@ import java.util.List;
 @SpringBootTest(classes = ExaminationApplication.class)
 public class ChartDaoTest {
     @Autowired
-    ChartDao chartDao;
+    ChoiceDao choiceDao;
 
     @Test
-    public void getPaperName() throws Exception {
-        List<String> paperName = chartDao.getPaperName(2);
-
-        paperName.forEach(System.out::println);
-
+    public void getCount() throws Exception {
+        System.out.println(choiceDao.getCount());
     }
 
     @Test
-    public void getScore() throws Exception {
-        List<Byte> score = chartDao.getScore(2);
+    public void getChoiceQuestion() throws Exception {
+        List<ChoiceQuestion> choiceQuestions = choiceDao.getChoiceQuestion(0,5);
 
-        score.forEach(System.out::println);
+        choiceQuestions.forEach(System.out::println);
     }
 }

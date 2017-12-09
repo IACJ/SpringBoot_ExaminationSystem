@@ -27,7 +27,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .login_top a, .h_info .help, .h_info .first { float:right; height:18px; padding-left:25px; background:url(../images/icon.png) no-repeat; color:#dbdbdb;}
 .login_top .first, .h_info .first { background-position:0 2px; background-position:0 0px\9;}
 .login_top .help, .h_info .help { background-position:0 -23px; background-position:0 -24px\9; display:inline; margin-right:20px;}
-.login_top .line, .h_info .line {float:right; display:inline; width:2px; height:18px; margin:0 10px; background:url(../images/line.gif) no-repeat;}
+.login_top .line, .h_info .line {float:right; display:inline; width:2px; height:18px; margin:0 10px;}
 .iheader { width:100%; height:97px; background:url(../images/icon.png) repeat-x 0 -120px; overflow:hidden;}
 .logo { float:left; display:inline; margin-left:35px; margin-top:6px;}
 .wuxianlogo { float:left; display:inline; margin:15px 0 0 35px;}
