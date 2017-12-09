@@ -6,6 +6,15 @@ public class Evadba {
     private String type;
     private String intable;
     private String rightanswer;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Long getId() {
         return id;

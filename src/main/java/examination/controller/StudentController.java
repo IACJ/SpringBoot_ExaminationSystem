@@ -6,6 +6,7 @@ import examination.entity.Question.Choicedba;
 import examination.entity.Question.Evadba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
+import examination.entity.Status;
 import examination.service.ChartService;
 import examination.service.EvaluatingService;
 import examination.service.ExamService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -214,6 +216,20 @@ public class StudentController {
     @RequestMapping(value = "student_evaluating_list_delete")
     String studentEvaluatingListDelete(){
         return path + "student_evaluating_list_delete";
+    }
+
+    @RequestMapping(value = "student_get_status",method = RequestMethod.GET)
+    @ResponseBody
+    List<Status> studentGetStatus(long page){
+        final long n = 20;
+        long off = (page-1) * n;
+        return evaluatingService.get_Status(off,n);
+    }
+
+    @RequestMapping(value = "student_evaluating_list_select_get",method = RequestMethod.GET)
+    @ResponseBody
+    List<Evadba> studentEvaluatingListSelectGet(){
+        return exerciseService.getEvadbaByType("查找题");
     }
 
 }

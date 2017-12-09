@@ -8,6 +8,8 @@ import examination.entity.Question.Subdba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExerciseService {
     @Autowired
@@ -43,6 +45,10 @@ public class ExerciseService {
 
     public Evadba getEvadbaById_noAns (Long id){
         return questionDao.findEvadbaById_noAns(id);
+    }
+
+    public List<Evadba>  getEvadbaByType (String type){
+        return questionDao.findEvadbaByType(type);
     }
 
 }

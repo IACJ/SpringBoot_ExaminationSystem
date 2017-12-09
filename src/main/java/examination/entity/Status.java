@@ -4,7 +4,7 @@ public class Status {
     long runid;
     long eid;
     long uid;
-    String submit_time;
+    String time;
     String sql2;
     String status;
 
@@ -32,12 +32,12 @@ public class Status {
         this.uid = uid;
     }
 
-    public String getSubmit_time() {
-        return submit_time;
+    public String getTime() {
+        return time;
     }
 
-    public void setSubmit_time(String submit_time) {
-        this.submit_time = submit_time;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getStatus() {

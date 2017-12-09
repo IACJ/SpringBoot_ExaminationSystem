@@ -13,4 +13,8 @@
        WHERE `runid`=#{runid};
     </update>
 
+    <select id="getList" resultType="Status">
+        SELECT * from `status` ORDER BY `time` DESC LIMIT #{off},#{n};
+    </select>
+
 </mapper>

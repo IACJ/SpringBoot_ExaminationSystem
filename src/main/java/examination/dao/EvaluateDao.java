@@ -14,4 +14,6 @@ public interface EvaluateDao {
 
     long update(Status status);
 
+    List<Status>  getList(@Param("off") long off, @Param("n") long n);
+
 }

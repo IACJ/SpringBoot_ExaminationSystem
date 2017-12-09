@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class EvaluatingService {
@@ -47,7 +48,10 @@ public class EvaluatingService {
             result = "SQL语句出错："+e.getMessage();
         }
         status.setStatus(result);
-
         evaluateDao.update(status);
+    }
+
+    public List<Status> get_Status(long off, long n){
+        return evaluateDao.getList(off, n);
     }
 }
