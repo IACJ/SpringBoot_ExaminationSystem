@@ -25,7 +25,7 @@
                     LOGIN
                 </div>
                 <div class="login_div">
-                    <form class="form-horizontal"  method="post" id="loginForm">
+                    <form class="form-horizontal" method="post" id="loginForm">
                         <div class="login_margin1">
                             <div class="login_input_outer">
                                 <input name="account" id="inputEmail" class="login_input" type="text"
@@ -40,7 +40,8 @@
                             <div class="login_margin1">
                                 <div class="login_vrifyCode">
                                     <!-- 验证码 -->
-                                    <img alt="验证码" onclick="this.src='/defaultKaptcha?'" src="/defaultKaptcha"/>
+                                    <img alt="验证码" onclick="this.src='/defaultKaptcha?'" src="/defaultKaptcha"
+                                         id="verifyImg"/>
                                 </div>
                                 <div class="login_vrifyText">
                                     <input type="text" name="verifyCode" class="input_vrifyCode" placeholder="验证码"/>
@@ -75,12 +76,12 @@
     $('#loginForm').submit(function (e) {
         e.preventDefault();
         $.post("/doLogin", $('#loginForm').serialize(), function (data) {
-            if (data=="verifyCodeError")
+            if (data == "verifyCodeError") {
+                $('#verifyImg').attr('src', "/defaultKaptcha");
                 alert("验证码错误！");
-            else{
+            }else{
                 window.location.href=data;
             }
-
 
         })
     })

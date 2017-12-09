@@ -17,7 +17,7 @@ public class CaptchaInterceptor implements HandlerInterceptor {
         System.out.println("Session  verifyCode " + captchaId + " form verifyCode " + parameter);
 
         if (httpServletRequest.getHeader("x-requested-with") != null && httpServletRequest.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
-            if (!captchaId.equals(parameter)) {
+            if (captchaId!=null && !captchaId.equals(parameter)) {
                 PrintWriter out = httpServletResponse.getWriter();
                 out.print("verifyCodeError");//session失效
                 out.flush();

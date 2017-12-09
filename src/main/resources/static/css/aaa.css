@@ -34,6 +34,7 @@ body {
     padding: 20px;
     width: 900px;
     margin: 0 auto;
+    margin-bottom: 5px;
 }
 
 .biaogekuang{
@@ -115,4 +116,121 @@ body {
 
 .exercise_btn1:hover {
     background-color: #3e9be8;
+}
+
+input[type='submit'] {
+	background-color: #62b5dd;
+    border: 2px solid #4CAF50;
+    border-radius: 2px;
+    color:white;
+    border: none;
+    width: 180px;
+    height: 38px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 16px;
+    cursor: pointer;
+}
+
+input[type='submit']:hover {
+    background-color: #3e9be8;
+}
+
+.d_label{
+	margin:16px;
+	display:block;
+	font-size: 16px;
+}
+.d_radio{
+	display:none;
+}
+.d_radioInput{
+	background-color:#fff;
+	border:1px solid rgba(0,0,0,0.15);
+	border-radius:100%;
+	display:inline-block;
+	height:16px;
+	margin-right:10px;
+	margin-top:-1px;
+	vertical-align:middle;
+	width:16px;
+	line-height:1;
+}
+.d_radio:checked + .d_radioInput:after{
+	background-color:#57ad68;
+	border-radius:100%;
+	content:"";
+	display:block;
+	height:10px;
+	margin:2px;
+	width:10px;
+}
+.d_checkbox.d_radioInput,.d_radio:checked + .d_checkbox.d_radioInput:after{
+	border-radius:0;
+}
+
+.test_body {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.test_right {
+    border-radius: 15px;
+    border: 1px solid #eeeeee;
+    background-color: #ffffff;
+	position: fixed;
+	right: 100px;
+	top: 100px;
+	width: 250px;
+	padding: 20px;
+	opacity: 0.6;
+	margin: 0 auto;
+}
+
+.time_text {
+    font-weight: bold;
+    font-size: 30px;
+    text-align:center;
+    color: #09679e;
+    margin-top: 20px;
+}
+
+.time_clock {
+    font-weight: bold;
+    font-size: 20px;
+    text-align:center;
+    color: #09679e;
+}
+
+
+.t_ul {
+    list-style-type: none;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.t_li {
+    float: left;
+    border-radius: 15px;
+}
+
+.t_li a {
+    display: block;
+    border-radius: 15px;
+    color: #666;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+}
+
+.t_li a:hover:not(.active) {
+    background-color: #bddfce;
+}
+
+.t_li a.active {
+    color: white;
+    background-color: #a0bcae;
 }

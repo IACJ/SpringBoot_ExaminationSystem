@@ -6,6 +6,7 @@ import examination.entity.Paper;
 import examination.entity.Question.Choicedba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
+import examination.entity.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,10 @@ public class ExamService {
         return examDao.findPaperById(id);
     }
 
+    public void submitPapre (Long uid, Long eid,String ans){
+        System.out.println("执行交卷服务");
+
+
+
+    }
 }

@@ -12,7 +12,7 @@ public class AdminInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println("enter in AdminInterceptor");
         HttpSession session = httpServletRequest.getSession();
-        if ( "Admin" !=session.getAttribute("permission") ) {
+        if ( !"Admin".equals(session.getAttribute("permission"))) {
             httpServletResponse.sendRedirect("/notpermission");
             return false;
         }
