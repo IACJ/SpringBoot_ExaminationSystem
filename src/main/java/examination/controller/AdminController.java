@@ -42,6 +42,21 @@ public class AdminController {
         return path + "student_manage";
     }
 
+    @RequestMapping(value = "/teacher_manage")
+    String teacherManage() {
+        return path + "teacher_manage";
+    }
+
+    @RequestMapping(value = "/add_student")
+    String addStudent() {
+        return path + "add_student";
+    }
+
+    @RequestMapping(value = "/add_teacher")
+    String addTeacher() {
+        return path + "add_teacher";
+    }
+
     @RequestMapping(value = "/student/add")
     @ResponseBody
     boolean addStudent(Student student) {

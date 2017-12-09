@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-    <title>学生管理</title>
+    <title>教师管理</title>
     <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
@@ -40,8 +40,8 @@
                         <li><a href="adminpage.html">首页</a></li>
                         <li><a href="add_student.html">添加学生</a></li>
                         <li><a href="add_teacher.html">添加教师</a></li>
-                        <li class="active"><a href="student_manage.html">学生管理</a></li>
-                        <li><a href="teacher_manage.html">教师管理</a></li>
+                        <li><a href="student_manage.html">学生管理</a></li>
+                        <li class="active"><a href="teacher_manage.html">教师管理</a></li>
                     </ul>
                 </div>
                 <div class="span4">
@@ -50,7 +50,7 @@
             <div class="row-fluid">
                 <form class="form-horizontal">
                     <div class="control-group" style="width:500px;margin:auto">
-                        <label class="control-label" for="input" contenteditable="true">学生账号</label>
+                        <label class="control-label" for="input" contenteditable="true">教师账号</label>
                         <div class="controls">
                             <input id="myInput" placeholder="account" type="text" style="height: 25px"
                                    onkeyup="myFunction()"/>
@@ -66,23 +66,19 @@
                     <tr>
                         <th>账号</th>
                         <th>姓名</th>
-                        <th>性别</th>
                         <th>密码</th>
-                        <th>班级</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td contenteditable="true">dsl2015</td>
                         <td contenteditable="true">董守玲</td>
-                        <td contenteditable="true">女</td>
                         <td contenteditable="true">dsl2015</td>
-                        <td contenteditable="true">15网工</td>
                         <td>
-                            <button class="btn" type="button" style="margin: 0px;">修改</button>
+                            <button class="btn" type="button" style="margin-left: 0px;">修改</button>
                         </td>
                         <td>
-                            <button class="btn" type="button" style="margin: 0px;">删除</button>
+                            <button class="btn" type="button">删除</button>
                         </td>
                     </tr>
                     </tbody>
