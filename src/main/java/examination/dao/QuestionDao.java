@@ -2,6 +2,7 @@ package examination.dao;
 
 
 import examination.entity.Question.Choicedba;
+import examination.entity.Question.Evadba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,4 +19,7 @@ public interface QuestionDao {
 
     Subdba findSubdbaById_Ans(@Param("id") Long id);
     Subdba findSubdbaById_noAns( @Param("id") Long id);
+
+    Evadba findEvadbaById_Ans(@Param("id") Long id);
+    Evadba findEvadbaById_noAns( @Param("id") Long id);
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 public class StudentInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("enter in StudentInterceptor");
+//        System.out.println("enter in StudentInterceptor");
         HttpSession session = httpServletRequest.getSession();
         if ( !"Student" .equals(session.getAttribute("permission")) ) {
             httpServletResponse.sendRedirect("/notpermission");

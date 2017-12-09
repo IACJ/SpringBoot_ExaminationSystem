@@ -1,64 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-	<title>学生考试中</title>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
-	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
-	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>学生考试中</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
+
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 
 </head>
 
 
 
 <body>
-	<h1>学生考试中</h1>
-
-    <br/>  <br/>  <br/>
-
-    <div id="mainPage">
-        <h1 id="examName"></h1>
-        <br/>
-        <form id="examForm">
-        <div id="choice"></div>
-        <div id="truefalse"></div>
-        <div id="sub"></div>
-        <br/>
-        <div>    <input id="submit" type="submit" value="提交" /> </div>
-        </form>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+        </ul>
     </div>
-    <br/>  <br/>  <br/>
+</nav>
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+                    <h1 id="examName"  style="color:#09679e;opacity: 0.7;"></h1>
+                </div>
+            <div id="mainPage" class="test_body">
+                <form id="examForm">
+                    <div id="choice"></div>
+                    <div id="truefalse"></div>
+                    <div id="sub"></div>
+                    <div class="test_right">
+                        <p class="time_text">剩余时间</p>
+                        <p id="time_clock" class="time_clock">&nbsp;</p>
+                        <input id="submit" type="submit" value="提交" />
+                    </div>
+                </form>
+
+            </div>
+</div>
+
 <script>
+    function myTimer()
+    {
+        var d=new Date();
+        var t=d.toLocaleTimeString();
+        document.getElementById("time_clock").innerHTML=t;
+    }
+    setInterval(myTimer,200);
 
     var F_get_choice = function(id) {
         $.get("/student/student_exercise_choice_get_question?id=" + id, function (data, status) {
-            var str = '<div><h2>'+data.question+'</h2>' +
-                '<input type="radio"  display="inline" name="cho_' +data.id +'" value="A" /><p>'+data.option1+'</p>' +
-                '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="B" /><p>'+data.option2+'</p>' +
-                '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="C" /><p>'+data.option3+'</p>' +
-                '<input type="radio"  display="inline" name="cho_'+ data.id +'" value="D" /><p>'+data.option4+'</p></div>';
+            var str = '<div class="background1">'+
+                '<blockquote><p style="color:#09679e;"><strong>选择题</strong></p></blockquote>'+
+                '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
+                '<label class="d_label"><input class="d_radio" type="radio" name="cho_' +data.id +'" value="A"/>'+
+                '<span class="d_radioInput"></span>'+data.option1+'</label>'+
+                '<label class="d_label"><input class="d_radio" type="radio" name="cho_' +data.id +'" value="B"/>'+
+                '<span class="d_radioInput"></span>'+data.option2+'</label>'+
+                '<label class="d_label"><input class="d_radio" type="radio" name="cho_' +data.id +'" value="C"/>'+
+                '<span class="d_radioInput"></span>'+data.option3+'</label>'+
+                '<label class="d_label"><input class="d_radio" type="radio" name="cho_' +data.id +'" value="D"/>'+
+                '<span class="d_radioInput"></span>'+data.option4+'</label></div>';
             $("#choice").append(str);
         });
     };
 
     var F_get_truefalse = function(id) {
         $.get("/student/student_exercise_truefalse_get_question?id=" + id, function (data, status) {
-            var str = '<div><h2>' + data.question + '</h2>' +
-                '<input type="radio"  display="inline" name="tf_' + data.id + '" value="T" /><p>True</p>' +
-                '<input type="radio"  display="inline" name="tf_' + data.id + '" value="F" /><p>False</p></div>';
+            var str = '<div class="background1">'+
+                '<blockquote><p style="color:#09679e;"><strong>判断题</strong></p></blockquote>'+
+                '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
+                '<label class="d_label"><input class="d_radio" type="radio" name="tf_' +data.id +'" value="T"/>'+
+                '<span class="d_radioInput"></span>True</label>'+
+                '<label class="d_label"><input class="d_radio" type="radio" name="tf_' +data.id +'" value="T"/>'+
+                '<span class="d_radioInput"></span>False</label></div>';
             $("#truefalse").append(str);
         });
     };
 
     var F_get_sub = function(id) {
         $.get("/student/student_exercise_sub_get_question?id=" + id, function (data, status) {
-            var str = '<div><h2>'+data.question+'</h2>' +
-                ' <textarea name="sub_' +data.id +'" style="width:400px;height:180px;">这里写内容</textarea></div>';
+            var str = '<div class="background1">'+
+                '<blockquote><p style="color:#09679e;"><strong>主观题</strong></p></blockquote>'+
+                '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
+                '<textarea name="sub_' +data.id +'" class="textareaStyle" placeholder="这里写内容"></textarea></div>';
             $("#sub").append(str);
         });
     };
@@ -66,10 +103,10 @@
     var choiids;
     var judgids;
     var subids;
-    var pid = 2;
-    $(document).ready(function() {
 
-        $.get("/student/student_test_get_paper?id=" + pid,function (data, status) {
+    $(document).ready(function() {
+        var id = 2;
+        $.get("/student/student_test_get_paper?id=" + id,function (data, status) {
             console.log(data);
             $('#examName').text(data.name);
 
@@ -77,22 +114,14 @@
             judgids = data.judg.split(',');
             subids = data.sub.split(',');
 
-            if (choiids[0] !=="" ){
-                for (i in choiids){
-                    F_get_choice(choiids[i]);
-                }
+            for (i in choiids){
+                F_get_choice(choiids[i]);
             }
-
-
-            if (judgids[0] !== ""){
-                for (i in judgids){
-                    F_get_truefalse(judgids[i]);
-                }
+            for (i in judgids){
+                F_get_truefalse(choiids[i]);
             }
-            if (subids[0] !=="" ) {
-                for (i in subids) {
-                    F_get_sub(subids[i]);
-                }
+            for (i in subids){
+                F_get_sub(choiids[i]);
             }
         });
     });
@@ -110,7 +139,7 @@
         $.ajax({
             type: "POST",
             url: AjaxURL,
-            data:  "ans="+JSON.stringify(d)+'&amp;'+"pid="+pid,
+            data:  "ans="+JSON.stringify(d),
             success: function (data) {
                 alert("提交成功");
             },
@@ -119,10 +148,6 @@
             }
         });
     });
-
-
-
-
 </script>
 
 </body>

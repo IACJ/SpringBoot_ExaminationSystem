@@ -2,6 +2,7 @@ package examination.service;
 
 import examination.dao.QuestionDao;
 import examination.entity.Question.Choicedba;
+import examination.entity.Question.Evadba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,14 @@ public class ExerciseService {
 
     public Subdba getSubdbaById_noAns (Long id){
         return questionDao.findSubdbaById_noAns(id);
+    }
+
+    public Evadba getEvadbaById_Ans (Long id){
+        return questionDao.findEvadbaById_Ans(id);
+    }
+
+    public Evadba getEvadbaById_noAns (Long id){
+        return questionDao.findEvadbaById_noAns(id);
     }
 
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<title>评测题练习</title>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+	<h1>评测题练习</h1>
+
+    <br/>  <br/>  <br/>
+
+    <h2 >题目描述：</h2>
+    <h2 id="question">哈哈哈哈哈 &nbsp;</h2>
+    <br/>
+
+    <h2 >题目类型：</h2>
+    <h2 id="type">哈哈哈哈哈 &nbsp;</h2>
+    <br/>
+
+    <form action="student_evaluating_doPost.html" method="post">
+        <input name="eid" type="hidden" value="1" />
+        <h2 >这里写SQL语句（MySQL）</h2>
+        <textarea name="sql2" >Select * from you;</textarea>
+        <br/>
+
+        <br/>
+        <input name="type" type="hidden" value="select" />
+        <input id="submit" type="submit" value="提交" />
+    </form>
+
+
+<script>
+    var id = 1;
+
+    $.get("/student/student_evaluating_get_question?id="+id,function(data,status){
+        console.log(data);
+//        $("#question").text(data.question);
+    });
+
+
+</script>
+
+</body>
+</html>

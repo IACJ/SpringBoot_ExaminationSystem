@@ -3,9 +3,11 @@ package examination.controller;
 
 import examination.entity.Paper;
 import examination.entity.Question.Choicedba;
+import examination.entity.Question.Evadba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
 import examination.service.ChartService;
+import examination.service.EvaluatingService;
 import examination.service.ExamService;
 import examination.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class StudentController {
     ExamService examService;
     @Autowired
     ChartService chartService;
+    @Autowired
+    EvaluatingService evaluatingService;
+
     @RequestMapping(value = "")
     String index(Model model, HttpSession httpSession) {
         return "redirect:" + path + "studentpage";
@@ -143,9 +148,13 @@ public class StudentController {
 
     @RequestMapping(value = "student_test_submit",method= RequestMethod.POST)
     @ResponseBody
-    String student_test_submit(HttpServletRequest request,String ans,HttpSession httpSession ) {
+    String student_test_submit(String ans,long pid,HttpSession httpSession ) {
         System.out.println(" 接收:"+ans);
-        System.out.println(httpSession.getAttribute("userid"));
+        System.out.println(" 接收:"+pid);
+        long uid = (long) httpSession.getAttribute("userid");
+
+        examService.submitPapre(uid,pid,ans);
+
         return  "提交成功";
     }
 
@@ -160,4 +169,51 @@ public class StudentController {
 
         return chartService.studentGetChart((long)session.getAttribute("userid"));
     }
+
+    @RequestMapping(value = "student_evaluating_status")
+    String studentEvaluatingStatus(){
+        return path + "student_evaluating_Status";
+    }
+    @RequestMapping(value = "student_evaluating_question")
+    String studentEvaluatingQuestion(){
+        return path + "student_evaluating_question";
+    }
+
+
+    @RequestMapping(value = "student_eva_get_question",method = RequestMethod.GET)
+    @ResponseBody
+    Evadba student_eva_get_question(long id){
+
+        return exerciseService.getEvadbaById_noAns(id);
+    }
+    @RequestMapping(value = "student_evaluating_doPost",method = RequestMethod.POST)
+    String studentEvaluatingDoPost(long eid, String type, HttpSession httpSession,String sql2){
+
+        long uid = (long) httpSession.getAttribute("userid");
+
+        evaluatingService.EvaluateSQL(uid,eid,sql2,type);
+
+        return "redirect:" + path + "student_status";
+    }
+
+    @RequestMapping(value = "student_evaluating_list_select")
+    String studentEvaluatingListSelect(){
+        return path + "student_evaluating_list_select";
+    }
+
+    @RequestMapping(value = "student_evaluating_list_update")
+    String studentEvaluatingListUpdate(){
+        return path + "student_evaluating_list_update";
+    }
+
+    @RequestMapping(value = "student_evaluating_list_insert")
+    String studentEvaluatingListInsert(){
+        return path + "student_evaluating_list_insert";
+    }
+
+    @RequestMapping(value = "student_evaluating_list_delete")
+    String studentEvaluatingListDelete(){
+        return path + "student_evaluating_list_delete";
+    }
+
 }
