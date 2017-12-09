@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -158,9 +156,8 @@ public class StudentController {
 
     @RequestMapping(value = "get/chart")
     @ResponseBody
-    String getChart(){
-        List<String> name = Arrays.asList("第一章","第二章","第三章","第四章","第五章","第六章");
-        List<Integer> data=Arrays.asList(80,90,80,90,80,90);
-        return chartService.studentGetChart(name,data);
+    String getChart(HttpSession session){
+
+        return chartService.studentGetChart((long)session.getAttribute("userid"));
     }
 }

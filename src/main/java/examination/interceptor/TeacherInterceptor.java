@@ -12,7 +12,7 @@ public class TeacherInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println("enter in TeacherInterceptor");
         HttpSession session = httpServletRequest.getSession();
-        if ( "Teacher" !=session.getAttribute("permission") ) {
+        if ( !"Teacher".equals(session.getAttribute("permission"))) {
             httpServletResponse.sendRedirect("/notpermission");
             return false;
         }
