@@ -31,13 +31,8 @@
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span4"></div>
-
-                <div class="span4" style="margin-top:130px;margin-bottom:50px;">
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
                     <ul class="nav nav-pills">
                         <li class="active"><a href="student_exercise_choice.html">选择题练习</a></li>
                         <li><a href="student_exercise_truefalse.html">判断题练习</a></li>
@@ -45,29 +40,24 @@
                         <li><a href="student_exercise.html">返回</a></li>
                     </ul>
                 </div>
-                <div class="span4">
-                </div>
-            </div>
             <div class="background1">
-                <div class="span12">
-                    <blockquote><p style="color:#09679e;"><strong>选择题随机练习</strong></p></blockquote>
-                </div>
-                <p id="question" class="question">&nbsp; </p>
+                <blockquote><p style="color:#09679e;"><strong>选择题随机练习</strong></p></blockquote>
+                <p id="question" class="question">问题区</p>
                 <div class="op" id="opA">
                     <img src="/images/option_default.png" id="img_opA" width="20px" />
-                    <span id="text_opA">&nbsp; </span>
+                    <span id="text_opA">选项区1</span>
                 </div>
                 <div class="op" id="opB">
                     <img src="/images/option_default.png" id="img_opB" width="20px" />
-                    <span id="text_opB">&nbsp; </span>
+                    <span id="text_opB">选项区2</span>
                 </div>
                 <div class="op" id="opC">
                     <img src="/images/option_default.png" id="img_opC" width="20px" />
-                    <span id="text_opC">&nbsp; </span>
+                    <span id="text_opC">选项区3</span>
                 </div>
                 <div class="op" id="opD">
                     <img src="/images/option_default.png" id="img_opD" width="20px" />
-                    <span id="text_opD">&nbsp; </span>
+                    <span id="text_opD">选项区4</span>
                 </div>
                 <br/>
                 <button id="next" class="exercise_btn1">下一题</button>
@@ -75,15 +65,13 @@
                     <span id="jx" >&nbsp; </span>
                 </div>
             </div>
-        </div>
-    </div>
+            <div style="margin-bottom:70px;"></div>
 </div>
 <div class="footer">
     kdkfaj | kdalksdjf | djksajf | 2017.11.12
 </div>
 <script>
-    var  Question_num = 99;
-    var id = Math.floor(Math.random()*Question_num) +1;
+    var id = Math.floor(Math.random()*6) +1;
     var choosed = 0;
 
     $.get("/student/student_exercise_choice_get_question?id="+id,function(data,status){

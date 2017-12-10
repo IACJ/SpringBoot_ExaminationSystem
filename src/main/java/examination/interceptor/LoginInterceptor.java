@@ -10,14 +10,12 @@ import javax.servlet.http.HttpSession;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("enter in LoginInterceptor");
+//        System.out.println("enter in LoginInterceptor");
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("permission") == null) {
             httpServletResponse.sendRedirect("/login");
             return false;
         }
-        System.out.println(session.getAttribute("permission"));
-        System.out.println("WTF!!");
         return true;
     }
 

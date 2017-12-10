@@ -25,4 +25,16 @@
     <select id="findSubdbaById_noAns" resultType="Subdba">
         SELECT `id`, `question` FROM `Subdba` WHERE `id`=#{id}
     </select>
+
+    <select id="findEvadbaById_Ans" resultType="Evadba">
+        SELECT * FROM `evadba` WHERE `id`=#{id}
+    </select>
+
+    <select id="findEvadbaById_noAns" resultType="Evadba">
+        SELECT `id`, `question`,`type` FROM `evadba` WHERE `id`=#{id}
+    </select>
+
+    <select id="findEvadbaByType" resultType="Evadba">
+        SELECT `id`, `title`, `question`, `type`, `intable` FROM `evadba` WHERE `type` = #{type};
+    </select>
 </mapper>

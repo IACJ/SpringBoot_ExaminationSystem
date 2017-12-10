@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="examination.dao.EvaluateDao">
+
+
+    <insert id="submit" parameterType="examination.entity.Status" useGeneratedKeys="true" keyProperty="runid">
+        INSERT INTO `status`( `eid`, `uid`, `sql2`, `time`, `status`)
+        VALUES (#{eid},#{uid},#{sql2},now(),'等待评测');
+    </insert>
+
+    <update id="update" parameterType="examination.entity.Status">
+       UPDATE `status` SET `status`= #{status}
+       WHERE `runid`=#{runid};
+    </update>
+
+    <select id="getList" resultType="Status">
+        SELECT * from `status` ORDER BY `time` DESC LIMIT #{off},#{n};
+    </select>
+
+</mapper>

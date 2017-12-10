@@ -1,0 +1,156 @@
+package examination.service;
+
+import org.springframework.stereotype.Service;
+
+import java.sql.*;
+
+
+/**
+ * 功能1： 判断两个 查询语句 是否返回相等的结果集。
+ * 步骤：        比较结果集行数、列数，然后再逐行逐字段进行对比。若完全相同则返回 True
+ *
+ * 功能2： 判断两个 增删改 语句是否效果相同。
+ * 步骤：       先把涉及到的表复制两份，分别后缀名为_test1、_test2
+ *              将两个 增删改 语句中涉及到的表名全部加上后缀_test1、_test2
+ *              执行两个 增删改 语句
+ *              对比每一对_test1、_test2表 （利用功能1），若全部相同则返回 True
+ *
+ *  Future Works：  由于本程序接收两条sql语句并执行的过程中没有防止SQL注入，则数据库有可能被用户破坏。
+ *                  接下来要做的是创建一个权限较低的用户，使其不能查询练习题以外的表，且只能修改临时生成的test表。
+ *
+ */
+@Service
+public class CompareSQLService {
+
+    private Connection conn;
+
+    protected CompareSQLService()  {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            final String DB_URL = "jdbc:mysql://localhost:3306/dbtest";
+            final String USER = "root";
+            final String PASS = "";
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            System.out.println("Succeeded connecting to the Database!");
+        } catch(ClassNotFoundException e) {
+            System.out.println("Sorry,can`t find the Driver!");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized boolean compareRS(String sql1, String sql2) throws SQLException {
+
+        System.out.println(sql1);
+        System.out.println(sql2);
+
+        Statement statement1 = conn.createStatement();
+        Statement statement2 = conn.createStatement();
+        ResultSet rs1 = statement1.executeQuery(sql1);
+        ResultSet rs2 = statement2.executeQuery(sql2);
+
+        final ResultSetMetaData metaData1 = rs1.getMetaData();
+        final ResultSetMetaData metaData2 = rs2.getMetaData();
+
+        int columnCount = metaData1.getColumnCount();
+        System.out.println(metaData1.getColumnCount());
+        System.out.println(metaData2.getColumnCount());
+        if (metaData1.getColumnCount() != metaData2.getColumnCount() ) {
+            System.out.println("列数不等");
+            return false;
+        }
+
+
+        rs1.last();
+        rs2.last();
+        System.out.println(rs1.getRow());
+        System.out.println(rs2.getRow());
+        if (rs1.getRow() != rs2.getRow()) {
+            System.out.println("记录数目不等");
+            return false;
+        }
+
+
+        rs1.first();
+        rs2.first();
+        while (rs1.next() && rs2.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+//                System.out.println(rs1.getString(i));
+//                System.out.println(rs2.getString(i));
+                if(rs1.getString(i)==null && rs1.getString(i)==null){
+                    continue;
+                }else if (rs1.getString(i)==null && rs1.getString(i)!=null){
+                    System.out.println("值不相等");
+                    return false;
+                }else if ( !rs1.getString(i) .equals(rs2.getString(i)) ){
+                    System.out.println("值不相等");
+                    return false;
+                }
+            }
+        }
+        rs1.close();
+        rs2.close();
+        System.out.println("相等");
+        return true;
+    }
+    public synchronized boolean compareChange(String[]tables,String sql1, String sql2) throws SQLException {
+        sql1 = sql1.toLowerCase();
+        sql2 = sql2.toLowerCase();
+        Statement statement = conn.createStatement();
+        String sql;
+        for (String i:tables) {
+            System.out.println(i);
+            sql = "DROP TABLE IF EXISTS "+i+"_test1";
+            statement.execute(sql);
+            sql = "DROP TABLE IF EXISTS "+i+"_test2";
+            statement.execute(sql);
+            sql = "CREATE TABLE "+i+"_test1" + " SELECT * FROM "+i;
+            statement.execute(sql);
+            sql = "CREATE TABLE "+i+"_test2" + " SELECT * FROM "+i;
+            statement.execute(sql);
+
+            sql1 = sql1.replaceAll(' '+i+' ',' '+i+"_test1 ");
+            sql1 = sql1.replaceAll('`'+i+'`','`'+i+"_test1`");
+            sql2 = sql2.replaceAll(' '+i+' ',' '+i+"_test2 ");
+            sql2 = sql2.replaceAll('`'+i+'`','`'+i+"_test2`");
+        }
+        System.out.println(sql1);
+        System.out.println(sql2);
+        statement.execute(sql1);
+        statement.execute(sql2);
+
+        for (String i:tables) {
+            String test_sql1 = "SELECT * FROM " + i +"_test1 ";
+            String test_sql2 = "SELECT * FROM " + i +"_test2 " ;
+            if (!compareRS(test_sql1,test_sql2)){
+                System.out.println("更改语句不相等");
+                return false;
+            }
+        }
+        System.out.println("更改语句相等");
+        return true;
+    }
+    public static void main(String[] args) {
+        String sql1;
+        String sql2;
+        sql1 =  "SELECT DISTINCT SNAME FROM students,Courses,SC\n" +
+                "WHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\n" +
+                "AND GRADE >= 90";
+        sql2 =  "SELECT DISTINCT SNAME FROM students,Courses,SC\n" +
+                "WHERE   Courses.CNO = SC.CNO AND students.SNO = SC.SNO\n" +
+                "AND GRADE >= 90";
+//        sql1 = "SELECT SNAME FROM `students` WHERE 1";
+//        sql2 = "SELECT SNAME FROM `students` WHERE 1"
+
+//        sql1 = "DELETE  FROM SC WHERE 0";
+//        sql2 = "DELETE  FROM SC WHERE 0";
+
+        try {
+            new CompareSQLService().compareRS(sql1,sql2);
+//            new CompareSQL().compareChange(new String[]{"students","sc"},sql1,sql2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
