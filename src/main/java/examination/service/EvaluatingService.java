@@ -4,6 +4,7 @@ import examination.dao.EvaluateDao;
 import examination.dao.ExamDao;
 import examination.dao.QuestionDao;
 import examination.entity.Paper;
+import examination.entity.Question.Evadba;
 import examination.entity.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class EvaluatingService {
     CompareSQLService compareSQLService;
 
 
-    public void EvaluateSQL (Long uid, Long eid,String sql2, String type){
+    public void EvaluateSQL (Long uid, Long eid,String sql2){
         System.out.println("执行评测服务");
 
         Status status = new Status();
@@ -31,15 +32,19 @@ public class EvaluatingService {
         status.setSql2(sql2);
         evaluateDao.submit(status);
 
-        String sql1 = questionDao.findEvadbaById_Ans(eid).getRightanswer();
-        String result = "评测异常";
+        Evadba evadba = questionDao.findEvadbaById_Ans(eid);
+        String sql1 = evadba.getRightanswer();
+        String type = evadba.getType();
+        String[] tables = evadba.getIntable().split(",");
+        String result ;
 
+        System.out.println(type);
         try{
             Boolean bool;
-            if (type.equals("select")){
+            if (type.equals("查找题")){
                 bool = compareSQLService.compareRS(sql1,sql2);
             }else{
-                bool = compareSQLService.compareRS(sql1,sql2);
+                bool = compareSQLService.compareChange(tables,sql1,sql2);
             }
             result = bool ? "答案正确，你真棒！": "答案错误，你真笨!";
 
