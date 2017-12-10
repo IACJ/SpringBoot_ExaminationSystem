@@ -97,11 +97,17 @@ public class AdminService {
         return teacherDao.update(teacher);
     }
 
+    public int deleteTeacherBatch(List<Long>list){
+        return teacherDao.deleteByList(list);
+    }
+
+    public int deleteStudentBatch(List<Long>list){
+        return studentDao.deleteByList(list);
+    }
+
     public int deleteTeacher(long id){
         return teacherDao.delete(id);
     }
-
-
     public int addTeacherByExcel(InputStream inputStream) {
         List<Teacher> teachers = new ArrayList<Teacher>();
         try {

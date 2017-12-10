@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -98,12 +100,25 @@ public class AdminController {
         return adminservice.deleteStudent(id) != 0;
     }
 
+    @RequestMapping(value = "student/delete_batch")
+    @ResponseBody()
+    boolean deleteStudentBatch(HttpServletRequest request,@RequestParam("list[]")List<Long>list) {
+        //list.forEach(System.out::println);
+        return adminservice.deleteStudentBatch(list)!=0;
+    }
+
+    @RequestMapping(value = "teacher/delete_batch")
+    @ResponseBody()
+    boolean deleteTeacherBatch(HttpServletRequest request,@RequestParam("list[]")List<Long>list) {
+        //list.forEach(System.out::println);
+        return adminservice.deleteTeacherBatch(list)!=0;
+    }
+
     @RequestMapping(value = "teacher/delete")
     @ResponseBody()
     boolean deleteTeacher(long id) {
         return adminservice.deleteTeacher(id) != 0;
     }
-
     @RequestMapping(value = "/{type}/download")
     public void download(@PathVariable String type, HttpServletResponse res) {
         res.setHeader("Content-Disposition", "attachment; filename=" + type + "_template.xlsx");

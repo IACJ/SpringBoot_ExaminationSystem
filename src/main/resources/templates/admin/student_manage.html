@@ -65,15 +65,20 @@
                 <table class="table" id="myTable">
                     <thead>
                     <tr>
+                        <th>全选<input type="checkbox"/></th>
                         <th>id</th>
                         <th>账号</th>
                         <th>姓名</th>
                         <th>性别</th>
                         <th>班级</th>
+                        <th>
+                            <button onclick="deleteBatch()">删除已选中的值</button>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="stu,stat:${students}" th:id="${stu.id}+'tr'">
+                        <td><input type="checkbox" name="checkbox" th:id="${stu.id}+'c'"/></td>
                         <td th:text="${stu.id}" contenteditable="true" th:id="${stu.id}+'i'">2</td>
                         <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
                         <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
@@ -149,7 +154,25 @@
 
     }
 
-
+    function deleteBatch() {
+        var IDs = new Array();
+        $("input[name='checkbox']:checked").each(function () {
+            var id = $(this).attr("id").replace('c', 'i');
+            IDs.push($('#' + id).text());
+        })
+        console.log(IDs);
+        $.post("/admin/student/delete_batch", {list: IDs}, function (data, status) {
+            if (data) {
+                $("input[name='checkbox']:checked").each(function () {
+                    var id = $(this).attr("id").replace('c', 'tr');
+                    $('#' + id).remove();
+                })
+                alert("删除成功！");
+            }
+            else
+                alert("删除失败！");
+        });
+    }
 </script>
 </body>
 
