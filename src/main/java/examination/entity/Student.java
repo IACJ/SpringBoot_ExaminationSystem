@@ -5,7 +5,7 @@ public class Student extends User {
     String account;
     String name;
     String sex;
-    String password;
+    String password="123456";
     String classid;
 
     public Student() {

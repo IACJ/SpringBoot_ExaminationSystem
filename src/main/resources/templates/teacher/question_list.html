@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/all.css"/>
+</head>
+<body style="background: #e1e9eb;">
+<form action="" id="mainForm" method="post">
+    <input type="hidden" name="currentPage" id="currentPage" value="1"/>
+
+    <div class="right">
+
+        <div class="rightCont">
+            <p class="g_title fix">选择题 <a class="btn03" href="#">新 增</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn03"
+                                                                                                   href="">删 除</a></p>
+            <div class="zixun fix">
+                <table class="tab2" width="100%">
+                    <tbody>
+                    <tr>
+                        <th><input type="checkbox" id="all" onclick=""/></th>
+                        <th>问题</th>
+                        <th>选项A</th>
+                        <th>选项B</th>
+                        <th>选项C</th>
+                        <th>选项D</th>
+                        <th>答案</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr th:each="que,stat:${choiceQuestuon}" th:style="${stat.odd}? 'background-color:#ECF6EE'">
+                        <td><input type="checkbox" name="id" value="id"/></td>
+                        <td th:text="${que.question}">数据库三级模式中，真正存在的是（ ）。</td>
+                        <td th:text="${que.option1}">外模式</td>
+                        <td th:text="${que.option2}">模式</td>
+                        <td th:text="${que.option3}">内模式</td>
+                        <td th:text="${que.option4}">模式</td>
+                        <td th:text="${que.rightAnswer}">D</td>
+                        <td>
+                            <a href="">修改</a>&nbsp;&nbsp;&nbsp;
+                            <a href="">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class='page fix'>
+                    共 <b th:text="${count}">10</b> 条
+                    <a th:if="${currentPage!=1}" href="question_list?currentPage=1" class='first'>首页</a>
+                    <a th:if="${currentPage!=1}" th:href="'question_list?currentPage='+${currentPage-1}" class='pre'>上一页</a>
+                    当前第<span th:text="${currentPage}+'/'+${totalPage}">1</span>页
+                    <a th:if="${currentPage!=totalPage}" th:href="'question_list?currentPage='+${currentPage+1}" class='next'>下一页</a>
+                    <a th:if="${currentPage!=totalPage}" th:href="'question_list?currentPage='+${totalPage}" class='last'>末页</a>
+                    跳至&nbsp;<input id="currentPageText" type='text' th:value="${currentPage}" class='allInput w28'/>&nbsp;页&nbsp;
+                    <a href="" class='go' id="aaa">GO</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    <script>
+        $("#aaa").click(function () {
+            $("#aaa").attr("href","question_list?currentPage="+$('#currentPageText').val())
+        })
+    </script>
+</body>
+</html>

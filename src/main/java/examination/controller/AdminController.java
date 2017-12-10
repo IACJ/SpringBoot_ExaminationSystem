@@ -2,6 +2,7 @@ package examination.controller;
 
 
 import examination.entity.Student;
+import examination.entity.Teacher;
 import examination.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,8 +39,25 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/student_manage")
-    String studentManage() {
+    String studentManage(Model model) {
+        model.addAttribute("students", adminservice.queryAllStudent());
         return path + "student_manage";
+    }
+
+    @RequestMapping(value = "/teacher_manage")
+    String teacherManage(Model model) {
+        model.addAttribute("teachers", adminservice.queryAllTeacher());
+        return path + "teacher_manage";
+    }
+
+    @RequestMapping(value = "/add_student")
+    String addStudent() {
+        return path + "add_student";
+    }
+
+    @RequestMapping(value = "/add_teacher")
+    String addTeacher() {
+        return path + "add_teacher";
     }
 
     @RequestMapping(value = "/student/add")
@@ -47,6 +65,13 @@ public class AdminController {
     boolean addStudent(Student student) {
 
         return adminservice.addStudent(student) != 0;
+    }
+
+    @RequestMapping(value = "/teacher/add")
+    @ResponseBody
+    boolean addTeacher(String account, String name) {
+
+        return adminservice.addTeacher(account, name) != 0;
     }
 
     @RequestMapping(value = "/find_student_by_id")
@@ -59,6 +84,24 @@ public class AdminController {
     @ResponseBody()
     boolean updateStudent(Student student) {
         return adminservice.updateStudent(student) != 0;
+    }
+
+    @RequestMapping(value = "teacher/update")
+    @ResponseBody()
+    boolean updateTeacher(Teacher teacher) {
+        return adminservice.updateTeacher(teacher) != 0;
+    }
+
+    @RequestMapping(value = "student/delete")
+    @ResponseBody()
+    boolean deleteStudent(long id) {
+        return adminservice.deleteStudent(id) != 0;
+    }
+
+    @RequestMapping(value = "teacher/delete")
+    @ResponseBody()
+    boolean deleteTeacher(long id) {
+        return adminservice.deleteTeacher(id) != 0;
     }
 
     @RequestMapping(value = "/{type}/download")
