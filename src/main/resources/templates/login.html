@@ -79,8 +79,11 @@
             if (data == "verifyCodeError") {
                 $('#verifyImg').attr('src', "/defaultKaptcha");
                 alert("验证码错误！");
-            }else{
-                window.location.href=data;
+            } else if (data == "wrongpassword") {
+                $('#verifyImg').attr('src', "/defaultKaptcha");
+                alert("账号密码错误");
+            } else {
+                window.location.href = data;
             }
 
         })

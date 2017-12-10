@@ -44,7 +44,7 @@ public class LoginController {
             String pageName = user.getPermission().toLowerCase();
             return "/"+pageName;
         }
-        return "/wrongpassword";
+        return "wrongpassword";
     }
 
 
