@@ -67,13 +67,13 @@
                         <form id="add">
                             账号 <input style="height: 25px;" type="text" name="account" id="account"/><br/>
                             姓名 <input style="height: 25px;" type="text" name="name" id="name"/><br/>
-                            密码 <input style="height: 25px;" type="text" name="password" id="password"/><br/>
+                            <input type="submit"  style="width: 240px;" value="提交"/>
                         </form>
-                        <button class="btn" type="button" style="width: 240px;" >提交</button>
+
                     </div>
                     <div class="tab-pane fade" id="second" style="width:280px;margin:auto">
                         <br/>
-                        <p>批量添加教师，请<a href="/admin/student/download">下载模板</a>！</p>
+                        <p>批量添加教师，请<a href="/admin/teacher/download">下载模板</a>！</p>
                         <form id="upload" enctype="multipart/form-data" method="post">
                             <input style="width:150px;height:25px;display:inline;" type="file" id="file" name="file"/>
                             <input style="width:80px;height:25px;" type="submit" value="提交"/>
@@ -92,9 +92,12 @@
 <script>
     $('#add').submit(function (e) {
         e.preventDefault();
-        $.post("/admin/student/add", $('#add').serialize(), function (data) {
-            if (data)
+        $.post("/admin/teacher/add", $('#add').serialize(), function (data) {
+            if (data) {
+                $("#account").val("");
+                $("#name").val("");
                 alert("添加成功！");
+            }
             else
                 alert("添加失败！");
         })
@@ -116,7 +119,7 @@
 //
 //            })
             $.ajax({
-                url: "/admin/student/upload",
+                url: "/admin/teacher/upload",
                 type: 'POST',
                 data: d,
                 processData: false,

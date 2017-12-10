@@ -28,7 +28,7 @@ public class TeacherController {
         model.addAttribute("permission", httpSession.getAttribute("permission"));
         return path + "teacherpage";
     }
-
+    
     @RequestMapping(value = "question_list")
     String questionList(Model model, HttpServletRequest request) {
         int pageNumber = 7;

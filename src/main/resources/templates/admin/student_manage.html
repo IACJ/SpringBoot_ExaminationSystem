@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <title>学生管理</title>
@@ -50,11 +52,10 @@
             <div class="row-fluid">
                 <form class="form-horizontal">
                     <div class="control-group" style="width:500px;margin:auto">
-                        <label class="control-label" for="input" contenteditable="true">学生账号</label>
+                        <label class="control-label" for="input" contenteditable="true">输入学生账号搜索</label>
                         <div class="controls">
                             <input id="myInput" placeholder="account" type="text" style="height: 25px"
                                    onkeyup="myFunction()"/>
-                            <button type="submit" class="btn" contenteditable="true">搜索</button>
                         </div>
                     </div>
                 </form>
@@ -64,25 +65,27 @@
                 <table class="table" id="myTable">
                     <thead>
                     <tr>
+                        <th>id</th>
                         <th>账号</th>
                         <th>姓名</th>
                         <th>性别</th>
-                        <th>密码</th>
                         <th>班级</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td contenteditable="true">dsl2015</td>
-                        <td contenteditable="true">董守玲</td>
-                        <td contenteditable="true">女</td>
-                        <td contenteditable="true">dsl2015</td>
-                        <td contenteditable="true">15网工</td>
+                    <tr th:each="stu,stat:${students}" th:id="${stu.id}+'tr'">
+                        <td th:text="${stu.id}" contenteditable="true" th:id="${stu.id}+'i'">2</td>
+                        <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
+                        <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
+                        <td th:text="${stu.sex}" contenteditable="true" th:id="${stu.id}+'s'">女</td>
+                        <td th:text="${stu.classid}" contenteditable="true" th:id="${stu.id}+'c'">15网工</td>
                         <td>
-                            <button class="btn" type="button" style="margin: 0px;">修改</button>
+                            <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'u'" onclick="updateStudent(this)">修改</button>
                         </td>
                         <td>
-                            <button class="btn" type="button" style="margin: 0px;">删除</button>
+                            <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'d'"
+                                    onclick="deleteStudent(this)">删除
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -105,7 +108,7 @@
         tr = table.getElementsByTagName("tr");
 
         for (i in tr) {
-            td = tr[i].getElementsByTagName("td")[0];
+            td = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
@@ -115,6 +118,38 @@
             }
         }
     }
+
+    function updateStudent(obj) {
+        var d = {
+            id: $('#' + obj.id.replace('u', 'i')).text(),
+            account: $('#' + obj.id.replace('u', 'a')).text(),
+            name: $('#' + obj.id.replace('u', 'n')).text(),
+            sex: $('#' + obj.id.replace('u', 's')).text(),
+            classid: $('#' + obj.id.replace('u', 'c')).text()
+        }
+
+        $.post("/admin/student/update", d, function (data, status) {
+            if (data) {
+                alert("修改成功！");
+            }
+            else
+                alert("修改失败！");
+        });
+    }
+
+    function deleteStudent(obj) {
+        $.get("/admin/student/delete?id=" + $('#' + obj.id.replace('d', 'i')).text(), function (data, status) {
+            if (data) {
+                $('#' + obj.id.replace('d', 'tr')).remove();
+                alert("删除成功！");
+            }
+            else
+                alert("删除失败！");
+        });
+
+    }
+
+
 </script>
 </body>
 

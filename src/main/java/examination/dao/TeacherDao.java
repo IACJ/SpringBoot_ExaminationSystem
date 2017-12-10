@@ -10,11 +10,15 @@ import java.util.List;
 public interface TeacherDao {
     Teacher findByLogin(@Param("account") String account, @Param("password") String password);
 
-    void add(@Param("account") String account, @Param("name") String name);
+    int add(@Param("account") String account, @Param("name") String name);
 
     Teacher findById(@Param("id") long id);
 
-    void update(Teacher teacher);
+    int update(Teacher teacher);
+
+    int delete(long id);
 
     int addByList(List<Teacher> teachers);
+
+    List<Teacher> queryAll();
 }

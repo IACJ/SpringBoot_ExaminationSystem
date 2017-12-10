@@ -68,18 +68,18 @@
                             账号 <input style="height: 25px;" type="text" name="account" id="account"/><br/>
                             姓名 <input style="height: 25px;" type="text" name="name" id="name"/><br/>
                             性别
-                            <select style="width:206px;" id="sex">
+                            <select style="width:206px;" name="sex">
                                 <option>男</option>
                                 <option>女</option>
                             </select><br/>
                             班级
-                            <select style="width:206px;" id="classid">
-                                <option>计科1</option>
-                                <option>计科2</option>
+                            <select style="width:206px;" name="classid">
+                                <option>15计科1</option>
+                                <option>15计科2</option>
                                 <option>15网工</option>
-                                <option>信息安全</option>
-                                <option>计创</option>
-                                <option>计联</option>
+                                <option>15信安</option>
+                                <option>15计创</option>
+                                <option>15计联</option>
                             </select><br/><br/>
                             <input type="submit"  style="width: 240px;" value="提交"/>
                         </form>
@@ -106,8 +106,12 @@
     $('#add').submit(function (e) {
         e.preventDefault();
         $.post("/admin/student/add", $('#add').serialize(), function (data) {
-            if (data)
+            if (data) {
+                $("#account").val("");
+                $("#name").val("");
                 alert("添加成功！");
+
+            }
             else
                 alert("添加失败！");
         })
