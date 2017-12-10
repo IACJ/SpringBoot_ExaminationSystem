@@ -24,4 +24,13 @@
             (#{teacher.account},#{teacher.name},"123456")
         </foreach>
     </insert>
+
+
+    <select id="queryAll" resultType="Teacher">
+        select  * from teacher
+    </select>
+
+    <delete id="delete">
+        DELETE from teacher WHERE id=#{id}
+    </delete>
 </mapper>

@@ -3,7 +3,7 @@ package examination.entity;
 public class Teacher extends User {
     long id;
     String account;
-    String password;
+    String password="123456";
     String name;
     final String permission = "Teacher";
 

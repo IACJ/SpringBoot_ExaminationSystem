@@ -52,4 +52,10 @@ public class StudentDaoTest {
         students.add(student2);
         System.out.println(studentDao.addByList(students));
     }
+
+    @Test
+    public void queryAll() throws Exception {
+        List<Student> student = studentDao.queryAll();
+        student.forEach(System.out::println);
+    }
 }
