@@ -189,11 +189,11 @@ public class StudentController {
         return exerciseService.getEvadbaById_noAns(id);
     }
     @RequestMapping(value = "student_evaluating_doPost",method = RequestMethod.POST)
-    String studentEvaluatingDoPost(long eid, String type, HttpSession httpSession,String sql2){
+    String studentEvaluatingDoPost(long eid, HttpSession httpSession,String sql2){
 
         long uid = (long) httpSession.getAttribute("userid");
 
-        evaluatingService.EvaluateSQL(uid,eid,sql2,type);
+        evaluatingService.EvaluateSQL(uid,eid,sql2);
 
         return "redirect:" + path + "student_status";
     }
@@ -231,5 +231,24 @@ public class StudentController {
     List<Evadba> studentEvaluatingListSelectGet(){
         return exerciseService.getEvadbaByType("查找题");
     }
+
+    @RequestMapping(value = "student_evaluating_list_delete_get",method = RequestMethod.GET)
+    @ResponseBody
+    List<Evadba> studentEvaluatingListDeleteGet(){
+        return exerciseService.getEvadbaByType("删除题");
+    }
+
+    @RequestMapping(value = "student_evaluating_list_update_get",method = RequestMethod.GET)
+    @ResponseBody
+    List<Evadba> studentEvaluatingListUpdateGet(){
+        return exerciseService.getEvadbaByType("更新题");
+    }
+
+    @RequestMapping(value = "student_evaluating_list_insert_get",method = RequestMethod.GET)
+    @ResponseBody
+    List<Evadba> studentEvaluatingListInsertGet(){
+        return exerciseService.getEvadbaByType("插入题");
+    }
+
 
 }

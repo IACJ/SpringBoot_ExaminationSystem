@@ -16,5 +16,9 @@ public interface StudentDao {
 
     int update(Student student);
 
+    int delete(long id);
+
     int addByList(List<Student> students);
+
+    List<Student> queryAll();
 }

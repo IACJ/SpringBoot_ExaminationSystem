@@ -9,12 +9,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -71,8 +66,22 @@ public class AdminService {
         return studentDao.addByList(students);
     }
 
-    public void addTeacher(String account, String name) {
-        teacherDao.add(account, name);
+    public List<Student> queryAllStudent() {
+        List<Student> students = studentDao.queryAll();
+        List<Student> studentsReplaceClassIdWithName = new ArrayList<>();
+        students.forEach(student -> {
+            student.setClassid(classDao.getNameById(student.getClassid()));
+            studentsReplaceClassIdWithName.add(student);
+        });
+        return studentsReplaceClassIdWithName;
+    }
+
+    public List<Teacher> queryAllTeacher() {
+        return teacherDao.queryAll();
+    }
+
+    public int addTeacher(String account, String name) {
+        return teacherDao.add(account, name);
     }
 
     public int updateStudent(Student student) {
@@ -80,9 +89,18 @@ public class AdminService {
         return studentDao.update(student);
     }
 
-    public void updateTeacher(Teacher teacher) {
-        teacherDao.update(teacher);
+    public int deleteStudent(long id){
+        return studentDao.delete(id);
     }
+
+    public int updateTeacher(Teacher teacher) {
+        return teacherDao.update(teacher);
+    }
+
+    public int deleteTeacher(long id){
+        return teacherDao.delete(id);
+    }
+
 
     public int addTeacherByExcel(InputStream inputStream) {
         List<Teacher> teachers = new ArrayList<Teacher>();

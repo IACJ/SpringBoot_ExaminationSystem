@@ -1,8 +1,12 @@
 package examination.service;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+
+import static java.sql.Connection.TRANSACTION_READ_COMMITTED;
+import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 
 
 /**
@@ -22,31 +26,78 @@ import java.sql.*;
 @Service
 public class CompareSQLService {
 
-    private Connection conn;
 
-    protected CompareSQLService()  {
+    private void showTransactionIsolation(Connection conn) throws SQLException {
+
+        int level = conn.getTransactionIsolation();
+        if(level == Connection.TRANSACTION_NONE)
+            System.out.println("TRANSACTION_NONE");
+        else if(level == TRANSACTION_READ_UNCOMMITTED)
+            System.out.println("TRANSACTION_READ_UNCOMMITTED");
+        else if(level == TRANSACTION_READ_COMMITTED)
+            System.out.println("TRANSACTION_READ_COMMITTED");
+        else if(level == Connection.TRANSACTION_REPEATABLE_READ)
+            System.out.println("TRANSACTION_REPEATABLE_READ");
+        else if(level == Connection.TRANSACTION_SERIALIZABLE)
+            System.out.println("TRANSACTION_SERIALIZABLE");
+    }
+
+    protected Connection GetConnection(String DBName)  {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            final String DB_URL = "jdbc:mysql://localhost:3306/dbtest";
+            Connection conn ;
+            final String DB_URL = "jdbc:mysql://localhost:3306/"+DBName+"?useUnicode=true&characterEncoding=UTF-8";
             final String USER = "root";
             final String PASS = "";
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            System.out.println("Succeeded connecting to the Database!");
+            conn.setAutoCommit(false);  //将自动提交设置为false
+            System.out.print("获得一个conn :");
+            System.out.println(DBName);
+            showTransactionIsolation(conn);
+
+            return conn;
         } catch(ClassNotFoundException e) {
             System.out.println("Sorry,can`t find the Driver!");
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public synchronized boolean compareRS(String sql1, String sql2) throws SQLException {
+    public synchronized boolean compareRS(String sql1, String sql2) throws SQLException{
 
+        Connection conn1 = GetConnection("dbtest1");
+        Connection conn2 = GetConnection("dbtest2");
+
+        try {
+            Boolean result = compareRS(sql1, sql2, conn1, conn2);
+            conn1.rollback();
+            conn2.rollback();
+            conn1.close();
+            conn2.close();
+            System.out.println("关闭两个connn");
+            return result;
+        }catch (SQLException e ){
+            System.out.println(e.getMessage());
+            System.out.println("关闭两个connn");
+            conn1.rollback();
+            conn2.rollback();
+            conn1.close();
+            conn2.close();
+            throw e;
+        }
+
+    }
+
+
+    private synchronized boolean compareRS(String sql1, String sql2,Connection conn1, Connection conn2) throws SQLException {
+
+
+        Statement statement1 = conn1.createStatement();
+        Statement statement2 = conn2.createStatement();
         System.out.println(sql1);
         System.out.println(sql2);
-
-        Statement statement1 = conn.createStatement();
-        Statement statement2 = conn.createStatement();
         ResultSet rs1 = statement1.executeQuery(sql1);
         ResultSet rs2 = statement2.executeQuery(sql2);
 
@@ -76,8 +127,7 @@ public class CompareSQLService {
         rs2.first();
         while (rs1.next() && rs2.next()) {
             for (int i = 1; i <= columnCount; i++) {
-//                System.out.println(rs1.getString(i));
-//                System.out.println(rs2.getString(i));
+
                 if(rs1.getString(i)==null && rs1.getString(i)==null){
                     continue;
                 }else if (rs1.getString(i)==null && rs1.getString(i)!=null){
@@ -97,39 +147,56 @@ public class CompareSQLService {
     public synchronized boolean compareChange(String[]tables,String sql1, String sql2) throws SQLException {
         sql1 = sql1.toLowerCase();
         sql2 = sql2.toLowerCase();
-        Statement statement = conn.createStatement();
-        String sql;
-        for (String i:tables) {
-            System.out.println(i);
-            sql = "DROP TABLE IF EXISTS "+i+"_test1";
-            statement.execute(sql);
-            sql = "DROP TABLE IF EXISTS "+i+"_test2";
-            statement.execute(sql);
-            sql = "CREATE TABLE "+i+"_test1" + " SELECT * FROM "+i;
-            statement.execute(sql);
-            sql = "CREATE TABLE "+i+"_test2" + " SELECT * FROM "+i;
-            statement.execute(sql);
 
-            sql1 = sql1.replaceAll(' '+i+' ',' '+i+"_test1 ");
-            sql1 = sql1.replaceAll('`'+i+'`','`'+i+"_test1`");
-            sql2 = sql2.replaceAll(' '+i+' ',' '+i+"_test2 ");
-            sql2 = sql2.replaceAll('`'+i+'`','`'+i+"_test2`");
-        }
-        System.out.println(sql1);
-        System.out.println(sql2);
-        statement.execute(sql1);
-        statement.execute(sql2);
+        Connection conn1 = this.GetConnection("dbtest1");
+        Connection conn2 = this.GetConnection("dbtest2");
 
-        for (String i:tables) {
-            String test_sql1 = "SELECT * FROM " + i +"_test1 ";
-            String test_sql2 = "SELECT * FROM " + i +"_test2 " ;
-            if (!compareRS(test_sql1,test_sql2)){
-                System.out.println("更改语句不相等");
-                return false;
+
+        try{
+            Statement statement1 = conn1.createStatement();
+            Statement statement2 = conn2.createStatement();
+
+
+
+            statement1.execute(sql1);
+            System.out.println(sql1);
+
+            statement2.execute(sql2);
+            System.out.println(sql2);
+
+            for (String i:tables) {
+                String test_sql1 = "SELECT * FROM " + i ;
+                String test_sql2 = "SELECT * FROM " + i ;
+                if (!compareRS(test_sql1,test_sql2,conn1,conn2)){
+                    System.out.println("更改语句不相等");
+                    conn1.rollback();
+                    conn2.rollback();
+                    conn1.close();
+                    conn2.close();
+                    System.out.println("关闭两个conn");
+
+                    return false;
+                }
             }
+            System.out.println("更改语句相等");
+            conn1.rollback();
+            conn2.rollback();
+            conn1.close();
+            conn2.close();
+            System.out.println("关闭两个conn");
+            return true;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            conn1.rollback();
+            conn2.rollback();
+            System.out.println("关闭两个conn");
+            conn1.close();
+            conn2.close();
+            System.out.println(e.getMessage());
+            throw e;
+
         }
-        System.out.println("更改语句相等");
-        return true;
+
     }
     public static void main(String[] args) {
         String sql1;
@@ -139,16 +206,29 @@ public class CompareSQLService {
                 "AND GRADE >= 90";
         sql2 =  "SELECT DISTINCT SNAME FROM students,Courses,SC\n" +
                 "WHERE   Courses.CNO = SC.CNO AND students.SNO = SC.SNO\n" +
-                "AND GRADE >= 90";
+                "AND GRADE = 90";
 //        sql1 = "SELECT SNAME FROM `students` WHERE 1";
 //        sql2 = "SELECT SNAME FROM `students` WHERE 1"
 
-//        sql1 = "DELETE  FROM SC WHERE 0";
+//        sql1 = "DELETE  FROM SC WHERE 1";
 //        sql2 = "DELETE  FROM SC WHERE 0";
 
+//        sql1 = "DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\n" +
+//                "WHERE SC.SNO LIKE '20153031%';";
+//        sql2 = "delete sc,students from sc join students on sc.sno = students.sno\n" +
+//                "where sc.sno like '20153031%'";
+
+        sql1 = "DELETE FROM SC WHERE 1";
+        sql2 = "DELETE FROM SC WHERE 1";
+
+
         try {
-            new CompareSQLService().compareRS(sql1,sql2);
-//            new CompareSQL().compareChange(new String[]{"students","sc"},sql1,sql2);
+//            new CompareSQLService().compareRS(sql1,sql2);
+            CompareSQLService compareSQLService = new CompareSQLService();
+            compareSQLService.compareChange(new String[]{"students","sc"},sql1,sql2);
+            compareSQLService.compareChange(new String[]{"students","sc"},sql1,sql2);
+            compareSQLService.compareChange(new String[]{"students","sc"},sql1,sql2);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

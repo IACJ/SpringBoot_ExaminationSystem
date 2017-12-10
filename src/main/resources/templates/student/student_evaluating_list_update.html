@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
     <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
     <link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
 </head>
 
 <body>
@@ -56,26 +57,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="biaogekuang2">
-                        <td>1</td>
-                        <td><a href="student_evaluating_question.html">一个很简单的题</a></td>
-                        <td>更新题</td>
-                    </tr>
-                    <tr class="biaogekuang">
-                        <td>1</td>
-                        <td><a href="student_evaluating_question.html">一个很简单的题</a></td>
-                        <td>更新题</td>
-                    </tr>
-                    <tr class="biaogekuang2">
-                        <td>1</td>
-                        <td><a href="student_evaluating_question.html">一个很简单的题</a></td>
-                        <td>更新题</td>
-                    </tr>
-                    <tr class="biaogekuang">
-                        <td>1</td>
-                        <td><a href="student_evaluating_question.html">一个很简单的题</a></td>
-                        <td>更新题</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -84,6 +66,27 @@
 <div class="footer">
     kdkfaj | kdalksdjf | djksajf | 2017.11.12
 </div>
+
+<script>
+
+    $.get("/student/student_evaluating_list_update_get",function(data,status){
+        console.log(data);
+
+        var str ;
+
+        for (i in data){
+            if (i % 2){
+                str = ' <tr class="biaogekuang2"> <td>'+data[i].id+'</td> <td><a href="student_evaluating_question?id='+data[i].id+'">'+data[i].title+'</a></td> <td>'+data[i].type+'</td> </tr>'
+
+            }else{
+                str = ' <tr class="biaogekuang"> <td>'+data[i].id+'</td> <td><a href="student_evaluating_question?id='+data[i].id+'">'+data[i].title+'</a></td> <td>'+data[i].type+'</td> </tr>'
+            }
+            $("tbody").append(str);
+        }
+    });
+
+
+</script>
 </body>
 
 </html>
