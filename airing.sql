@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-12-10 17:21:18
+-- Generation Time: 2017-12-11 10:31:23
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -217,18 +217,29 @@ INSERT INTO `evadba` (`id`, `title`, `question`, `type`, `intable`, `rightanswer
 (2, '稳步提升', '已知有一个课程（courses）表，有cno，cname，lhour，credit，semester等属性，查询计算机系秋季所开课程的课程号和学分数；', '查找题', 'null', 'SELECT CNO, CREDIT FROM Courses \r\nWHERE CNO LIKE \'CS%\' AND SEMESTER=\'秋\';'),
 (3, '突飞猛进', '已知有一个学生（students）表，有sno，sname等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询选修计算机系秋季所开课程的男生的姓名、课程号、学分数、成绩；', '查找题', 'null', 'SELECT SNAME, Courses.CNO, CREDIT, GRADE FROM students,Courses,SC\r\nWHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\r\nAND Courses.CNO LIKE \'CS%\' AND SEMESTER=\'秋\';'),
 (4, '名震四方', '已知有一个学生（students）表，有sno，sname，sex等属性；有一个课程（courses）表，有cno，cname等属性；有一个学生选课（sc）表，有sno，cno等属性。查询至少选修一门电机系课程的女生的姓名（假设电机系课程的课程号以EE开头）；', '查找题', 'null', 'SELECT SNAME  FROM students,Courses,SC\r\nWHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\r\nAND Courses.CNO LIKE \'EE%\' AND SEX=\'女\';'),
-(5, '无名题', '已知有一个学生（students）表，有sno，sname等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询每位学生已选修课程的门数和总平均成绩；', '查找题', 'null', 'SELECT students.SNO,COUNT(*),AVG(sc. GRADE ) FROM Students,SC WHERE students.SNO = SC.SNO GROUP BY students.SNO'),
+(5, '出来吧成绩', '已知有一个学生（students）表，有sno，sname等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询每位学生已选修课程的门数和总平均成绩；', '查找题', 'null', 'SELECT students.SNO,COUNT(*),AVG(sc. GRADE ) FROM Students,SC WHERE students.SNO = SC.SNO GROUP BY students.SNO'),
 (6, '无名题', '已知有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询每门课程选课的学生人数,最高成绩,最低成绩和平均成绩；', '查找题', 'null', 'SELECT Courses.CNO, COUNT(*)as \'学生人数\',MAX(GRADE),MIN(GRADE),AVG(GRADE) FROM SC,Courses\r\nWHERE  Courses.CNO = SC.CNO\r\nGROUP BY Courses.CNO;'),
-(7, '无名题', '已知有一个学生（students）表，有sno，sname等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询所有课程的成绩都在80分以上的学生的姓名、学号、且按学号升序排列；', '查找题', 'null', 'SELECT SNAME,students.SNO FROM Students,SC\r\nWHERE  students.SNO = SC.SNO \r\nGROUP BY students.SNO\r\nHAVING MIN(GRADE) >=80\r\nORDER BY students.SNO ASC;'),
-(8, '无名题', '已知有一个学生（students）表，有sno，sname等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询缺成绩的学生的姓名，缺成绩的课程号及其学分数；', '查找题', 'null', 'SELECT SNAME, Courses.CNO, CREDIT FROM students,Courses,SC\r\nWHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\r\nAND GRADE=NULL'),
-(9, '无名题', '已知有一个学生（students）表，有sno，sname等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询有一门以上(含一门)三个学分以上课程的成绩低于70分的学生的姓名；', '查找题', 'null', 'SELECT DISTINCT SNAME\r\nFROM students,SC,Courses\r\nWHERE students.SNO = SC.SNO\r\nAND Courses.CNO = SC.CNO\r\nAND Courses.CREDIT >=3\r\nAND GRADE <70\r\n'),
-(10, '无名题', '已知有一个学生（students）表，有sno，sname，bdate等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询1984年~1986年出生的学生的姓名,总平均成绩及已修学分数。', '查找题', 'null', 'SELECT SNAME,AVG(GRADE),SUM(CREDIT) FROM students,Courses,SC\r\nWHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\r\nAND  BDATE > \'1984-01-01\' AND BDATE< \'1987-01-01\'\r\nGROUP BY Students.SNO'),
-(11, '无名题', '在students和sc关系中，删去sno以’20153031’头的所有记录。', '删除题', 'students,sc', 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE SC.SNO LIKE \'20153031%\';'),
-(12, '无名题', '在students关系中增加以下记录：\r\n     <04091011111  何平　　女　　1987-03-02　　1.62  cs>\r\n     <04081300000  向阳　　男　　1986-12-11　　1.75  cs>', '插入题', 'students', 'INSERT INTO `students` (`SNO`, `SNAME`, `SEX`, `BDATE`, `HEIGHT`) VALUES \r\n(\'0409101\',\'何平\',\'女\',\'1987-03-02\',1.62),(\'0408130\',\'向阳\',\'男\',\'1986-12-11\',1.75);'),
-(13, '无名题', '在courses关系中，将课程CS-221的学分数增为３，讲课时数增为６０', '更新题', 'sc', 'update Courses SET CREDIT=3,LHOUR=60 WHERE CNO=\'CS-221\';\r\n'),
-(14, '无名题', '在students和sc关系中，删去身高为’1.6’的所有记录。', '删除题', 'students,sc', 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE students.height=\'1.6\';'),
-(15, '无名题', '在courses表中增加一门课程，它的记录为：\r\n <C6  操作系统  64  4  秋 >', '插入题', 'courses', 'INSERT INTO `courses` (`cno`, `cname`, `lhour`, `credit`, `semester`) VALUES \r\n(\'C6\',\'操作系统\',64,4,\'秋\');'),
-(16, '无名题', '在sc关系中，将学号为201530311042，课程号为C1的记录的成绩改为80;', '更新题', 'sc', 'update sc SET grade=80 WHERE sno=’201530311042\' and CNO=\'C1\';');
+(7, '出来吧学霸', '已知有一个学生（students）表，有sno，sname等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询所有课程的成绩都在80分以上的学生的姓名、学号、且按学号升序排列；', '查找题', 'null', 'SELECT SNAME,students.SNO FROM Students,SC\r\nWHERE  students.SNO = SC.SNO \r\nGROUP BY students.SNO\r\nHAVING MIN(GRADE) >=80\r\nORDER BY students.SNO ASC;'),
+(8, '你缺考我看到了', '已知有一个学生（students）表，有sno，sname等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询缺成绩的学生的姓名，缺成绩的课程号及其学分数；', '查找题', 'null', 'SELECT SNAME, Courses.CNO, CREDIT FROM students,Courses,SC\r\nWHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\r\nAND GRADE=NULL'),
+(9, '你考得差我都看到了', '已知有一个学生（students）表，有sno，sname等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询有一门以上(含一门)三个学分以上课程的成绩低于70分的学生的姓名；', '查找题', 'null', 'SELECT DISTINCT SNAME\r\nFROM students,SC,Courses\r\nWHERE students.SNO = SC.SNO\r\nAND Courses.CNO = SC.CNO\r\nAND Courses.CREDIT >=3\r\nAND GRADE <70\r\n'),
+(10, '有名题', '已知有一个学生（students）表，有sno，sname，bdate等属性；有一个课程（courses）表，有cno，cname，credit等属性；有一个学生选课（sc）表，有sno，cno，grade等属性。查询1984年~1986年出生的学生的姓名,总平均成绩及已修学分数。', '查找题', 'null', 'SELECT SNAME,AVG(GRADE),SUM(CREDIT) FROM students,Courses,SC\r\nWHERE students.SNO = SC.SNO AND Courses.CNO = SC.CNO\r\nAND  BDATE > \'1984-01-01\' AND BDATE< \'1987-01-01\'\r\nGROUP BY Students.SNO'),
+(11, '消失的学生', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n在students和sc关系中，删去sno以’20153031’头的所有记录。', '删除题', 'students,sc', 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE SC.SNO LIKE \'20153031%\';'),
+(12, '神秘插班生', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n在students关系中增加以下记录：\r\n     <04091011111  何平　　女　　1987-03-02　　1.62  cs>\r\n     <04081300000  向阳　　男　　1986-12-11　　1.75  cs>', '插入题', 'students', 'INSERT INTO `students` (`SNO`, `SNAME`, `SEX`, `BDATE`, `HEIGHT`) VALUES \r\n(\'0409101\',\'何平\',\'女\',\'1987-03-02\',1.62),(\'0408130\',\'向阳\',\'男\',\'1986-12-11\',1.75);'),
+(13, 'good good study', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n在courses关系中，将课程CS-221的学分数增为３，讲课时数增为６０', '更新题', 'sc', 'update Courses SET CREDIT=3,LHOUR=60 WHERE CNO=\'CS-221\';\r\n'),
+(14, '消失的一米六', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n在students和sc关系中，删去身高为’1.6’的所有记录。', '删除题', 'students,sc', 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE students.height=\'1.6\';'),
+(15, '又多了一门课', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n在courses表中增加一门课程，它的记录为：\r\n <C6  操作系统  64  4  秋 >', '插入题', 'courses', 'INSERT INTO `courses` (`cno`, `cname`, `lhour`, `credit`, `semester`) VALUES \r\n(\'C6\',\'操作系统\',64,4,\'秋\');'),
+(16, '偷偷改成绩小游戏', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n在sc关系中，将学号为201530311042，课程号为C1的记录的成绩改为80;', '更新题', 'sc', 'update sc SET grade=80 WHERE sno=’201530311042\' and CNO=\'C1\';'),
+(17, '变成女校', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n删除Students，SC中sex为男的学生记录', '删除题', 'students,sc', 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE students.height=\'1.6\';'),
+(18, '开心消消乐', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n删除SC中grade>=90的成绩记录', '删除题', 'sc', 'DELETE * FROM SC where grade>=90;'),
+(19, '再接再厉', '已知有Students数据库包含如下表：\r\nSC(sno,cno,grade)\r\n将学号为201530371190选修的EE4课程成绩改成59', '更新题', 'sc', 'update sc set grade=59 where sno=\'201530371190\' and cno=\'EE4\';'),
+(20, '普通的更新题1', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n将1984年~1986年出生的学生的成绩更新为90', '更新题', 'students,sc', 'update sc,students set grade=90 \r\nwhere BDATE > \'1984-01-01\' AND BDATE< \'1987-01-01\';'),
+(21, '考完一门', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n插入学号为201530311042的课程号为EE4，成绩为61的成绩记录', '插入题', 'sc', 'insert into sc values(\'201530311042\',\'EE4\',61);'),
+(22, '女装大佬の潜入', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n将姓张的学生性别改成女', '更新题', 'students', 'update students set sex=\'女\'\r\nwhere sname like \'张%\';'),
+(23, '普通的更新题2', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n将编译原理的学时改为60', '更新题', 'courses', 'update Courses set lhour=60\r\nwhere cname=\'编译原理\';'),
+(24, '平平无奇的插入题1', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n插入学号为201530311042的课程号为EE4，成绩为59的成绩记录', '插入题', 'sc', 'insert into sc values(\'201530311042\',\'EE4\',59);'),
+(25, '变成男校', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\nCourses(cno,cname,lhour,credit,semester)\r\nSC(sno,cno,grade)\r\n删除Students，SC中sex为女的学生记录', '删除题', 'students,sc', 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE students.sex=\'女\';'),
+(26, '平平无奇的插入题2', '已知有Students数据库包含如下表：\r\nStudents(sno,sname,sex,bdate,height,department)\r\n在students关系中增加以下记录：\r\n     <04091011098  卡比兽　　男　　2017-03-02　　1.62  null>', '插入题', 'students', 'INSERT INTO `students` (`SNO`, `SNAME`, `SEX`, `BDATE`, `HEIGHT`) VALUES \r\n(\'04091011098\',\'卡比兽\',\'男\',\'2017-03-02\',1.62\');'),
+(27, '又又多了一门课', '已知有一个课程（courses）表，有cno，cname，lhour，credit，semester等属性\r\n增加一门课程：<EE6  成功学  64  4  秋 >', '插入题', 'courses', 'INSERT INTO `courses` (`cno`, `cname`, `lhour`, `credit`, `semester`) VALUES \r\n(\'EE6\',\'成功学\',64,4,\'秋\');');
 
 -- --------------------------------------------------------
 
@@ -257,7 +268,17 @@ INSERT INTO `judgedba` (`id`, `question`, `rightanswer`, `secrecy`) VALUES
 (7, '数据库系统其实就是一个应用软件。', 'F', 0),
 (8, '三级模式结构也就是从逻辑上对数据库的组织从内到外进行的3个层次描述。', 'T', 0),
 (9, '三级模式间存在三个映射关系。', 'F', 0),
-(10, 'DBMS不需要操作系统的支持就可以实现其功能。', 'F', 0);
+(10, 'DBMS不需要操作系统的支持就可以实现其功能。', 'F', 0),
+(11, '用二维表结构表示实体型，外键实现实体之间联系的模型称为关系模型。', 'T', 0),
+(12, '关系模型不能表示实体之间多对多联系。', 'F', 0),
+(13, '任何一张二维表格都表示一个关系。', 'F', 0),
+(14, '关系是元组的集合。', 'T', 0),
+(15, '域是一组具有相同数据类型的值的集合。', 'T', 0),
+(16, '一个域允许的不同取值个数称为这个域的基数.', 'T', 0),
+(17, 'D1×D2×…×Dn的子集叫作在域D1，D2，…，Dn上的关系，表示为R（D1，D2，…，Dn）', 'T', 0),
+(18, '超码/超键(superkey)能唯一地标识关系中的一个元组的一属性组', 'T', 0),
+(19, '候选码（Candidate key）若关系中的某一属性组的值能唯一地标识一个元组，而其子集不能，则称该属性组为候选r码。', 'T', 0),
+(20, '若一个关系有多个候选码，则选定其中一个为主码（Primary key）', 'T', 0);
 
 -- --------------------------------------------------------
 
@@ -272,20 +293,26 @@ CREATE TABLE `paper` (
   `finishtime` datetime NOT NULL,
   `choi` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `judg` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `sub` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `sub` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `choiscore` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `judgscore` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `subscore` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `tid` bigint(20) DEFAULT NULL,
-  `classid` bigint(20) NOT NULL
+  `classid` varchar(100) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- 转存表中的数据 `paper`
 --
 
-INSERT INTO `paper` (`id`, `name`, `begintime`, `finishtime`, `choi`, `judg`, `sub`, `tid`, `classid`) VALUES
-(1, '数据库平时练习第一章', '2017-12-09 18:00:00', '2017-12-09 19:00:00', '1,2,3,4,5,6,7,8,9,10', '1,2,3,4,5,', '1,2,3,4,5', 1, 3),
-(2, '数据库平时练习第一章', '2017-12-09 19:00:00', '2017-12-09 20:00:00', '2,3,4,5,6,7,8,9,10,11', '2,3,4,5,6', '2,3,4,5,6', 2, 1),
-(3, '数据库平时练习第二章', '2017-12-10 14:00:00', '2017-12-10 15:00:00', '21,22,23,24,25,26,27,28,29,30', '3,4,5,6,7', '11,12,13,14,15', 3, 2),
-(4, '数据库平时练习第二章', '2017-12-09 15:00:00', '2017-12-09 16:00:00', '22,23,24,25,26,27,28,29,30,31', '4,5,6,7,8', '12,13,14,15,16', 1, 1);
+INSERT INTO `paper` (`id`, `name`, `begintime`, `finishtime`, `choi`, `judg`, `sub`, `choiscore`, `judgscore`, `subscore`, `tid`, `classid`) VALUES
+(1, '数据库平时练习第一章', '2017-12-09 18:00:00', '2017-12-09 19:00:00', '1,2,3,4,5,6,7,8,9,10', '1,2,3,4,5,', '1,2,3,4,5', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|2|,|3|]'),
+(2, '数据库平时练习第一章', '2017-12-09 19:00:00', '2017-12-09 20:00:00', '2,3,4,5,6,7,8,9,10,11', '2,3,4,5,6', '2,3,4,5,6', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 2, '[|1|,|2|]'),
+(3, '数据库平时练习第二章', '2017-12-10 14:00:00', '2017-12-10 15:00:00', '21,22,23,24,25,26,27,28,29,30', '3,4,5,6,7', '11,12,13,14,15', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 3, '[|1|,|2|,|4|,|6|,|3|,|5|]'),
+(4, '数据库平时练习第二章', '2017-12-09 15:00:00', '2017-12-09 16:00:00', '22,23,24,25,26,27,28,29,30,31', '4,5,6,7,8', '12,13,14,15,16', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|5|,|2|,|3|]'),
+(5, '数据库平时练习第二章', '2017-12-09 15:00:00', '2017-12-09 16:00:00', '22,23,24,25,26,27,28,29,30,31', '4,5,6,7,8', '12,13,14,15,16', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|4|]'),
+(6, '数据库期中测试', '2017-12-11 19:00:00', '2017-12-11 20:00:00', '1,11,21,31,41,51,61,71,81,91', '1,3,5,7,9', '1,3,5,7,9', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 2, '[|1|,|3|]'),
+(7, '数据库期末测试', '2017-12-20 19:00:00', '2017-12-20 20:00:00', '2,12,22,32,42,52,62,72,82,92', '2,4,6,8,10', '2,4,6,8,10', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|2|,|4|,|6|,|3|,|5|]');
 
 -- --------------------------------------------------------
 
@@ -306,8 +333,11 @@ CREATE TABLE `record` (
 --
 
 INSERT INTO `record` (`sid`, `pid`, `record`, `status`, `score`) VALUES
-(2, 1, 'null', '未提交', 0),
-(4, 2, 'null', '未提交', 0);
+(2, 1, '{\"cho_1\":\"B\",\"cho_4\":\"C\",\"cho_5\":\"C\",\"cho_6\":\"D\",\"cho_2\":\"A\",\"cho_8\":\"C\",\"tf_2\":\"T\",\"tf_4\":\"T\",\"tf_6\":\"T\",\"sub_1\":\"zxcdscsd\",\"sub_2\":\"asd \",\"sub_3\":\"打撒大三的思维卫峰\",\"sub_4\":\"额分分\",\"sub_5\":\"第三次多少\"}', '等待批改', 0),
+(2, 2, '', '已批改', 80),
+(2, 3, '', '已批改', 100),
+(5, 3, '{\"cho_22\":\"B\",\"cho_25\":\"A\",\"cho_24\":\"B\",\"cho_30\":\"B\",\"cho_29\":\"B\",\"cho_21\":\"B\",\"tf_undefined\":\"T\",\"sub_undefined\":\"\"}', '等待批改', 0),
+(2, 4, '', '已批改', 100);
 
 -- --------------------------------------------------------
 
@@ -401,7 +431,16 @@ INSERT INTO `status` (`runid`, `eid`, `uid`, `sql2`, `time`, `status`) VALUES
 (70, 13, 2, 'update courses set grade=3,hours=60 where cno =\'cs-221\'', '2017-12-11 00:01:11', 'SQL语句出错：Unknown column \'grade\' in \'field list\''),
 (71, 1, 2, 'update courses set credit=3,hours=60 where cno =\'cs-221\'', '2017-12-11 00:01:46', 'SQL语句出错：Can not issue data manipulation statements with executeQuery().'),
 (72, 13, 2, 'update courses set credit=3,hours=60 where cno =\'cs-221\'', '2017-12-11 00:01:57', 'SQL语句出错：Unknown column \'hours\' in \'field list\''),
-(73, 13, 2, 'update courses set credit=3,Lhour=60 where cno =\'cs-221\'', '2017-12-11 00:02:24', '答案正确，你真棒！');
+(73, 13, 2, 'update courses set credit=3,Lhour=60 where cno =\'cs-221\'', '2017-12-11 00:02:24', '答案正确，你真棒！'),
+(74, 1, 2, 'select sno,sname from students where sex=\'男\' and height>1.8', '2017-12-11 09:54:56', '答案正确，你真棒！'),
+(75, 12, 2, 'fgbdfbfdbf', '2017-12-11 10:01:12', 'SQL语句出错：Duplicate entry \'0409101\' for key \'PRIMARY\''),
+(76, 1, 2, 'select * from students', '2017-12-11 15:41:02', '答案错误，你真笨!'),
+(77, 11, 2, 'delete from sc;', '2017-12-11 15:43:44', '答案错误，你真笨!'),
+(78, 17, 2, 'delete from SC,Students where sex = \'男\';', '2017-12-11 16:34:55', 'SQL语句出错：You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near \'where sex = \'男\'\' at line 1'),
+(79, 17, 2, 'delete from SC,Students where sex = \'男\';', '2017-12-11 16:36:29', 'SQL语句出错：You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near \'where sex = \'男\'\' at line 1'),
+(80, 25, 2, 'DELETE SC,Students FROM SC JOIN Students ON SC.SNO = Students.SNO\r\nWHERE students.sex=\'女\';', '2017-12-11 16:36:44', '答案正确，你真棒！'),
+(81, 25, 2, 'DELETE SC,Students FROM SC,Students\r\nWHERE students.sex=\'女\';', '2017-12-11 16:38:50', '答案错误，你真笨!'),
+(82, 1, 5, 'select * from students', '2017-12-11 17:01:24', '答案错误，你真笨!');
 
 -- --------------------------------------------------------
 
@@ -424,11 +463,11 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`id`, `account`, `name`, `sex`, `password`, `classid`) VALUES
 (2, 'zal', '张爱玲', '女', 'zal', 1),
-(3, 'gyq', '高雨晴', '女', 'gyq', 6),
-(4, 'zcl', '郑春玲', '女', 'zcl', 4),
+(3, 'gyq', '高雨晴', '女', '123456', 6),
+(4, 'zcl', '郑春玲', '女', '123456', 4),
 (5, 'ln', '黎宁', '男', 'ln', 5),
 (6, 'laq', '林安琪', '女', 'laq', 2),
-(8, 'wff', '魏凤凤', '女', 'wff', 3);
+(8, 'wff', '魏凤凤', '男', '123456', 3);
 
 -- --------------------------------------------------------
 
@@ -451,7 +490,13 @@ INSERT INTO `subdba` (`id`, `question`, `refanswer`, `secrecy`) VALUES
 (1, '数据与信息有何区别，有何联系？', '答：数据是一组对客观事物定性或定量描述的原始物理符号的集合，包括文本、图形\r\n、图像、声音等形式，也是数据库存储和加工的基本对象。信息是一种已经被加工为\r\n特定形式的数据，是对现实世界事物存在方式或运动状态的反映。\r\n', 0),
 (2, '简述数据库、数据库管理系统、数据库系统的概念。\r\n\r\n', '答：数据库：简单理解就是数据的仓库，长期存储可共享，冗余小，独立性高的数据\r\n      的集合。\r\n    数据库管理系统：用来操纵和管理数据库的软件，介于用户和操作系统之间，对\r\n      数据库进行统一的管理和控制。\r\n    数据库系统：数据库系统是数据库应用系统的简称，是计算机系统引入数据库之\r\n      后的系统，由计算机、数据库、数据库管理系统、应用程序和用户组成。\r\n', 0),
 (3, '数据库管理技术经历了哪几个阶段？各阶段主要特点是什么？', '答：人工管理阶段：\r\n       1.数据不能长期保存；2.系统没有专用的软件对数据进行管理；3.程序与数\r\n         据不具有独立性；4.数据无法共享。\r\n    文件系统阶段：\r\n       1.数据可以长期保存；2.程序与数据有一定的独立性；3.文件系统对数据进\r\n    行统一管理，文件形式多种多样；\r\n       4.数据冗余度大；5数据独立性低。\r\n    数据库系统阶段：\r\n       1.数据整体结构化；2.数据共享性高，冗余度高，易扩展；3.数据独立性高；\r\n    4.数据由数据库管理系统统一管理。\r\n', 0),
-(4, '文件系统与数据库系统有什么本质的区别？', '答：数据库系统是将所有应用程序需要的数据按照统一的结构集成在一起，即数据\r\n的结构化。\r\n\r\n', 0);
+(4, '文件系统与数据库系统有什么本质的区别？', '答：数据库系统是将所有应用程序需要的数据按照统一的结构集成在一起，即数据\r\n的结构化。\r\n\r\n', 0),
+(5, '数据模型的组成要素有哪些，并详细阐述他们的含义：', '数据结构：描述数据库的组成对象，以及对象之间的联系。数据操作：对数据库中各种对象(型)的实例(值)允许执\r\n行的操作及有关的操作规则。完整性约束：反映和规定必须遵守的基本的通用的完整性约束条件。', 0),
+(6, '常用的数据模型有：', '传统数据模型有层次模型，网状模型；关系模型(Relational Model)；对象关系模型(Object Relational Model)；面向对象模型(Object Oriented Model）；半 结 构 化 数 据 模 型 （ Semistruture Data\r\nModel）', 0),
+(7, '数据库设计一般分为哪几个阶段，每个阶段的主要任务是什么？', '（1）数据库设计分为6个阶段：需求分析、概念结构设计、逻辑结构设计、物理结构设计、数据库实施、数据库运行和维护。\r\n（2）各阶段任务如下：①需求分析：准确了解与分析用户需求（包括数据与处理）。②概念结构设计：通过对用户需求进行综合、归纳与抽象，形成一个独立于具体 DBMS 的概念模型。③逻辑结构设计：将概念结构转换为某个 DBMS 所支持的数据模型，并对其进行优化。④数据库物理设计：为逻辑数据模型选取一个最适合应用环境的物理结构（包括存储结构和存取方法）。⑤数据库实施：设计人员运用 DBMS 提供的数据语言、工具及宿主语言，根据逻辑设计和物理设计的结果建立数据库，编制与调试应用程序，组织数据入库，并进行试运行。 ⑥数据库运行和维护：在数据库系统运行过程中对其进行评价、调整与修改。\r\n', 0),
+(8, '什么是事务，事务有哪些特性?', '答：事务是DBMS的基本工作单位，它是用户定义的一组逻辑一致的程序序列。它是一个不可分割的工作单位，其中包含的所有操作，要么都执行，要么都不执行。\r\n事务具有4 个特性：原子性（Atomicity ）、一致性（consistency ）、隔离性( Isolation ）和持续性（Durability ）。这4 个特性也简称为ACID 特性。\r\n原子性：事务是数据库的逻辑工作单位，事务中包括的诸操作要么都做，要么都不做。\r\n一致性：事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态。\r\n隔离性：一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据  对其他并发事务是隔离的，并发执行的各个事务之间不能互相干扰。持续性：持续性也称永久性（Perfnanence ) ，指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其执行结果有任何影响。\r\n', 0),
+(9, '事务中的提交和回滚是什么意思?', '答：事务中的提交(COMMIT)是提交事务的所有操作。具体说就是将事务中所有对数据库的更新写回到磁盘上的物理数据库中去，事务正常结束。事务中的回滚(ROLLBACK)是数据库滚回到事务开始时的状态。具体地说就是，在事务运行的过程中发生了某种故障，事务不能继续执行，系统将事务中对数据库的所有已完成的更新操作全部撤消，使数据库回滚到事务开始时的状态。', 0),
+(10, '为什么要设立日志文件?', '答：设立日志文件的目的，是为了记录对数据库中数据的每一次更新操作。从而DBMS可以根据日志文件进行事务故障的恢复和系统故障的恢复，并可结合后援副本进行介质故障的恢复。', 0);
 
 -- --------------------------------------------------------
 
@@ -502,6 +547,12 @@ ALTER TABLE `class`
 -- Indexes for table `evadba`
 --
 ALTER TABLE `evadba`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `judgedba`
+--
+ALTER TABLE `judgedba`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -573,19 +624,25 @@ ALTER TABLE `class`
 -- 使用表AUTO_INCREMENT `evadba`
 --
 ALTER TABLE `evadba`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- 使用表AUTO_INCREMENT `judgedba`
+--
+ALTER TABLE `judgedba`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- 使用表AUTO_INCREMENT `paper`
 --
 ALTER TABLE `paper`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- 使用表AUTO_INCREMENT `status`
 --
 ALTER TABLE `status`
-  MODIFY `runid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `runid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- 使用表AUTO_INCREMENT `student`
@@ -597,7 +654,7 @@ ALTER TABLE `student`
 -- 使用表AUTO_INCREMENT `subdba`
 --
 ALTER TABLE `subdba`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 使用表AUTO_INCREMENT `teacher`
@@ -619,14 +676,12 @@ ALTER TABLE `class`
 -- 限制表 `paper`
 --
 ALTER TABLE `paper`
-  ADD CONSTRAINT `paper_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`),
-  ADD CONSTRAINT `paper_ibfk_2` FOREIGN KEY (`classid`) REFERENCES `class` (`classid`);
+  ADD CONSTRAINT `paper_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`);
 
 --
 -- 限制表 `record`
 --
 ALTER TABLE `record`
-  ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `paper` (`id`),
   ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `student` (`id`);
 
 --

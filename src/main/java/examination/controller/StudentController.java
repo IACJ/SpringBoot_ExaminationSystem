@@ -155,9 +155,7 @@ public class StudentController {
         System.out.println(" 接收:"+pid);
         long uid = (long) httpSession.getAttribute("userid");
 
-        examService.submitPapre(uid,pid,ans);
-
-        return  "提交成功";
+        return examService.submitPapre(uid,pid,ans);
     }
 
     @RequestMapping(value = "student_chart")

@@ -14,7 +14,11 @@
     </update>
 
     <select id="getList" resultType="Map">
-        SELECT * from `status` ORDER BY `time` DESC LIMIT #{off},#{n};
+        SELECT`runid`, `eid`, `uid`, `sql2`, `time`, `status`,`name` FROM `status`
+        INNER JOIN `student` WHERE `status`.uid = student.id
+        ORDER BY `time` DESC
+        LIMIT #{off},#{n};
+
     </select>
 
 </mapper>

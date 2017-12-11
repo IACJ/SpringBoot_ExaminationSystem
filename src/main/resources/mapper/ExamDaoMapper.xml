@@ -16,5 +16,10 @@
         WHERE sid = #{sid}
     </select>
 
+    <insert id="submit" parameterType="examination.entity.Record" useGeneratedKeys="true" keyProperty="runid">
+        INSERT INTO `record`(`sid`, `pid`, `record`, `status`, `score`)
+        VALUES (#{sid},#{pid},#{record},'等待批改',0);
+    </insert>
+
 
 </mapper>

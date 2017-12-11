@@ -5,6 +5,7 @@ import examination.entity.Paper;
 import examination.entity.Question.Choicedba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
+import examination.entity.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +19,7 @@ public interface ExamDao {
     List<Map> listPaperByClass(@Param("classid") Long classid);
 
     List<Map> listGradeBySid(@Param("sid") Long sid);
+
+    void submit(Record record);
 
 }

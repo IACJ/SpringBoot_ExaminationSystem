@@ -1,5 +1,6 @@
 package examination.service;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import examination.dao.ExamDao;
 import examination.dao.QuestionDao;
 import examination.dao.StudentDao;
@@ -7,6 +8,7 @@ import examination.entity.Paper;
 import examination.entity.Question.Choicedba;
 import examination.entity.Question.Judgedba;
 import examination.entity.Question.Subdba;
+import examination.entity.Record;
 import examination.entity.Status;
 import examination.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,21 @@ public class ExamService {
         return examDao.findPaperById(id);
     }
 
-    public void submitPapre (Long uid, Long eid,String ans){
+    public String submitPapre (Long sid, Long pid,String record){
+
         System.out.println("执行交卷服务");
+        Record r = new Record();
+        r.setSid(sid);
+        r.setPid(pid);
+        r.setRecord(record);
+        try{
+            examDao.submit(r);
+            return "提交成功。\n请携带随身物品离开考场。";
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return "请勿重复提交试卷。\n以第一次提交为准。";
+        }
+
     }
 
     public List<Map> listPaperBySid(long  sid){
