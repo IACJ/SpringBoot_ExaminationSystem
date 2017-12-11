@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/student")
@@ -155,9 +155,7 @@ public class StudentController {
         System.out.println(" 接收:"+pid);
         long uid = (long) httpSession.getAttribute("userid");
 
-        examService.submitPapre(uid,pid,ans);
-
-        return  "提交成功";
+        return examService.submitPapre(uid,pid,ans);
     }
 
     @RequestMapping(value = "student_chart")
@@ -220,7 +218,7 @@ public class StudentController {
 
     @RequestMapping(value = "student_get_status",method = RequestMethod.GET)
     @ResponseBody
-    List<Status> studentGetStatus(long page){
+    List<Map> studentGetStatus(long page){
         final long n = 20;
         long off = (page-1) * n;
         return evaluatingService.get_Status(off,n);
@@ -248,6 +246,20 @@ public class StudentController {
     @ResponseBody
     List<Evadba> studentEvaluatingListInsertGet(){
         return exerciseService.getEvadbaByType("插入题");
+    }
+
+    @RequestMapping(value = "student_test_get",method = RequestMethod.GET)
+    @ResponseBody
+    List<Map> studentTestGet(HttpSession httpSession){
+        long uid = (long) httpSession.getAttribute("userid");
+        return examService.listPaperBySid(uid);
+    }
+
+    @RequestMapping(value = "student_grade_get",method = RequestMethod.GET)
+    @ResponseBody
+    List<Map> studentGradeGet(HttpSession httpSession){
+        long uid = (long) httpSession.getAttribute("userid");
+        return examService.listGradeBySid(uid);
     }
 
 

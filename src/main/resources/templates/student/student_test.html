@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
 	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
 	<link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
 </head>
 
 <body>
@@ -44,42 +45,16 @@
 				<table class="table">
 					<thead>
 					<tr>
+                        <th>试卷id</th>
 						<th>考试名称</th>
 						<th>开始时间</th>
 						<th>交卷时间</th>
 						<th>信息</th>
-						<th>查询</th>
+
 					</tr>
 					</thead>
 					<tbody>
-					<tr class="biaogekuang2">
-						<td>1</td>
-						<td>04/04/2012</td>
-						<td>01/04/2012</td>
-						<td><a href="student_test_ing.html">进入考试</a></td>
-						<td>查询</td>
-					</tr>
-					<tr class="biaogekuang">
-						<td>2</td>
-						<td>04/04/2012</td>
-						<td>02/04/2012</td>
-						<td><a href="student_test_ing.html">进入考试</a></td>
-						<td>查询</td>
-					</tr>
-					<tr class="biaogekuang2">
-						<td>3</td>
-						<td>04/04/2012</td>
-						<td>03/04/2012</td>
-						<td><a href="student_test_ing.html">进入考试</a></td>
-						<td>查询</td>
-					</tr>
-					<tr class="biaogekuang">
-						<td>4</td>
-						<td>04/04/2012</td>
-						<td>04/04/2012</td>
-						<td><a href="student_test_ing.html">进入考试</a></td>
-						<td>查询</td>
-					</tr>
+
 					</tbody>
 				</table>
 			</div>
@@ -89,6 +64,38 @@
 <div class="footer">
 	kdkfaj | kdalksdjf | djksajf | 2017.11.12
 </div>
+
+<script>
+
+	function tm(timestamp){
+        var d = new Date(timestamp );    //根据时间戳生成的时间对象
+        var date = (d.getFullYear()) + "-" +
+            (d.getMonth() + 1) + "-" +
+            (d.getDate()) + " " +
+            (d.getHours()) + ":" +
+            (d.getMinutes()) + ":" +
+            (d.getSeconds());
+        console.log(date);
+        return date;
+
+	}
+
+
+    $.get("/student/student_test_get",function(data,status){
+        console.log(data);
+        var str ;
+        for (i in data){
+            if (i % 2){
+                str = '<tr class="biaogekuang"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="student_test_ing?pid='+data[i].id+'">进入考试</a></td>  </tr>'
+            }else{
+                str = '<tr class="biaogekuang2"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="student_test_ing?pid='+data[i].id+'">进入考试</a></td>  </tr>'
+            }
+            $("tbody").append(str);
+        }
+    });
+
+
+</script>
 </body>
 
 </html>

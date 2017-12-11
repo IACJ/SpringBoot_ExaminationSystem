@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EvaluatingService {
@@ -56,7 +57,7 @@ public class EvaluatingService {
         evaluateDao.update(status);
     }
 
-    public List<Status> get_Status(long off, long n){
+    public List<Map> get_Status(long off, long n){
         return evaluateDao.getList(off, n);
     }
 }
