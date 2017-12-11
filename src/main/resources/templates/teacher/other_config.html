@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<p>考试名字<input type="text" id="name" /></p>
+<p>开始时间<input type="text" id="begintime" /></p>
+<p>结束时间<input type="text" id="finishtime" /></p>
+<p>班级<input type="text" id="classid" /></p>
+<a id="aaa" href="">完成配置</a>
+<script>
+    /* <![CDATA[*/
+    $("#aaa").click(function () {
+        $("#aaa").attr("href", "/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
+            $('#begintime').val()+"&finishtime="+ $('#finishtime').val()+"&classid="+ $('#classid').val());
+    })
+    /*]]>*/
+</script>
+</body>
+</html>

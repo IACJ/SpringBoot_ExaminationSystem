@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<input type="text" id="judge"/>
+<a id="aaa" href="">组主观题</a>
+<script>
+    $("#aaa").click(function () {
+        $("#aaa").attr("href", "/teacher/judge/combine?judge=" + $('#judge').val())
+    })
+</script>
+</body>
+</html>

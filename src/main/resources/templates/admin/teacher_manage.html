@@ -126,7 +126,7 @@
         var d = {
             id: $('#' + obj.id.replace('u', 'i')).text(),
             account: $('#' + obj.id.replace('u', 'a')).text(),
-            name: $('#' + obj.id.replace('u', 'n')).text(),
+            name: $('#' + obj.id.replace('u', 'n')).text()
         }
 
         $.post("/admin/teacher/update", d, function (data, status) {

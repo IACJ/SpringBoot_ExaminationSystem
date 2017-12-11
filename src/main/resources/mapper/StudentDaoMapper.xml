@@ -16,7 +16,7 @@
 
     <update id="update">
         UPDATE student set account=#{account},name=#{name},sex=#{sex}
-        ,password=#{password},classid=#{classid} WHERE id=#{id}
+        ,classid=#{classid} WHERE id=#{id}
     </update>
 
     <insert id="addByList">

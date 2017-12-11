@@ -45,13 +45,13 @@
                     </tbody>
                 </table>
                 <div class='page fix'>
-                    共 <b th:text="${count}">10</b> 条
-                    <a th:if="${currentPage!=1}" href="question_list?currentPage=1" class='first'>首页</a>
-                    <a th:if="${currentPage!=1}" th:href="'question_list?currentPage='+${currentPage-1}" class='pre'>上一页</a>
-                    当前第<span th:text="${currentPage}+'/'+${totalPage}">1</span>页
-                    <a th:if="${currentPage!=totalPage}" th:href="'question_list?currentPage='+${currentPage+1}" class='next'>下一页</a>
-                    <a th:if="${currentPage!=totalPage}" th:href="'question_list?currentPage='+${totalPage}" class='last'>末页</a>
-                    跳至&nbsp;<input id="currentPageText" type='text' th:value="${currentPage}" class='allInput w28'/>&nbsp;页&nbsp;
+                    共 <b th:text="${page.count}">10</b> 条
+                    <a th:if="${page.currentPage!=1}" href="question_list?currentPage=1" class='first'>首页</a>
+                    <a th:if="${page.currentPage!=1}" th:href="'question_list?currentPage='+${page.currentPage-1}" class='pre'>上一页</a>
+                    当前第<span th:text="${page.currentPage}+'/'+${page.totalPage}">1</span>页
+                    <a th:if="${page.currentPage!=page.totalPage}" th:href="'question_list?currentPage='+${page.currentPage+1}" class='next'>下一页</a>
+                    <a th:if="${page.currentPage!=page.totalPage}" th:href="'question_list?currentPage='+${page.totalPage}" class='last'>末页</a>
+                    跳至&nbsp;<input id="currentPageText" type='text' th:value="${page.currentPage}" class='allInput w28'/>&nbsp;页&nbsp;
                     <a href="" class='go' id="aaa">GO</a>
                 </div>
             </div>

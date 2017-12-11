@@ -78,7 +78,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="stu,stat:${students}" th:id="${stu.id}+'tr'">
-                        <td><input type="checkbox" name="checkbox" th:id="${stu.id}+'c'"/></td>
+                        <td><input type="checkbox" name="checkbox" th:id="${stu.id}+'ch'"/></td>
                         <td th:text="${stu.id}" contenteditable="true" th:id="${stu.id}+'i'">2</td>
                         <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
                         <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
@@ -133,6 +133,7 @@
             classid: $('#' + obj.id.replace('u', 'c')).text()
         }
 
+        console.log($('#' + obj.id.replace('u', 's')));
         $.post("/admin/student/update", d, function (data, status) {
             if (data) {
                 alert("修改成功！");
