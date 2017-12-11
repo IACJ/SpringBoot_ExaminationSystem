@@ -74,14 +74,18 @@
 				</div>
 				<div class="row-fluid">
 					<div class="pagination pagination-right">
-						<ul contenteditable="true">
-							<li><a href="#">上一页</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">下一页</a></li>
+						<ul contenteditable="false">
+							<li><a id ="pageMinus" href="#" >上一页</a></li>
+							<li><a href="/student/student_status.html?page=1">1</a></li>
+							<li><a href="/student/student_status.html?page=2">2</a></li>
+							<li><a href="/student/student_status.html?page=3">3</a></li>
+							<li><a href="/student/student_status.html?page=4">4</a></li>
+							<li><a href="/student/student_status.html?page=5">5</a></li>
+                            <li><a href="/student/student_status.html?page=6">6</a></li>
+                            <li><a href="/student/student_status.html?page=7">7</a></li>
+                            <li><a href="/student/student_status.html?page=8">8</a></li>
+                            <li><a href="/student/student_status.html?page=9">9</a></li>
+							<li><a id="pageplus" href="#">下一页</a></li>
 						</ul>
 					</div>
 				</div>
@@ -94,6 +98,18 @@
 
 <script>
    /* <![CDATA[*/
+
+   $(document).ready(function(){
+       page = getQueryVariable('page');
+       if (page=1){
+           $("#pageMinus").attr("href","#");
+       }else{
+           $("#pageMinus").attr("href",'/student/student_status.html?page='+(page-1));
+       }
+       $("#pageplus").attr("href",'/student/student_status.html?page='+(page+1));
+   });
+
+
     function getQueryVariable(variable)
     {
         var query = window.location.search.substring(1);

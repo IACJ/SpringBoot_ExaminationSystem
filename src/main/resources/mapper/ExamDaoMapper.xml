@@ -5,5 +5,16 @@
         SELECT * FROM `paper` WHERE `id`=#{id}
     </select>
 
+    <select id="listPaperByClass" resultType="Map">
+        SELECT * FROM `paper` WHERE `classid` LIKE '%|${classid}|%'
+    </select>
+
+    <select id="listGradeBySid" resultType="Map">
+        SELECT pid,paper.name as pname,teacher.name as tname,paper.begintime,paper.finishtime,record.score
+        FROM `record` INNER JOIN `paper` on paper.id=record.pid
+            inner JOIN `teacher` on teacher.id=paper.tid
+        WHERE sid = #{sid}
+    </select>
+
 
 </mapper>

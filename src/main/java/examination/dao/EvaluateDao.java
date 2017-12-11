@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EvaluateDao {
@@ -14,6 +15,6 @@ public interface EvaluateDao {
 
     long update(Status status);
 
-    List<Status>  getList(@Param("off") long off, @Param("n") long n);
+    List<Map>  getList(@Param("off") long off, @Param("n") long n);
 
 }
