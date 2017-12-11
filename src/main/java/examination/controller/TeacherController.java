@@ -1,6 +1,7 @@
 package examination.controller;
 
 
+import examination.entity.Paper;
 import examination.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class TeacherController {
         model.addAttribute("permission", httpSession.getAttribute("permission"));
         return path + "teacherpage";
     }
-    
+
     @RequestMapping(value = "question_list")
     String questionList(Model model, HttpServletRequest request) {
 
@@ -41,21 +42,21 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "get_paper")
-    String getPaper(){
+    String getPaper() {
         return path + "choice_combine";
     }
 
     @RequestMapping(value = "/{type}/combine")
-    public String  question(@PathVariable String type, HttpServletRequest request) {
-        HttpSession session=request.getSession();
-        if("choice".equals(type)){
-            session.setAttribute("choi",request.getParameter("choice"));
+    public String question(@PathVariable String type, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if ("choice".equals(type)) {
+            session.setAttribute("choi", request.getParameter("choice"));
             return path + "judge_combine";
-        }else if("judge".equals(type)){
-            session.setAttribute("judg",request.getParameter("judge"));
+        } else if ("judge".equals(type)) {
+            session.setAttribute("judg", request.getParameter("judge"));
             return path + "sub_combine";
-        }else if("sub".equals(type)){
-            session.setAttribute("sub",request.getParameter("sub"));
+        } else if ("sub".equals(type)) {
+            session.setAttribute("sub", request.getParameter("sub"));
             return path + "other_config";
         }
         return "error";
@@ -63,16 +64,29 @@ public class TeacherController {
 
     @RequestMapping(value = "paper_finish")
     @ResponseBody
-    boolean finishPaper(HttpServletRequest request){
-        HttpSession session=request.getSession();
-        System.out.println("name:"+request.getParameter("name"));
-        System.out.println("begintime:"+request.getParameter("begintime"));
-        System.out.println("finishtime:"+request.getParameter("finishtime"));
-        System.out.println("choi:"+session.getAttribute("choi"));
-        System.out.println("judg:"+session.getAttribute("judg"));
-        System.out.println("sub:"+session.getAttribute("sub"));
-        System.out.println("userid:"+session.getAttribute("userid"));
-        System.out.println("classid:"+request.getParameter("classid"));
-        return true;
+    boolean finishPaper(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        String name = request.getParameter("name");
+        String begintime = request.getParameter("begintime");
+        String finishtime = request.getParameter("finishtime");
+        String choi = (String) session.getAttribute("choi");
+        String judg = (String) session.getAttribute("judg");
+        String sub = (String) session.getAttribute("sub");
+        long tid = (long) session.getAttribute("userid");
+        String classid = request.getParameter("classid");
+
+
+        System.out.println("name:" + name);
+        System.out.println("begintime:" + begintime);
+        System.out.println("finishtime:" + finishtime);
+        System.out.println("choi:" + choi);
+        System.out.println("judg:" + judg);
+        System.out.println("sub:" + sub);
+        System.out.println("tid:" + tid);
+        System.out.println("classid:" + classid);
+
+        return paperService.addPaper(new Paper(name, begintime, finishtime, choi,
+                judg, sub, tid, classid)) != 0;
     }
 }

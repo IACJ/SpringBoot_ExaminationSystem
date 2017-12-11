@@ -1,8 +1,10 @@
 package examination.service;
 
 import examination.dao.ChoiceDao;
-import examination.entity.ChoiceQuestion;
-import examination.entity.Page;
+import examination.dao.JudgeDao;
+import examination.dao.PaperDao;
+import examination.dao.SubjectDao;
+import examination.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,14 @@ public class PaperService {
 
     @Autowired
     ChoiceDao choiceDao;
-    Page page;
+    @Autowired
+    JudgeDao judgeDao;
+    @Autowired
+    SubjectDao subjectDao;
+    @Autowired
+    PaperDao paperDao;
+
+    Page page = new Page();
 
     public Page getPage(String cp) {
         page = new Page();
@@ -33,4 +42,21 @@ public class PaperService {
         int pageNumber = page.getPageNumber();
         return choiceDao.getChoiceQuestion((currentPage - 1) * pageNumber, pageNumber);
     }
+
+    public List<JudgeQuestion> getJudgeQuestion() {
+        int currentPage = page.getCurrentPage();
+        int pageNumber = page.getPageNumber();
+        return judgeDao.getJudgeQuestion((currentPage - 1) * pageNumber, pageNumber);
+    }
+
+    public List<SubjectQuestion> getSubjectQuestion() {
+        int currentPage = page.getCurrentPage();
+        int pageNumber = page.getPageNumber();
+        return subjectDao.getSubjectQuestion((currentPage - 1) * pageNumber, pageNumber);
+    }
+
+    public int addPaper(Paper paper) {
+        return paperDao.add(paper);
+    }
+
 }

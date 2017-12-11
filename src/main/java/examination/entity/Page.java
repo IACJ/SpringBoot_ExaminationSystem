@@ -4,7 +4,7 @@ package examination.entity;
 public class Page {
     int pageNumber =7;
     int count;
-    int currentPage;
+    int currentPage =1;
     int totalPage;
 
     public int getPageNumber() {

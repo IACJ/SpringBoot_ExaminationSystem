@@ -1,9 +1,9 @@
 package examination.entity;
 
-public class JudgeQuestion {
+public class SubjectQuestion {
     long id;
     String question;
-    String rightAnswer;
+    String refAnswer;
     byte secrecy;
 
     public long getId() {
@@ -23,11 +23,11 @@ public class JudgeQuestion {
     }
 
     public String getRightAnswer() {
-        return rightAnswer;
+        return refAnswer;
     }
 
     public void setRightAnswer(String rightAnswer) {
-        this.rightAnswer = rightAnswer;
+        this.refAnswer = rightAnswer;
     }
 
     public byte getSecrecy() {
@@ -43,7 +43,7 @@ public class JudgeQuestion {
         return "JudgeQuestion{" +
                 "id=" + id +
                 ", question='" + question + '\'' +
-                ", rightAnswer='" + rightAnswer + '\'' +
+                ", rightAnswer='" + refAnswer + '\'' +
                 ", secrecy=" + secrecy +
                 '}';
     }

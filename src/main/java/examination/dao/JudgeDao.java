@@ -1,6 +1,6 @@
 package examination.dao;
 
-import examination.entity.ChoiceQuestion;
+import examination.entity.JudgeQuestion;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,5 +10,5 @@ import java.util.List;
 public interface JudgeDao {
     int getCount();
 
-    List<ChoiceQuestion> getChoiceQuestion(@Param("offset") int offset, @Param("limit") int limit);
+    List<JudgeQuestion> getJudgeQuestion(@Param("offset") int offset, @Param("limit") int limit);
 }
