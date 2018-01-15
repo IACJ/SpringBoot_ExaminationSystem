@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="examination.dao.JudgeDao">
+
+    <select id="getCount" resultType="int">
+        SELECT count(*) from judgedba;
+    </select>
+
+    <select id="getJudgeQuestion" resultType="JudgeQuestion">
+        select  * from judgedba limit #{offset},#{limit}
+    </select>
+
+</mapper>

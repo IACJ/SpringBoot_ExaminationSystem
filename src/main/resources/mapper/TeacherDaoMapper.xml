@@ -14,7 +14,7 @@
     </select>
 
     <update id="update">
-        UPDATE teacher set account=#{account},name=#{name},password=#{password} WHERE id=#{id}
+        UPDATE teacher set account=#{account},name=#{name} WHERE id=#{id}
     </update>
 
     <insert id="addByList">
@@ -33,4 +33,12 @@
     <delete id="delete">
         DELETE from teacher WHERE id=#{id}
     </delete>
+
+    <delete id="deleteByList">
+        DELETE from teacher WHERE id in
+        <foreach item="id" collection="list" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

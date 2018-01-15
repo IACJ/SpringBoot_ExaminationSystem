@@ -18,6 +18,8 @@ public interface TeacherDao {
 
     int delete(long id);
 
+    int deleteByList(List<Long> ids);
+
     int addByList(List<Teacher> teachers);
 
     List<Teacher> queryAll();
