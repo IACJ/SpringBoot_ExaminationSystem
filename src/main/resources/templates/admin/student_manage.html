@@ -158,14 +158,14 @@
     function deleteBatch() {
         var IDs = new Array();
         $("input[name='checkbox']:checked").each(function () {
-            var id = $(this).attr("id").replace('c', 'i');
+            var id = $(this).attr("id").replace('ch', 'i');
             IDs.push($('#' + id).text());
         })
         console.log(IDs);
         $.post("/admin/student/delete_batch", {list: IDs}, function (data, status) {
             if (data) {
                 $("input[name='checkbox']:checked").each(function () {
-                    var id = $(this).attr("id").replace('c', 'tr');
+                    var id = $(this).attr("id").replace('ch', 'tr');
                     $('#' + id).remove();
                 })
                 alert("删除成功！");

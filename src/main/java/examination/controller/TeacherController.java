@@ -1,22 +1,29 @@
 package examination.controller;
 
 
+import examination.entity.ChoiceQuestion;
 import examination.entity.Paper;
 import examination.service.PaperService;
+import examination.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
     final static String path = "teacher/";
+
+    @Autowired
+    TeacherService teacherService;
 
     @Autowired
     PaperService paperService;
@@ -61,6 +68,49 @@ public class TeacherController {
         }
         return "error";
     }
+
+    @RequestMapping(value = "{type}/delete")
+    @ResponseBody()
+    boolean deleteQuestion(@PathVariable String type, long id) {
+        if ("choice".equals(type)) {
+            return teacherService.deleteChoiceQuestion(id) != 0;
+        } else if ("judge".equals(type)) {
+
+        } else if ("sub".equals(type)) {
+
+        }
+
+        return false;
+    }
+
+    @RequestMapping(value = "{type}/delete_batch")
+    @ResponseBody()
+    boolean deleteQuestionBatch(@PathVariable String type, @RequestParam("list[]") List<Long> list) {
+        if ("choice".equals(type)) {
+            return teacherService.deleteChoiceQuestionBatch(list) != 0;
+        } else if ("judge".equals(type)) {
+
+        } else if ("sub".equals(type)) {
+
+        }
+
+        return false;
+    }
+
+    @RequestMapping(value = "{type}/update")
+    @ResponseBody()
+    boolean updateQuestion(@PathVariable String type, ChoiceQuestion choiceQuestion) {
+        if ("choice".equals(type)) {
+            return teacherService.updateChoiceQuestion(choiceQuestion) != 0;
+        } else if ("judge".equals(type)) {
+
+        } else if ("sub".equals(type)) {
+
+        }
+
+        return false;
+    }
+
 
     @RequestMapping(value = "paper_finish")
     @ResponseBody

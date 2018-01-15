@@ -1,23 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>数据库在线系统</title>
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
 </head>
+
 <body>
-<p>考试名字<input type="text" id="name" /></p>
-<p>开始时间<input type="text" id="begintime" /></p>
-<p>结束时间<input type="text" id="finishtime" /></p>
-<p>班级<input type="text" id="classid" /></p>
-<a id="aaa" href="">完成配置</a>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <a id="aaa" href="">其他配置</a>
+    </div>
+
+    <div id="student_content" class="background1">
+        <div class="alii">
+            <form id="add">
+                考试名字 <input style="height: 25px;" type="text" id="name"/><br/>
+                开始时间 <input style="height: 25px;" type="date" id="begintime"/><br/>
+                结束时间 <input style="height: 25px;" type="date" id="finishtime"/><br/>
+                班&nbsp;&nbsp;&nbsp;&nbsp;级&nbsp;&nbsp;&nbsp;
+                <select style="width:206px;" id="classid">
+                    <option>15计科1</option>
+                    <option>15计科2</option>
+                    <option>15网工</option>
+                    <option>15信安</option>
+                    <option>15计创</option>
+                    <option>15计联</option>
+                </select><br/><br/>
+                <input type="submit"  style="width: 240px;" value="提交"/>
+            </form>
+        </div>
+
+    </div>
+    <div style="margin-bottom:70px;"></div>
+</div>
+
+<div class="footer">
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
+</div>
+
 <script>
+
     /* <![CDATA[*/
     $("#aaa").click(function () {
         $("#aaa").attr("href", "/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
             $('#begintime').val()+"&finishtime="+ $('#finishtime').val()+"&classid="+ $('#classid').val());
     })
     /*]]>*/
+
 </script>
 </body>
+
 </html>
