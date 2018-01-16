@@ -23,4 +23,6 @@ public interface TeacherDao {
     int addByList(List<Teacher> teachers);
 
     List<Teacher> queryAll();
+
+    void updateInfo(@Param("id") long id,@Param("name")  String name,@Param("pw")  String pw);
 }

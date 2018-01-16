@@ -85,4 +85,15 @@ public class LoginController {
     String wrongpassword(Model model) {
         return "wrongpassword";
     }
+
+    @RequestMapping("/change_info_submit")
+    public String changeInfoSubmit(HttpSession httpSession,String name, String pw) {
+
+        long uid = (long) httpSession.getAttribute("userid");
+        String s = (String) httpSession.getAttribute("permission");
+
+        loginService.chageInfo(uid,s,name,pw);
+        String pageName = s.toLowerCase();
+        return "/"+pageName+"/"+pageName+"page";
+    }
 }

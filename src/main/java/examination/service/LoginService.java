@@ -37,4 +37,13 @@ public class LoginService {
         return null;
     }
 
+    public void chageInfo(long uid, String s, String name, String pw) {
+        if (s.equals("Teacher")){
+            teacherDao.updateInfo(uid,name,pw);
+        }else if(s.equals("Admin")){
+            adminDao.updateInfo();
+        }else {
+            studentDao.updateInfo(uid,name,pw);
+        }
+    }
 }

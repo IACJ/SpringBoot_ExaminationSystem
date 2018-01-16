@@ -14,7 +14,11 @@
     </select>
 
     <update id="update">
-        UPDATE teacher set account=#{account},name=#{name} WHERE id=#{id}
+        UPDATE teacher set `account`=#{account},`name`=#{name} WHERE id=#{id}
+    </update>
+
+    <update id="updateInfo">
+        UPDATE teacher set `name`=#{name},`password`=#{pw} WHERE id=#{id}
     </update>
 
     <insert id="addByList">
