@@ -65,7 +65,7 @@
                 <table class="table" id="myTable">
                     <thead>
                     <tr>
-                        <th>全选<input type="checkbox"/></th>
+                        <th>全选<input type="checkbox" id="checkall" onclick="selectAll()"/></th>
                         <th>id</th>
                         <th>账号</th>
                         <th>姓名</th>
@@ -78,8 +78,8 @@
                     </thead>
                     <tbody>
                     <tr th:each="stu,stat:${students}" th:id="${stu.id}+'tr'">
-                        <td><input type="checkbox" name="checkbox" th:id="${stu.id}+'ch'"/></td>
-                        <td th:text="${stu.id}" contenteditable="true" th:id="${stu.id}+'i'">2</td>
+                        <td><input type="checkbox" name="id" th:id="${stu.id}+'ch'"/></td>
+                        <td th:text="${stu.id}" th:id="${stu.id}+'i'">2</td>
                         <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
                         <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
                         <td th:text="${stu.sex}" contenteditable="true" th:id="${stu.id}+'s'">女</td>
@@ -87,11 +87,19 @@
                         <td>
                             <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'u'" onclick="updateStudent(this)">修改</button>
                         </td>
+
+                        <td>
+                            <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'r'"
+                                    onclick="resetPassword(this)">重置密码
+                            </button>
+                        </td>
+
                         <td>
                             <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'d'"
                                     onclick="deleteStudent(this)">删除
                             </button>
                         </td>
+
                     </tr>
                     </tbody>
                 </table>
@@ -105,6 +113,14 @@
 </div>
 
 <script>
+    function selectAll() {
+        if ($("#checkall").prop("checked")) {
+            $("input[type='checkbox'][name='id']").prop("checked", true);//全选
+        } else {
+            $("input[type='checkbox'][name='id']").prop("checked", false);  //取消全选
+        }
+    }
+
     function myFunction() {
         var input, filter, table, tr, td, i;
         input = document.getElementById("myInput");
@@ -157,14 +173,14 @@
 
     function deleteBatch() {
         var IDs = new Array();
-        $("input[name='checkbox']:checked").each(function () {
+        $("input[name='id']:checked").each(function () {
             var id = $(this).attr("id").replace('ch', 'i');
             IDs.push($('#' + id).text());
         })
         console.log(IDs);
         $.post("/admin/student/delete_batch", {list: IDs}, function (data, status) {
             if (data) {
-                $("input[name='checkbox']:checked").each(function () {
+                $("input[name='id']:checked").each(function () {
                     var id = $(this).attr("id").replace('ch', 'tr');
                     $('#' + id).remove();
                 })
@@ -172,6 +188,16 @@
             }
             else
                 alert("删除失败！");
+        });
+    }
+    
+    function resetPassword(obj) {
+        $.post("/admin/student/reset?id="+obj.id.replace("r",""), function (data, status) {
+            if (data) {
+                alert("重置密码成功！");
+            }
+            else
+                alert("重置密码失败！");
         });
     }
 </script>

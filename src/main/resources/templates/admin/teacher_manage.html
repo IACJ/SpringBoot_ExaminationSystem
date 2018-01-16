@@ -66,7 +66,7 @@
                 <table class="table" id="myTable">
                     <thead>
                     <tr>
-                        <th>全选<input type="checkbox"/></th>
+                        <th>全选<input type="checkbox" id="checkall" onclick="selectAll()"/></th>
                         <th>id</th>
                         <th>账号</th>
                         <th>姓名</th>
@@ -77,13 +77,19 @@
                     </thead>
                     <tbody>
                     <tr th:each="tea,stat:${teachers}" th:id="${tea.id}+'tr'">
-                        <td><input type="checkbox" name="checkbox" th:id="${tea.id}+'c'"/></td>
+                        <td><input type="checkbox" name="id" th:id="${tea.id}+'c'"/></td>
                         <td th:text="${tea.id}" contenteditable="true" th:id="${tea.id}+'i'">2</td>
                         <td th:text="${tea.account}" contenteditable="true" th:id="${tea.id}+'a'">dsl2015</td>
                         <td th:text="${tea.name}" contenteditable="true" th:id="${tea.id}+'n'">董守玲</td>
                         <td>
                             <button class="btn" type="button" style="margin-left: 0px;" th:id="${tea.id}+'u'"
                                     onclick="updateTeacher(this)">修改
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="btn" type="button" style="margin: 0px;" th:id="${tea.id}+'r'"
+                                    onclick="resetPassword(this)">重置密码
                             </button>
                         </td>
                         <td>
@@ -103,6 +109,25 @@
 </div>
 
 <script>
+
+    function selectAll() {
+        if ($("#checkall").prop("checked")) {
+            $("input[type='checkbox'][name='id']").prop("checked", true);//全选
+        } else {
+            $("input[type='checkbox'][name='id']").prop("checked", false);  //取消全选
+        }
+    }
+
+    function resetPassword(obj) {
+        $.post("/admin/teacher/reset?id="+obj.id.replace("r",""), function (data, status) {
+            if (data) {
+                alert("重置密码成功！");
+            }
+            else
+                alert("重置密码失败！");
+        });
+    }
+
     function myFunction() {
         var input, filter, table, tr, td, i;
         input = document.getElementById("myInput");
@@ -152,14 +177,14 @@
 
     function deleteBatch() {
         var IDs = new Array();
-        $("input[name='checkbox']:checked").each(function () {
+        $("input[name='id']:checked").each(function () {
             var id = $(this).attr("id").replace('c', 'i');
             IDs.push($('#' + id).text());
         })
         console.log(IDs);
         $.post("/admin/teacher/delete_batch", {list: IDs}, function (data, status) {
             if (data) {
-                $("input[name='checkbox']:checked").each(function () {
+                $("input[name='id']:checked").each(function () {
                     var id = $(this).attr("id").replace('c', 'tr');
                     $('#' + id).remove();
                 })

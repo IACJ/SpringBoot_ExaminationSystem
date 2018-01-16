@@ -23,4 +23,6 @@ public interface TeacherDao {
     int addByList(List<Teacher> teachers);
 
     List<Teacher> queryAll();
+
+    int resetPassword(long id);
 }
