@@ -25,5 +25,12 @@
         UPDATE judgedba set question=#{question},rightanswer=#{rightAnswer} WHERE id=#{id}
     </update>
 
+    <insert id="addByList">
+        INSERT INTO judgedba(question,rightanswer)
+        VALUE
+        <foreach collection="list" item="choice" separator=",">
+            (#{choice.question},#{choice.rightAnswer})
+        </foreach>
+    </insert>
 
 </mapper>

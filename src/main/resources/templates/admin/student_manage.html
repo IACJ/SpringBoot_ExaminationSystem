@@ -31,82 +31,74 @@
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span4"></div>
-
-                <div class="span4" style="margin-top:130px;margin-bottom:50px;">
-                    <ul class="nav nav-pills">
-                        <li><a href="adminpage.html">首页</a></li>
-                        <li><a href="add_student.html">添加学生</a></li>
-                        <li><a href="add_teacher.html">添加教师</a></li>
-                        <li class="active"><a href="student_manage.html">学生管理</a></li>
-                        <li><a href="teacher_manage.html">教师管理</a></li>
-                    </ul>
-                </div>
-                <div class="span4">
-                </div>
-            </div>
-            <div class="row-fluid">
-                <form class="form-horizontal">
-                    <div class="control-group" style="width:500px;margin:auto">
-                        <label class="control-label" for="input" contenteditable="true">输入学生账号搜索</label>
-                        <div class="controls">
-                            <input id="myInput" placeholder="account" type="text" style="height: 25px"
-                                   onkeyup="myFunction()"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div id="student_content" class="background1" style="width:700px;">
-                <table class="table" id="myTable">
-                    <thead>
-                    <tr>
-                        <th>全选<input type="checkbox" id="checkall" onclick="selectAll()"/></th>
-                        <th>id</th>
-                        <th>账号</th>
-                        <th>姓名</th>
-                        <th>性别</th>
-                        <th>班级</th>
-                        <th>
-                            <button onclick="deleteBatch()">删除已选中的值</button>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="stu,stat:${students}" th:id="${stu.id}+'tr'">
-                        <td><input type="checkbox" name="id" th:id="${stu.id}+'ch'"/></td>
-                        <td th:text="${stu.id}" th:id="${stu.id}+'i'">2</td>
-                        <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
-                        <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
-                        <td th:text="${stu.sex}" contenteditable="true" th:id="${stu.id}+'s'">女</td>
-                        <td th:text="${stu.classid}" contenteditable="true" th:id="${stu.id}+'c'">15网工</td>
-                        <td>
-                            <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'u'" onclick="updateStudent(this)">修改</button>
-                        </td>
-
-                        <td>
-                            <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'r'"
-                                    onclick="resetPassword(this)">重置密码
-                            </button>
-                        </td>
-
-                        <td>
-                            <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'d'"
-                                    onclick="deleteStudent(this)">删除
-                            </button>
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="margin-bottom: 70px;"></div>
-        </div>
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li><a href="adminpage.html">首页</a></li>
+            <li><a href="add_student.html">添加学生</a></li>
+            <li><a href="add_teacher.html">添加教师</a></li>
+            <li class="active"><a href="student_manage.html">学生管理</a></li>
+            <li><a href="teacher_manage.html">教师管理</a></li>
+        </ul>
     </div>
+    <div class="row-fluid">
+        <form class="form-horizontal">
+            <div class="control-group" style="width:500px;margin:auto">
+                <label class="control-label" for="input" contenteditable="true">输入学生账号搜索</label>
+                <div class="controls">
+                    <input id="myInput" placeholder="account" type="text" style="height: 25px"
+                           onkeyup="myFunction()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="student_content" class="background1" style="width:700px;">
+        <table class="table" id="myTable">
+            <thead>
+            <tr>
+                <th>全选<input type="checkbox" id="checkall" onclick="selectAll()"/></th>
+                <th>id</th>
+                <th>账号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>班级</th>
+                <th>
+                    <button onclick="deleteBatch()">删除已选中的值</button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="stu,stat:${students}" th:id="${stu.id}+'tr'">
+                <td><input type="checkbox" name="id" th:id="${stu.id}+'ch'"/></td>
+                <td th:text="${stu.id}" th:id="${stu.id}+'i'">2</td>
+                <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
+                <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
+                <td th:text="${stu.sex}" contenteditable="true" th:id="${stu.id}+'s'">女</td>
+                <td th:text="${stu.classid}" contenteditable="true" th:id="${stu.id}+'c'">15网工</td>
+                <td>
+                    <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'u'"
+                            onclick="updateStudent(this)">修改
+                    </button>
+                </td>
+
+                <td>
+                    <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'r'"
+                            onclick="resetPassword(this)">重置密码
+                    </button>
+                </td>
+
+                <td>
+                    <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'d'"
+                            onclick="deleteStudent(this)">删除
+                    </button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-bottom: 70px;"></div>
 </div>
 <div class="footer">
     kdkfaj | kdalksdjf | djksajf | 2017.11.12
@@ -200,6 +192,7 @@
                 alert("重置密码失败！");
         });
     }
+
 </script>
 </body>
 

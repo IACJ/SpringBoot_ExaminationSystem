@@ -20,7 +20,7 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: #f6f7e9;">
 <nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
     <div class="container-fluid">
         <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
@@ -34,73 +34,65 @@
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span4"></div>
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li><a href="adminpage.html">首页</a></li>
+            <li class="active"><a href="add_student.html">添加学生</a></li>
+            <li><a href="add_teacher.html">添加教师</a></li>
+            <li><a href="student_manage.html">学生管理</a></li>
+            <li><a href="teacher_manage.html">教师管理</a></li>
+        </ul>
+    </div>
 
-                <div class="span4" style="margin-top:130px;margin-bottom:50px;">
-                    <ul class="nav nav-pills">
-                        <li><a href="adminpage.html">首页</a></li>
-                        <li class="active"><a href="add_student.html">添加学生</a></li>
-                        <li><a href="add_teacher.html">添加教师</a></li>
-                        <li><a href="student_manage.html">学生管理</a></li>
-                        <li><a href="teacher_manage.html">教师管理</a></li>
-                    </ul>
-                </div>
-                <div class="span4">
-                </div>
+    <div class="background1" style="width: 450px;">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">
+                    单个添加学生
+                </a>
+            </li>
+            <li><a href="#second" data-toggle="tab">批量添加学生</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" style="width:280px;height:280px;margin:auto" id="home">
+                <br/>
+                <form id="add">
+                    账号 <input style="height: 25px;" type="text" name="account" id="account"/><br/>
+                    姓名 <input style="height: 25px;" type="text" name="name" id="name"/><br/>
+                    性别
+                    <select style="width:206px;" name="sex">
+                        <option>男</option>
+                        <option>女</option>
+                    </select><br/>
+                    班级
+                    <select style="width:206px;" name="classid">
+                        <option>15计科1</option>
+                        <option>15计科2</option>
+                        <option>15网工</option>
+                        <option>15信安</option>
+                        <option>15计创</option>
+                        <option>15计联</option>
+                    </select><br/><br/>
+                    <input type="submit" style="width: 240px;" value="提交"/>
+                </form>
             </div>
-            <div class="background1" style="width: 450px;">
-                <ul id="myTab" class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#home" data-toggle="tab">
-                            单个添加学生
-                        </a>
-                    </li>
-                    <li><a href="#second" data-toggle="tab">批量添加学生</a></li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade in active" style="width:280px;height:280px;margin:auto" id="home">
-                    <br/>
-                        <form id="add">
-                            账号 <input style="height: 25px;" type="text" name="account" id="account"/><br/>
-                            姓名 <input style="height: 25px;" type="text" name="name" id="name"/><br/>
-                            性别
-                            <select style="width:206px;" name="sex">
-                                <option>男</option>
-                                <option>女</option>
-                            </select><br/>
-                            班级
-                            <select style="width:206px;" name="classid">
-                                <option>15计科1</option>
-                                <option>15计科2</option>
-                                <option>15网工</option>
-                                <option>15信安</option>
-                                <option>15计创</option>
-                                <option>15计联</option>
-                            </select><br/><br/>
-                            <input type="submit"  style="width: 240px;" value="提交"/>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="second" style="width:280px;height:280px;;margin:auto">
-                        <br/><br/><br/><br/>
-                        <p>批量添加学生，请<a href="/admin/student/download">下载模板</a>！</p><br/>
-                        <form id="upload" enctype="multipart/form-data" method="post">
-                            <input style="width:150px;height:25px;display:inline;" type="file" id="file" name="file"/>
-                            <input style="width:80px;height:25px;" type="submit" value="提交"/>
-                        </form>
-                    </div>
-                </div>
+            <div class="tab-pane fade" id="second" style="width:280px;height:280px;;margin:auto">
+                <br/><br/><br/><br/>
+                <p>批量添加学生，请<a href="/admin/student/download">下载模板</a>！</p><br/>
+                <form id="upload" enctype="multipart/form-data" method="post">
+                    <input style="width:150px;height:25px;display:inline;" type="file" id="file" name="file"/>
+                    <input style="width:80px;height:25px;" type="submit" value="提交"/>
+                </form>
             </div>
-            <div style="margin-bottom: 70px;"></div>
         </div>
     </div>
-    <div class="footer">
-        kdkfaj | kdalksdjf | djksajf | 2017.11.12
-    </div>
+    <div style="margin-bottom: 70px;"></div>
 </div>
+<div class="footer">
+    kdkfaj | kdalksdjf | djksajf | 2017.11.12
+</div>
+
 
 <script>
     $('#add').submit(function (e) {
@@ -179,6 +171,7 @@
 //
 //        })
 //    })
+
 </script>
 
 

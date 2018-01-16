@@ -17,4 +17,6 @@ public interface SubjectDao {
     int deleteByList(List<Long> ids);
 
     int update(SubjectQuestion subjectQuestion);
+
+    int addByList(List<SubjectQuestion> teachers);
 }

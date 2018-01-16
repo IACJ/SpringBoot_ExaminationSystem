@@ -17,4 +17,6 @@ public interface JudgeDao {
     int deleteByList(List<Long> ids);
 
     int update(JudgeQuestion judgeQuestion);
+
+    int addByList(List<JudgeQuestion> teachers);
 }

@@ -22,7 +22,15 @@
     </delete>
 
     <update id="update">
-        UPDATE subdba set question=#{question},refanswer=#{rightAnswer} WHERE id=#{id}
+        UPDATE subdba set question=#{question},refanswer=#{refAnswer} WHERE id=#{id}
     </update>
+
+    <insert id="addByList">
+        INSERT INTO subdba(question,refanswer)
+        VALUE
+        <foreach collection="list" item="choice" separator=",">
+            (#{choice.question},#{choice.refAnswer})
+        </foreach>
+    </insert>
 
 </mapper>

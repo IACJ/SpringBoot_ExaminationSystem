@@ -11,13 +11,18 @@ import examination.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -49,9 +54,25 @@ public class TeacherController {
     @RequestMapping(value = "question_list")
     String questionList(Model model, HttpServletRequest request) {
 
-        model.addAttribute("page", paperService.getPage(request.getParameter("currentPage")));
+        model.addAttribute("page", paperService.getPage(request.getParameter("currentPage"),"choice"));
         model.addAttribute("choiceQuestuon", paperService.getChoiceQuestion());
         return path + "question_list";
+    }
+
+    @RequestMapping(value = "truefalse_list")
+    String truefalseList(Model model, HttpServletRequest request) {
+
+        model.addAttribute("page", paperService.getPage(request.getParameter("currentPage"),"judge"));
+        model.addAttribute("judgeQuestuon", paperService.getJudgeQuestion());
+        return path + "truefalse_list";
+    }
+
+    @RequestMapping(value = "sub_list")
+    String subList(Model model, HttpServletRequest request) {
+
+        model.addAttribute("page", paperService.getPage(request.getParameter("currentPage"),"sub"));
+        model.addAttribute("subjectQuestuon", paperService.getSubjectQuestion());
+        return path + "sub_list";
     }
 
     @RequestMapping(value = "get_paper")
@@ -174,4 +195,31 @@ public class TeacherController {
         return path + "student_chart";
     }
 
+    @RequestMapping(value = "/{type}/download")
+    public void download(@PathVariable String type, HttpServletResponse res) {
+        res.setHeader("Content-Disposition", "attachment; filename=" + type + "_template.xlsx");
+        res.setContentType("application/octet-stream; charset=utf-8");
+        try {
+            String path = "src/main/resources/templates/excel/" + type + "_template.xlsx";
+
+            FileCopyUtils.copy(new FileInputStream(path), res.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/{type}/upload")
+    @ResponseBody
+    public boolean upload(@PathVariable String type, @RequestParam(value = "file") MultipartFile file) {
+        try {
+            if ("choice".equals(type))
+                return teacherService.addChoiceQuestionByExcel(file.getInputStream()) != 0;
+            else if ("judge".equals(type))
+                return teacherService.addJudgeQuestionByExcel(file.getInputStream()) != 0;
+            return teacherService.addSubjectQuestionByExcel(file.getInputStream()) != 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
