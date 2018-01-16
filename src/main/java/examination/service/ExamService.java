@@ -57,4 +57,12 @@ public class ExamService {
         return examDao.listGradeBySid(sid);
     }
 
+    public Boolean  paperTested (long sid, long pid){
+        long result = examDao.paperTested(sid,pid);
+        if (result == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

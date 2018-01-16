@@ -22,4 +22,6 @@ public interface ExamDao {
 
     void submit(Record record);
 
+    long paperTested(@Param("sid") Long sid,@Param("pid") Long pid);
+
 }

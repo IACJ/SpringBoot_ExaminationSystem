@@ -21,5 +21,8 @@
         VALUES (#{sid},#{pid},#{record},'等待批改',0);
     </insert>
 
+    <select id="paperTested" resultType="long">
+        SELECT COUNT(*) FROM `record` WHERE `sid`=#{sid} AND `pid`=#{pid}
+    </select>
 
 </mapper>
