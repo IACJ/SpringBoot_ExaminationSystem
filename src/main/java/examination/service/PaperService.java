@@ -65,4 +65,15 @@ public class PaperService {
         return paperDao.add(paper);
     }
 
+    public List<SubjectQuestion> getAllSubjectQuestion() {
+        return subjectDao.queryAll();
+    }
+
+    public List<ChoiceQuestion> getAllChoiceQuestion() {
+        return choiceDao.queryAll();
+    }
+
+    public List<JudgeQuestion> getAllJudgeQuestion() {
+        return judgeDao.queryAll();
+    }
 }

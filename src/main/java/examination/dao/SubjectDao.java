@@ -19,4 +19,6 @@ public interface SubjectDao {
     int update(SubjectQuestion subjectQuestion);
 
     int addByList(List<SubjectQuestion> teachers);
+
+    List<SubjectQuestion> queryAll();
 }

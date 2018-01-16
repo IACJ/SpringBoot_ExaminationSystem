@@ -18,9 +18,8 @@ public class PaperDaoTest {
 
     @Test
     public void add() throws Exception {
-        Paper paper=new Paper("1","2017-12-09 18:00:00","2017-12-09 18:00:00","1",
-                "1", "1",1,"1");
-        paperDao.add(paper);
+
+
 
     }
 

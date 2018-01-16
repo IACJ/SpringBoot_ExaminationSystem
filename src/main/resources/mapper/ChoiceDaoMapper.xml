@@ -33,4 +33,8 @@
             (#{choice.question},#{choice.option1},#{choice.option2},#{choice.option3},#{choice.option4},#{choice.rightAnswer},#{choice.chapters})
         </foreach>
     </insert>
+
+    <select id="queryAll" resultType="ChoiceQuestion">
+        select  * from choicedba
+    </select>
 </mapper>

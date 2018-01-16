@@ -31,8 +31,7 @@
 
 <div style="margin: 0 auto;width: 900px;">
     <div style="margin-top:80px;margin-bottom:50px;">
-        <input type="text" id="sub"/>
-        <a id="aaa" href="">其他配置</a>
+        <strong>组主观题中</strong>
     </div>
 
     <div id="student_content" class="background1">
@@ -47,62 +46,21 @@
             <tr>
                 <th><input type="checkbox" id="checkall" onclick="selectAll()"/></th>
                 <th>问题</th>
-                <th>选项A</th>
-                <th>选项B</th>
-                <th>选项C</th>
-                <th>选项D</th>
                 <th>答案</th>
             </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="1"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="2"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="3"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="4"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="5"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
+            <tr th:each="que,stat:${subjectQuestuon}" th:id="${que.id}+'tr'"
+                th:style="${stat.odd}? 'background-color:#ECF6EE'">
+                <td><input type="checkbox" name="id" th:id="${que.id}+'ch'" th:value="${que.id}"/></td>
+                <td th:text="${que.question}"  th:id="${que.id}+'q'">数据库三级模式中，真正存在的是（ ）。</td>
+                <td th:text="${que.refAnswer}"  th:id="${que.id}+'an'">D</td>
+
             </tr>
             </tbody>
         </table>
         <div class="add_block">
             <div class="add_bottom">
-                <div class="add_btn1" href="#" id="sub">下一步</div>
+                <div class="add_btn1" id="sub">下一步</div>
+                <a class="add_btn1" href="/teacher/choice/combine" id="kkk">上一步</a>
             </div>
         </div>
     </div>
@@ -115,9 +73,6 @@
 
 <script>
 
-    $("#aaa").click(function () {
-        $("#aaa").attr("href", "/teacher/sub/combine?sub=" + $('#sub').val())
-    })
 
     function selectAll(){
         if ($("#checkall").prop("checked")) {
@@ -136,7 +91,7 @@
         $('input[name="id"]:checked').each(function(){
             ans=ans+$(this).val()+",";
         });
-        alert(ans);
+        window.location.href="/teacher/sub/combine?sub="+ans.substr(0,ans.length-1);
     });
 
     var cnt = 0; //选中的题目个数

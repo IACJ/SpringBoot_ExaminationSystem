@@ -33,4 +33,7 @@
         </foreach>
     </insert>
 
+    <select id="queryAll" resultType="JudgeQuestion">
+        select  * from judgedba
+    </select>
 </mapper>

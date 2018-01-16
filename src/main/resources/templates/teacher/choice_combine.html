@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -31,8 +31,7 @@
 
 <div style="margin: 0 auto;width: 900px;">
     <div style="margin-top:80px;margin-bottom:50px;">
-        <input type="text" id="choice"/>
-        <a id="aaa" href="">组判断题</a>
+        <strong>组选择题中</strong>
     </div>
 
     <div id="student_content" class="background1">
@@ -41,8 +40,9 @@
             </blockquote>
         </div>
         <br/>
-        <table class="tableStyle">
-            <tbody>
+        <table class="table">
+
+            <thead>
             <tr>
                 <th><input type="checkbox" id="checkall" onclick="selectAll()"/></th>
                 <th>问题</th>
@@ -52,57 +52,24 @@
                 <th>选项D</th>
                 <th>答案</th>
             </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="1"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="2"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="3"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="4"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="id" value="5"/></td>
-                <td>数据库三级模式中，真正存在的是（ ）。</td>
-                <td>外模式</td>
-                <td>模式</td>
-                <td>内模式</td>
-                <td>模式</td>
-                <td>D</td>
+            </thead>
+            <tbody>
+            <tr th:each="que,stat:${choiceQuestuon}" th:id="${que.id}+'tr'"
+                th:class="${stat.even}? 'biaogekuang' : 'biaogekuang2'">
+                <td><input type="checkbox" name="id" th:id="${que.id}+'ch'" th:value="${que.id}"/></td>
+                <td th:text="${que.question}" th:id="${que.id}+'q'">数据库三级模式中，真正存在的是（）。
+                </td>
+                <td th:text="${que.option1}" th:id="${que.id}+'a'">外模式</td>
+                <td th:text="${que.option2}" th:id="${que.id}+'b'">模式</td>
+                <td th:text="${que.option3}" th:id="${que.id}+'c'">内模式</td>
+                <td th:text="${que.option4}" th:id="${que.id}+'d'">模式</td>
+                <td th:text="${que.rightAnswer}" th:id="${que.id}+'an'">D</td>
             </tr>
             </tbody>
         </table>
         <div class="add_block">
             <div class="add_bottom">
-                <div class="add_btn1" href="#" id="sub">下一步</div>
-                <div class="add_btn1" href="#" id="kkk">上一步</div>
+                <div class="add_btn1"  id="sub">下一步</div>
             </div>
         </div>
     </div>
@@ -115,10 +82,6 @@
 
 <script>
 
-
-    $("#aaa").click(function () {
-        $("#aaa").attr("href","/teacher/choice/combine?choice="+$('#choice').val())
-    })
 
     function selectAll(){
         if ($("#checkall").prop("checked")) {
@@ -137,7 +100,7 @@
         $('input[name="id"]:checked').each(function(){
             ans=ans+$(this).val()+",";
         });
-        alert(ans);
+        window.location.href="/teacher/choice/combine?choice="+ans.substr(0,ans.length-1);
     });
 
     var cnt = 0; //选中的题目个数

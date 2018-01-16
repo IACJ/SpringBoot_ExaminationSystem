@@ -76,18 +76,21 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "get_paper")
-    String getPaper() {
+    String getPaper(Model model) {
+        model.addAttribute("choiceQuestuon", paperService.getAllChoiceQuestion());
         return path + "choice_combine";
     }
 
     @RequestMapping(value = "/{type}/combine")
-    public String question(@PathVariable String type, HttpServletRequest request) {
+    public String question(@PathVariable String type, HttpServletRequest request,Model model) {
         HttpSession session = request.getSession();
         if ("choice".equals(type)) {
             session.setAttribute("choi", request.getParameter("choice"));
+            model.addAttribute("judgeQuestuon", paperService.getAllJudgeQuestion());
             return path + "judge_combine";
         } else if ("judge".equals(type)) {
             session.setAttribute("judg", request.getParameter("judge"));
+            model.addAttribute("subjectQuestuon", paperService.getAllSubjectQuestion());
             return path + "sub_combine";
         } else if ("sub".equals(type)) {
             session.setAttribute("sub", request.getParameter("sub"));
@@ -158,6 +161,23 @@ public class TeacherController {
         long tid = (long) session.getAttribute("userid");
         String classid = request.getParameter("classid");
 
+        String choiscore="";
+        for (int i = 0; i < choi.split(",").length; i++) {
+            choiscore+="4,";
+        }
+        choiscore=choiscore.substring(0,choiscore.length()-1);
+
+        String judgscore="";
+        for (int i = 0; i < judg.split(",").length; i++) {
+            judg+="4,";
+        }
+        judgscore=judgscore.substring(0,judgscore.length()-1);
+
+        String subscore="";
+        for (int i = 0; i < sub.split(",").length; i++) {
+            judg+="4,";
+        }
+        subscore=subscore.substring(0,subscore.length()-1);
 
         System.out.println("name:" + name);
         System.out.println("begintime:" + begintime);
@@ -169,7 +189,7 @@ public class TeacherController {
         System.out.println("classid:" + classid);
 
         return paperService.addPaper(new Paper(name, begintime, finishtime, choi,
-                judg, sub, tid, classid)) != 0;
+                judg, sub,choiscore,judgscore,subscore, tid, classid)) != 0;
     }
 
     @RequestMapping(value = "student_grade")

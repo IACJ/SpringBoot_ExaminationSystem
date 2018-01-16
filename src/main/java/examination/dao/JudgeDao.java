@@ -19,4 +19,6 @@ public interface JudgeDao {
     int update(JudgeQuestion judgeQuestion);
 
     int addByList(List<JudgeQuestion> teachers);
+
+    List<JudgeQuestion> queryAll();
 }

@@ -33,4 +33,8 @@
         </foreach>
     </insert>
 
+    <select id="queryAll" resultType="SubjectQuestion">
+        select  * from subdba
+    </select>
+
 </mapper>

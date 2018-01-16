@@ -19,4 +19,6 @@ public interface ChoiceDao {
     int update(ChoiceQuestion choiceQuestion);
 
     int addByList(List<ChoiceQuestion> teachers);
+
+    List<ChoiceQuestion> queryAll();
 }

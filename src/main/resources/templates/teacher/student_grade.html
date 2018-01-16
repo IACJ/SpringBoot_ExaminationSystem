@@ -84,15 +84,12 @@
     /*<![CDATA[*/
     function listGrade(obj) {
         window.location.href ="/teacher/student_grade_list?pid=" + obj.id.replace('l', '')
-        +"&name="+$('#' + obj.id.replace('l', 'n')).text();
-
+            +"&name="+$('#' + obj.id.replace('l', 'n')).text();
     }
-
     function getChart(obj) {
         window.location.href ="/teacher/get/chart?pid=" + obj.id.replace('c', '')
             +"&name="+$('#' + obj.id.replace('c', 'n')).text();
     }
-
     /*]]>*/
 </script>
 </body>
