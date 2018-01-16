@@ -5,7 +5,7 @@ public class Record {
     long pid;
     String record;
     String status;
-    int score;
+    long score;
 
     public long getSid() {
         return sid;
@@ -39,11 +39,22 @@ public class Record {
         this.status = status;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "sid=" + sid +
+                ", pid=" + pid +
+                ", record='" + record + '\'' +
+                ", status='" + status + '\'' +
+                ", score=" + score +
+                '}';
     }
 }

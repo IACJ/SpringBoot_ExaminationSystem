@@ -22,6 +22,13 @@ public interface ExamDao {
 
     void submit(Record record);
 
+    void calcGrade(Record record);
+
     long paperTested(@Param("sid") Long sid,@Param("pid") Long pid);
 
+    List<Map> listPaper();
+
+    Map getOnePaperRecord(@Param("pid") Long pid);
+
+    Record getRecordBySidPid(@Param("sid") Long sid,@Param("pid") Long pid);
 }

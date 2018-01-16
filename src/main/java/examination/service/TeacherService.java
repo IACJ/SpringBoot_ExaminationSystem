@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TeacherService {
@@ -25,6 +26,9 @@ public class TeacherService {
     @Autowired
     SubjectDao subjectDao;
 
+    @Autowired
+    ExamDao examDao;
+
 
     public int deleteChoiceQuestion(long id){
         return choiceDao.delete(id);
@@ -36,5 +40,13 @@ public class TeacherService {
 
     public int updateChoiceQuestion(ChoiceQuestion choiceQuestion){
         return choiceDao.update(choiceQuestion);
+    }
+
+    public List<Map> listPaper(long tid){
+        return examDao.listPaper();
+    }
+
+    public Map getOnePaperRecord(long pid) {
+        return examDao.getOnePaperRecord(pid);
     }
 }

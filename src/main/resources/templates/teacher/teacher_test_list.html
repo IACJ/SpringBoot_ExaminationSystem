@@ -12,7 +12,6 @@
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
 	<link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
-	<link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
 	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
 </head>
 
@@ -31,38 +30,32 @@
 </nav>
 <div style="margin: 0 auto;width: 900px;">
 	<div style="margin-top:80px;margin-bottom:50px;">
-					<ul class="nav nav-pills">
-						<li><a href="studentpage.html">首页</a></li>
-						<li class="active"><a href="student_test.html">在线考试</a></li>
-						<li><a href="student_grade.html">成绩查询</a></li>
-						<li><a href="student_exercise.html">随机练习</a></li>
-						<li><a href="student_evaluating_list_select.html">SQL练习</a></li>
-						<li><a href="student_status.html">状态查询</a></li>
-					</ul>
-				</div>
-			<div id="student_content" class="background1">
-				<blockquote><p style="color:#09679e;"><strong>考试信息</strong></p></blockquote>
-				<table class="table">
-					<thead>
-					<tr>
-                        <th>试卷id</th>
-						<th>考试名称</th>
-						<th>开始时间</th>
-						<th>交卷时间</th>
-						<th>信息</th>
-
-					</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
-			</div>
-			<div style="margin-bottom:70px;"></div>
+		<ul class="nav nav-pills">
+			<li class="active"><a href="teacherpage.html">首页</a></li>
+			<li><a href="question_list.html">全部题目</a></li>
+			<li><a href="get_paper.html">发布考试</a></li>
+			<li><a href="teacher_test_list.html">批改试卷</a></li>
+		</ul>
+	</div>
+	<div  class="background1">
+		<blockquote><p style="color:#09679e;"><strong>考试信息</strong></p></blockquote>
+		<table class="table">
+			<thead>
+			<tr>
+				<th>试卷id</th>
+				<th>考试名称</th>
+				<th>开始时间</th>
+				<th>交卷时间</th>
+				<th>信息</th>
+			</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
 
 </div>
 <div class="footer">
-	kdkfaj | kdalksdjf | djksajf | 2017.11.12
+	Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
 </div>
 
 <script>
@@ -75,20 +68,18 @@
             (d.getHours()) + ":" +
             (d.getMinutes()) + ":" +
             (d.getSeconds());
-        console.log(date);
         return date;
-
 	}
 
 
-    $.get("/student/student_test_get",function(data,status){
+    $.get("/teacher/teacher_test_list_content",function(data,status){
         console.log(data);
         var str ;
         for (i in data){
             if (i % 2){
-                str = '<tr class="biaogekuang"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="student_test_ing?pid='+data[i].id+'">进入考试</a></td>  </tr>'
+                str = '<tr class="biaogekuang"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="pigai_test_ing?pid='+data[i].id+'">批改试卷</a></td>  </tr>'
             }else{
-                str = '<tr class="biaogekuang2"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="student_test_ing?pid='+data[i].id+'">进入考试</a></td>  </tr>'
+                str = '<tr class="biaogekuang2"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="pigai_test_ing?pid='+data[i].id+'">批改试卷</a></td>  </tr>'
             }
             $("tbody").append(str);
         }
