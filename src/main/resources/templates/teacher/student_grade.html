@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -34,25 +34,39 @@
 <div style="margin: 0 auto;width: 900px;">
     <div style="margin-top:80px;margin-bottom:50px;">
         <ul class="nav nav-pills">
-            <li><a href="studentpage.html">首页</a></li>
-            <li><a href="student_test.html">在线考试</a></li>
-            <li class="active"><a href="student_grade.html">成绩查询</a></li>
-            <li><a href="student_exercise.html">随机练习</a></li>
-            <li><a href="student_evaluating_list_select.html">SQL练习</a></li>
-            <li><a href="student_status.html">状态查询</a></li>
+            <li><a href="teacherpage.html">首页</a></li>
+            <li><a href="question_list.html">全部题目</a></li>
+            <li><a href="get_paper.html">发布考试</a></li>
+            <li  class="active"><a href="student_grade.html">查询学生成绩</a></li>
         </ul>
     </div>
     <div id="student_content" class="background1">
-        <blockquote><p style="color:#09679e;"><strong>考试信息</strong></p></blockquote>
+        <blockquote><p style="color:#09679e;"><strong>学生成绩</strong></p></blockquote>
         <table class="table">
             <thead>
             <tr>
                 <th>考试id</th>
                 <th>考试名</th>
-                <th>出卷老师</th>
                 <th>开始时间</th>
                 <th>结束时间</th>
-                <th>成绩</th>
+                <th>学生成绩</th>
+                <th>图表分析</th>
+            </tr>
+            <tr th:each="p,stat:${paper}" th:class="${stat.even}? 'biaogekuang' : 'biaogekuang2'">
+                <td th:text="${p.id}">1</td>
+                <td th:text="${p.name}" th:id="${p.id}+'n'">数据库</td>
+                <td th:text="${#strings.substring(p.begintime,0,#strings.length(p.begintime)-2)}">2017-12-10 0.0.0</td>
+                <td th:text="${#strings.substring(p.finishtime,0,#strings.length(p.finishtime)-2)}">2017-12-10 0.0.0</td>
+                <td>
+                    <button class="btn" type="button" style="margin: 0px;" th:id="${p.id}+'l'"
+                            onclick="listGrade(this)">成绩列表
+                    </button>
+                </td>
+                <td>
+                    <button class="btn" type="button" style="margin: 0px;" th:id="${p.id}+'c'"
+                            onclick="getChart(this)">图表分析
+                    </button>
+                </td>
             </tr>
             </thead>
             <tbody>
@@ -66,33 +80,20 @@
 <div class="footer">
     kdkfaj | kdalksdjf | djksajf | 2017.11.12
 </div>
-
-
 <script>
-    function tm(timestamp) {
-        var d = new Date(timestamp);    //根据时间戳生成的时间对象
-        var date = (d.getFullYear()) + "-" +
-            (d.getMonth() + 1) + "-" +
-            (d.getDate()) + " " +
-            (d.getHours()) + ":" +
-            (d.getMinutes()) + ":" +
-            (d.getSeconds());
-        console.log(date);
-        return date;
+    /*<![CDATA[*/
+    function listGrade(obj) {
+        window.location.href ="/teacher/student_grade_list?pid=" + obj.id.replace('l', '')
+        +"&name="+$('#' + obj.id.replace('l', 'n')).text();
+
     }
 
-    $.get("/student/student_grade_get", function (data, status) {
-        console.log(data);
-        var str;
-        for (i in data) {
-            if (i % 2) {
-                str = '<tr class="biaogekuang"><td>' + data[i].pid + '</td> <td>' + data[i].pname + '</td> <td>' + data[i].tname + '</td> <td>' + tm(data[i].begintime) + '</td> <td>' + tm(data[i].finishtime) + '</td> <td> ' + data[i].score + ' </td>  </tr>'
-            } else {
-                str = '<tr class="biaogekuang2"><td>' + data[i].pid + '</td> <td>' + data[i].pname + '</td> <td>' + data[i].tname + '</td> <td>' + tm(data[i].begintime) + '</td> <td>' + tm(data[i].finishtime) + '</td> <td> ' + data[i].score + ' </td>  </tr>'
-            }
-            $("tbody").append(str);
-        }
-    });
+    function getChart(obj) {
+        window.location.href ="/teacher/get/chart?pid=" + obj.id.replace('c', '')
+            +"&name="+$('#' + obj.id.replace('c', 'n')).text();
+    }
+
+    /*]]>*/
 </script>
 </body>
 

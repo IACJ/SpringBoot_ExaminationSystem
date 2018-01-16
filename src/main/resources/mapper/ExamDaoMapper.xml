@@ -21,5 +21,14 @@
         VALUES (#{sid},#{pid},#{record},'等待批改',0);
     </insert>
 
+    <select id="listExamByTid" resultType="Paper">
+        SELECT * FROM `paper` WHERE `tid`=#{tid}
+    </select>
+
+    <select id="listStudentGrade" resultType="Map">
+        SELECT name,score
+        FROM `record` INNER JOIN `student` on record.sid=student.id
+        WHERE pid = #{pid}
+    </select>
 
 </mapper>

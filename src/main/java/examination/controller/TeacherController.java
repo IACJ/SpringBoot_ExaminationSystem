@@ -3,6 +3,7 @@ package examination.controller;
 
 import examination.entity.ChoiceQuestion;
 import examination.entity.Paper;
+import examination.service.ChartService;
 import examination.service.PaperService;
 import examination.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class TeacherController {
 
     @Autowired
     PaperService paperService;
+
+    @Autowired
+    ChartService chartService;
 
     @RequestMapping(value = "")
     String index(Model model, HttpSession httpSession) {
@@ -139,4 +143,28 @@ public class TeacherController {
         return paperService.addPaper(new Paper(name, begintime, finishtime, choi,
                 judg, sub, tid, classid)) != 0;
     }
+
+    @RequestMapping(value = "student_grade")
+    String student_grade(Model model,HttpSession session) {
+        long tid = (long) session.getAttribute("userid");
+        model.addAttribute("paper", teacherService.listExamById(tid));
+        return path + "student_grade";
+    }
+
+    @RequestMapping(value = "student_grade_list")
+    String studentGradeList(Model model,HttpSession session, HttpServletRequest request) {
+
+        long pid = Long.parseLong(request.getParameter("pid"));
+        model.addAttribute("gradeList", teacherService.listStudentGrade(pid));
+        model.addAttribute("name", request.getParameter("name"));
+        return path + "student_grade_list";
+    }
+
+    @RequestMapping(value = "get/chart")
+    String getChart(HttpServletRequest request,Model model){
+        long pid = Long.parseLong(request.getParameter("pid"));
+        model.addAttribute("data", chartService.teacherGetChart(pid,request.getParameter("name")));
+        return path + "student_chart";
+    }
+
 }
