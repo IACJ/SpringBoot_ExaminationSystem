@@ -2,7 +2,9 @@ package examination.controller;
 
 
 import examination.entity.ChoiceQuestion;
+import examination.entity.JudgeQuestion;
 import examination.entity.Paper;
+import examination.entity.SubjectQuestion;
 import examination.service.ChartService;
 import examination.service.PaperService;
 import examination.service.TeacherService;
@@ -79,11 +81,10 @@ public class TeacherController {
         if ("choice".equals(type)) {
             return teacherService.deleteChoiceQuestion(id) != 0;
         } else if ("judge".equals(type)) {
-
+            return teacherService.deleteJudgeQuestion(id) != 0;
         } else if ("sub".equals(type)) {
-
+            return teacherService.deleteSubjectQuestion(id) != 0;
         }
-
         return false;
     }
 
@@ -93,26 +94,32 @@ public class TeacherController {
         if ("choice".equals(type)) {
             return teacherService.deleteChoiceQuestionBatch(list) != 0;
         } else if ("judge".equals(type)) {
-
+            return teacherService.deleteJudgeQuestionBatch(list) != 0;
         } else if ("sub".equals(type)) {
-
+            return teacherService.deleteSubjectQuestionBatch(list) != 0;
         }
 
         return false;
     }
 
-    @RequestMapping(value = "{type}/update")
+    //update之所以不按照上面套路写作{type}/update,是因为springmvc需要把传入的参数映射为
+    // ChoiceQuestion等对象，分开写才能对于不同的对象映射。
+    @RequestMapping(value = "choice/update")
     @ResponseBody()
-    boolean updateQuestion(@PathVariable String type, ChoiceQuestion choiceQuestion) {
-        if ("choice".equals(type)) {
-            return teacherService.updateChoiceQuestion(choiceQuestion) != 0;
-        } else if ("judge".equals(type)) {
+    boolean updateChoiceQuestion(ChoiceQuestion choiceQuestion) {
+        return teacherService.updateChoiceQuestion(choiceQuestion) != 0;
+    }
 
-        } else if ("sub".equals(type)) {
+    @RequestMapping(value = "judge/update")
+    @ResponseBody()
+    boolean updateJudgeQuestion(JudgeQuestion judgeQuestion) {
+        return teacherService.updateJudgeQuestion(judgeQuestion) != 0;
+    }
 
-        }
-
-        return false;
+    @RequestMapping(value = "sub/update")
+    @ResponseBody()
+    boolean updateSubjectQuestion(SubjectQuestion subjectQuestion) {
+        return teacherService.updateSubjectQuestion(subjectQuestion) != 0;
     }
 
 
@@ -145,14 +152,14 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "student_grade")
-    String student_grade(Model model,HttpSession session) {
+    String student_grade(Model model, HttpSession session) {
         long tid = (long) session.getAttribute("userid");
         model.addAttribute("paper", teacherService.listExamById(tid));
         return path + "student_grade";
     }
 
     @RequestMapping(value = "student_grade_list")
-    String studentGradeList(Model model,HttpSession session, HttpServletRequest request) {
+    String studentGradeList(Model model, HttpSession session, HttpServletRequest request) {
 
         long pid = Long.parseLong(request.getParameter("pid"));
         model.addAttribute("gradeList", teacherService.listStudentGrade(pid));
@@ -161,9 +168,9 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "get/chart")
-    String getChart(HttpServletRequest request,Model model){
+    String getChart(HttpServletRequest request, Model model) {
         long pid = Long.parseLong(request.getParameter("pid"));
-        model.addAttribute("data", chartService.teacherGetChart(pid,request.getParameter("name")));
+        model.addAttribute("data", chartService.teacherGetChart(pid, request.getParameter("name")));
         return path + "student_chart";
     }
 
