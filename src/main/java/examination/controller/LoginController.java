@@ -23,6 +23,10 @@ public class LoginController {
     public String hello() {
         return "Hello World";
     }
+    @RequestMapping("/change_info")
+    public String changeInfo() {
+        return "change_info";
+    }
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
     @ResponseBody
