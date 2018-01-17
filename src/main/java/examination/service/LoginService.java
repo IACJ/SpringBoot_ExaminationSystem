@@ -42,11 +42,15 @@ public class LoginService {
 
     public void chageInfo(long uid, String s, String name, String pw) {
         pw = EncoderByMd5(pw);
+        System.out.println(s);
         if (s.equals("Teacher")){
+            System.out.println("Teacher change pswd");
             teacherDao.updateInfo(uid,name,pw);
         }else if(s.equals("Admin")){
-            adminDao.updateInfo();
+            System.out.println("Admin change pswd");
+            adminDao.updateInfo(uid,name,pw);
         }else {
+            System.out.println("Student change pswd");
             studentDao.updateInfo(uid,name,pw);
         }
     }
