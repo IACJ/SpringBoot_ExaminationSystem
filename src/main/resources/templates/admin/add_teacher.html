@@ -20,7 +20,7 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: #f6f7e9;">
 <nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
     <div class="container-fluid">
         <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
@@ -28,66 +28,64 @@
             <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
         </div>
         <ul class="nav navbar-nav nav-right" style="float:right;">
-            <li><a href="#"><span class="glyphicon glyphicon-user"
-                                  th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
-            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span4"></div>
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li><a href="adminpage.html">首页</a></li>
+            <li><a href="add_student.html">添加学生</a></li>
+            <li class="active"><a href="add_teacher.html">添加教师</a></li>
+            <li><a href="student_manage.html">学生管理</a></li>
+            <li><a href="teacher_manage.html">教师管理</a></li>
+            <li><a href="admin_info.html">个人信息</a></li>
+        </ul>
+    </div>
+    <div class="background1" style="width: 450px;">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">
+                    单个添加教师
+                </a>
+            </li>
+            <li><a href="#second" data-toggle="tab">批量添加教师</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" style="width:280px;margin:auto" id="home">
+                <br/>
+                <form id="add">
+                    账号 <input style="height: 25px;" type="text" name="account" id="account"/><br/>
+                    姓名 <input style="height: 25px;" type="text" name="name" id="name"/><br/>
+                    <input type="submit" style="width: 240px;" value="提交"/>
+                </form>
 
-                <div class="span4" style="margin-top:130px;margin-bottom:50px;">
-                    <ul class="nav nav-pills">
-                        <li><a href="adminpage.html">首页</a></li>
-                        <li><a href="add_student.html">添加学生</a></li>
-                        <li class="active"><a href="add_teacher.html">添加教师</a></li>
-                        <li><a href="student_manage.html">学生管理</a></li>
-                        <li><a href="teacher_manage.html">教师管理</a></li>
-                    </ul>
-                </div>
-                <div class="span4">
-                </div>
             </div>
-            <div class="background1" style="width: 450px;">
-                <ul id="myTab" class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#home" data-toggle="tab">
-                            单个添加教师
-                        </a>
-                    </li>
-                    <li><a href="#second" data-toggle="tab">批量添加教师</a></li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade in active" style="width:280px;margin:auto" id="home">
-                        <br/>
-                        <form id="add">
-                            账号 <input style="height: 25px;" type="text" name="account" id="account"/><br/>
-                            姓名 <input style="height: 25px;" type="text" name="name" id="name"/><br/>
-                            <input type="submit"  style="width: 240px;" value="提交"/>
-                        </form>
-
-                    </div>
-                    <div class="tab-pane fade" id="second" style="width:280px;margin:auto">
-                        <br/>
-                        <p>批量添加教师，请<a href="/admin/teacher/download">下载模板</a>！</p>
-                        <form id="upload" enctype="multipart/form-data" method="post">
-                            <input style="width:150px;height:25px;display:inline;" type="file" id="file" name="file"/>
-                            <input style="width:80px;height:25px;" type="submit" value="提交"/>
-                        </form>
-                    </div>
-                </div>
+            <div class="tab-pane fade" id="second" style="width:280px;margin:auto">
+                <br/>
+                <p>批量添加教师，请<a href="/admin/teacher/download">下载模板</a>！</p>
+                <form id="upload" enctype="multipart/form-data" method="post">
+                    <input style="width:150px;height:25px;display:inline;" type="file" id="file" name="file"/>
+                    <input style="width:80px;height:25px;" type="submit" value="提交"/>
+                </form>
             </div>
-            <div style="margin-bottom: 70px;"></div>
         </div>
     </div>
+
+    <div style="margin-bottom: 70px;"></div>
+
     <div class="footer">
-        kdkfaj | kdalksdjf | djksajf | 2017.11.12
+        Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
     </div>
+
 </div>
+
+<div class="footer">
+    kdkfaj | kdalksdjf | djksajf | 2017.11.12
+</div>
+
 
 <script>
     $('#add').submit(function (e) {
@@ -134,6 +132,7 @@
             });
         }
     })
+
 </script>
 
 

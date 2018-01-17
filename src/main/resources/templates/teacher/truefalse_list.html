@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>数据库在线系统</title>
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"/>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"/>
+
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #f6f7e9;">
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="#"><span class="glyphicon glyphicon-user"
+                                  th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li><a href="teacherpage.html">首页</a></li>
+            <li><a href="question_list.html">选择题题库</a></li>
+            <li class="active"><a href="truefalse_list.html">判断题题库</a></li>
+            <li><a href="sub_list.html">主观题题库</a></li>
+            <li><a href="get_paper.html">发布考试</a></li>
+            <li><a href="student_grade.html">查询学生成绩</a></li>
+            <li><a href="teacher_test_list.html">试卷列表</a></li>
+            <li><a href="teacher_info.html">个人信息</a></li>
+        </ul>
+    </div>
+
+    <div class="background1">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">判断题题库列表</a>
+            </li>
+            <li><a href="#second" data-toggle="tab">批量添加判断题</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" style="margin:auto;" id="home">
+                <br/>
+                <div id="student_content">
+
+                    <input type="hidden" name="currentPage" id="currentPage" value="1"/>
+                    <div class="add_block">
+                            <!--<div class="add_btn1" href="#">新 增</div>-->
+                            <button class="add_btn1" onclick="deleteJudgeBatch()">删除已选中的值</button>
+                    </div>
+                    <br/>
+                    <table class="tableStyle" >
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" onclick="selectAll()"/></th>
+                            <th>问题</th>
+                            <th>答案</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="que,stat:${judgeQuestuon}" th:id="${que.id}+'tr'"
+                            th:style="${stat.odd}? 'background-color:#ECF6EE'">
+                            <td><input type="checkbox" name="id" th:id="${que.id}+'ch'"/></td>
+                            <td th:text="${que.question}" contenteditable="true" th:id="${que.id}+'q'">数据库三级模式中，真正存在的是（ ）。</td>
+                            <td th:text="${que.rightAnswer}" contenteditable="true" th:id="${que.id}+'an'">D</td>
+                            <td>
+                                <button class="btn" type="button" style="margin: 0px;" th:id="${que.id}+'u'"
+                                        onclick="updateJudgeQuestion(this)">修改
+                                </button>
+                                <button class="btn" type="button" style="margin: 0px;" th:id="${que.id}+'d'"
+                                        onclick="deleteJudgeQuestion(this)">删除
+                                </button>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="add_block">
+                        <div class="add_bottom">
+                            共 <b id="total" th:text="${page.count}">10</b> 条
+                            <a th:if="${page.currentPage!=1}" href="truefalse_list?currentPage=1">首页</a>
+                            <a th:if="${page.currentPage!=1}"
+                               th:href="'truefalse_list?currentPage='+${page.currentPage-1}">上一页</a>
+                            当前第<span th:text="${page.currentPage}+'/'+${page.totalPage}">1</span>页
+                            <a th:if="${page.currentPage!=page.totalPage}"
+                               th:href="'truefalse_list?currentPage='+${page.currentPage+1}">下一页</a>
+                            <a th:if="${page.currentPage!=page.totalPage}"
+                               th:href="'truefalse_list?currentPage='+${page.totalPage}">末页</a>
+                            跳至&nbsp;<input id="currentPageText" type='text' th:value="${page.currentPage}"
+                                           style="height:26px;"/>&nbsp;页&nbsp;
+                            <a href="" id="aaa">GO</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="second" style="margin:auto">
+                <br/>
+                <p>批量添加判断题，请<a href="/teacher/judge/download">下载模板</a>！</p>
+                <hr/>
+                <form id="upload" enctype="multipart/form-data" method="post">
+                    <p>请上传批量增加的文件：</p>
+                    <input style="width:150px;height:25px;display:inline;" type="file" id="file" name="file"/>
+
+                    <input style="width:80px;height:25px;" type="submit" value="提交"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom:70px;"></div>
+</div>
+
+<div class="footer">
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
+</div>
+
+<script>
+    $("#aaa").click(function () {
+        $("#aaa").attr("href", "truefalse_list?currentPage=" + $('#currentPageText').val())
+    })
+
+    function selectAll() {
+        if ($("#checkall").prop("checked")) {
+            $("input[type='checkbox'][name='id']").prop("checked", true);//全选
+        } else {
+            $("input[type='checkbox'][name='id']").prop("checked", false);  //取消全选
+        }
+    }
+
+    function deleteJudgeQuestion(obj) {
+        $.get("/teacher/judge/delete?id=" + obj.id.replace('d', ''), function (data, status) {
+            if (data) {
+                $('#' + obj.id.replace('d', 'tr')).remove();
+                $('#total').text($('#total').text() - 1);
+                alert("删除成功！");
+            }
+            else
+                alert("删除失败！");
+        });
+
+    }
+
+    function deleteJudgeBatch() {
+        var IDs = new Array();
+        $("input[name='id']:checked").each(function () {
+            var id = $(this).attr("id").replace('ch', '');
+            IDs.push(id);
+        })
+        console.log(IDs);
+        $.post("/teacher/judge/delete_batch", {list: IDs}, function (data, status) {
+            if (data) {
+                $("input[name='id']:checked").each(function () {
+                    var id = $(this).attr("id").replace('ch', 'tr');
+                    $('#' + id).remove();
+                })
+                alert("删除成功！");
+                $('#total').text($('#total').text() - IDs.length);
+            }
+            else
+                alert("删除失败！");
+        });
+    }
+
+    function updateJudgeQuestion(obj) {
+        var d = {
+            id:obj.id.replace('u', ''),
+            question: $('#' + obj.id.replace('u', 'q')).text(),
+            rightAnswer: $('#' + obj.id.replace('u', 'an')).text(),
+        }
+        $.post("/teacher/judge/update", d, function (data, status) {
+            if (data) {
+                alert("修改成功！");
+            }
+            else
+                alert("修改失败！");
+        });
+    }
+
+    $('#upload').submit(function (e) {
+        e.preventDefault();
+        if ($("#file").val() == "") {
+            alert("请上传文件");
+        } else {
+            var d = new FormData($('#upload')[0]);
+            console.log(d);
+            $.ajax({
+                url: "/teacher/judge/upload",
+                type: 'POST',
+                data: d,
+                processData: false,
+                contentType: false,
+
+                success: function (data) {
+                    if (data)
+                        alert("添加成功！");
+                    else
+                        alert("添加失败！");
+                }
+            });
+        }
+    })
+</script>
+</body>
+
+</html>

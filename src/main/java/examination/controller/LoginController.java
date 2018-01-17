@@ -8,8 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Controller
 public class LoginController {
@@ -22,6 +26,10 @@ public class LoginController {
     @RequestMapping("/hello")
     public String hello() {
         return "Hello World";
+    }
+    @RequestMapping("/change_info")
+    public String changeInfo() {
+        return "change_info";
     }
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
@@ -44,7 +52,7 @@ public class LoginController {
             String pageName = user.getPermission().toLowerCase();
             return "/"+pageName;
         }
-        return "/wrongpassword";
+        return "wrongpassword";
     }
 
 
@@ -81,4 +89,17 @@ public class LoginController {
     String wrongpassword(Model model) {
         return "wrongpassword";
     }
+
+    @RequestMapping("/change_info_submit")
+    public String changeInfoSubmit(HttpSession httpSession,String name, String pw) {
+
+        long uid = (long) httpSession.getAttribute("userid");
+        String s = (String) httpSession.getAttribute("permission");
+
+        loginService.chageInfo(uid,s,name,pw);
+        String pageName = s.toLowerCase();
+        return "redirect:/"+pageName+"/"+pageName+"page";
+    }
+
+
 }

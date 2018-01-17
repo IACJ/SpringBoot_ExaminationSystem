@@ -9,4 +9,6 @@ public interface ChartDao {
     List<String> getPaperName(long studentId);
 
     List<Byte> getScore(long studentId);
+
+    List<Byte> getScoreByPId(long pId);
 }

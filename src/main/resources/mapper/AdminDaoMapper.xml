@@ -5,4 +5,7 @@
         SELECT * from admin where account=#{account} and password=#{password}
     </select>
 
+    <update id="updateInfo">
+        UPDATE  `admin` SET `name`=#{name},`password`=#{pw} where `id` =#{id}
+    </update>
 </mapper>

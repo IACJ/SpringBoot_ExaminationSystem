@@ -18,7 +18,14 @@ public interface StudentDao {
 
     int delete(long id);
 
+    int deleteByList(List<Long> ids);
+
     int addByList(List<Student> students);
 
     List<Student> queryAll();
+
+    int resetPassword(long id);
+  
+    void updateInfo(@Param("id")long id, @Param("name")String name, @Param("pw")String pw);
+
 }

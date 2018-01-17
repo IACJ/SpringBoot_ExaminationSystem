@@ -21,6 +21,11 @@ public class ClassDaoTest {
 
     @Test
     public void getNameById() throws Exception {
-        System.out.println(classDao.getNameById("1"));
+        String s="3,3,3,3";
+        String s1="";
+        for (int i = 0; i < s.split(",").length; i++) {
+            s1+="4,";
+        }
+        System.out.println(s1.substring(0,s1.length()-1));
     }
 }

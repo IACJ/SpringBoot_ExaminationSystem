@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
     <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
-    <link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
 
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -27,7 +26,7 @@
             <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
         </div>
         <ul class="nav navbar-nav nav-right" style="float:right;">
-            <li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
             <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
         </ul>
     </div>
@@ -53,9 +52,9 @@
 
 <script>
     /* <![CDATA[*/
+    var submitted = false;
 
-    function getQueryVariable(variable)
-    {
+    function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
         var vars = query.split("&");
         for (var i=0;i<vars.length;i++) {
@@ -66,13 +65,31 @@
         return(1);
     }
 
-    function myTimer()
-    {
-        var d=new Date();
-        var t=d.toLocaleTimeString();
-        document.getElementById("time_clock").innerHTML=t;
-    }
-    setInterval(myTimer,200);
+    /////
+    var timer;
+    var timeCounter = (function() {
+
+        var total = 3600;
+        console.log("hello");
+        return function(elemID) {
+            obj = document.getElementById("time_clock");
+            var s = (total%60) < 10 ? ('0' + total%60) : total%60;
+            var h = total/3600 < 10 ? ('0' + parseInt(total/3600)) : parseInt(total/3600);
+            var m = (total-h*3600)/60 < 10 ? ('0' + parseInt((total-h*3600)/60)) : parseInt((total-h*3600)/60);
+            obj.innerHTML = h + ' : ' + m + ' : ' + s;
+            total--;
+            timer = setTimeout("timeCounter('" + elemID + "')", 1000);
+            if(total < 0)  {
+                clearTimeout(timer);
+                console.log("自动提交");
+                if (submitted === false){
+                    submit_paper();
+                }
+
+            }
+        }
+    })();
+
 
     var F_get_choice = function(id) {
         $.get("/student/student_exercise_choice_get_question?id=" + id, function (data, status) {
@@ -117,32 +134,62 @@
     var choiids;
     var judgids;
     var subids;
+    var canDo = true;
 
+    function disable_submit() {
+        $("#submit").attr('disabled',"true");
+        $("#submit").css({'background-color':'gray'});
+        $("#submit").val("禁止提交");
+    }
+    
     $(document).ready(function() {
         var pid = getQueryVariable("pid");
+        $.get("/student/paper_tested?pid=" + pid,function (data, status) {
+            if (data === true){
+                disable_submit();
+                canDo = false;
+                alert("你已提交试卷！\n现在你只能查看试卷，无法提交！")
+            }
+
+        });
         $.get("/student/student_test_get_paper?id=" + pid,function (data, status) {
             console.log(data);
             $('#examName').text(data.name);
+            var curTime = new Date();
+            var beginTime = new Date(data.begintime);
+            var finishTime = new Date(data.finishtime);
 
-            choiids = data.choi.split(',');
-            judgids = data.judg.split(',');
-            subids = data.sub.split(',');
+            if (canDo === true && (curTime < beginTime || curTime >  finishTime)) {
+                disable_submit();
+                canDo = false;
+                alert("不在考试时间范围内！")
+            }else{
+                if (canDo === true){
+                    timeCounter('timeCounter');
+                }
+                choiids = data.choi.split(',');
+                judgids = data.judg.split(',');
+                subids = data.sub.split(',');
 
-            for (i in choiids){
-                F_get_choice(choiids[i]);
-            }
-            for (i in judgids){
-                F_get_truefalse(choiids[i]);
-            }
-            for (i in subids){
-                F_get_sub(choiids[i]);
+                for (i in choiids){
+                    F_get_choice(choiids[i]);
+                }
+                for (i in judgids){
+                    F_get_truefalse(judgids[i]);
+                }
+                for (i in subids){
+                    F_get_sub(subids[i]);
+                }
             }
         });
     });
 
     //ajax提交form表单的方式
-    $('#examForm').submit(function() {
-        event.preventDefault()
+    function submit_paper() {
+
+        if (event != undefined){
+            event.preventDefault();
+        }
         var pid = getQueryVariable("pid");
         var AjaxURL= "/student/student_test_submit";
         var d = {};
@@ -150,22 +197,42 @@
         $.each(t, function() {
             d[this.name] = this.value;
         });
+        console.log(t);
+        console.log(d);
+        var dd = Object.getOwnPropertyNames(d).length;
+        console.log(dd);
+        var will_submit = true;
 
-        $.ajax({
-            type: "POST",
-            url: AjaxURL,
-            data:  "ans="+JSON.stringify(d)+"&pid="+pid,
-            success: function (data) {
-                alert(data);
-                $("#submit").attr('disabled',"true");
-                $("#submit").css({'background-color':'gray'});
-                $("#submit").val("已提交");
-            },
-            error: function(data) {
-                alert("提交失败！\n请检查网络！请重试！");
+        if(dd<choiids.length+judgids.length+subids.length){
+            if(confirm("还有题目没有完成！真的要交卷吗?")){
+                will_submit = true;
             }
-        });
-    });
+            else{
+                will_submit = false;
+            }
+        }
+        if (will_submit){
+            $.ajax({
+                type: "POST",
+                url: AjaxURL,
+                data:  "ans="+JSON.stringify(d)+"&pid="+pid,
+                success: function (data) {
+                    submitted = true;
+                    clearTimeout(timer);
+                    alert(data);
+                    $("#submit").attr('disabled',"true");
+                    $("#submit").css({'background-color':'gray'});
+                    $("#submit").val("已提交");
+
+                },
+                error: function(data) {
+                    alert("提交失败！\n请检查网络！请重试！");
+                }
+            });
+        }
+    }
+
+    $('#examForm').submit(submit_paper);
     /*]]>*/
 </script>
 

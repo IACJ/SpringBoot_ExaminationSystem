@@ -23,48 +23,45 @@
             <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
         </div>
         <ul class="nav navbar-nav nav-right" style="float:right;">
-            <li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
             <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span4"></div>
 
-                <div class="span4" style="margin-top:80px;margin-bottom:50px;">
-                    <ul class="nav nav-pills">
-                        <li class="active"><a href="teacherpage.html">首页</a></li>
-                        <li><a href="#">发布考试</a></li>
-                        <li><a href="#">批改试卷</a></li>
-                        <li><a href="#">查看考试情况</a></li>
-                    </ul>
-                </div>
-                <div class="span4">
-                </div>
-            </div>
-            <div id="student_content" class="background1">
-                <blockquote><p style="color:#09679e;"><strong>功能介绍</strong></p></blockquote>
-                <h2 style="color:#166999;">欢迎使用数据库系统</h2>
-                <p style="color:#09679e;"><strong>学生功能</strong></p>
-                <p style="color:#087ec2;">1.在线考试：选择时限内的考试并作答</p>
-                <p style="color:#087ec2;">2.成绩查询：查询考试的成绩</p>
-                <p style="color:#087ec2;">3.考题提交状态查询：查询考试中提交的答案判题状态</p>
-                <p style="color:#087ec2;">4.在线练习：进行数据库在线练习</p>
-                <p style="color:#087ec2;">5.练习提交状态查询：查询在线练习中提交答案的判题状态</p>
-                <p style="color:#09679e;"><strong>教师功能</strong></p>
-                <p style="color:#087ec2;">1.添加考试：开展一次新的考试</p>
-                <p style="color:#087ec2;">2.考题管理：管理考试题目</p>
-                <p style="color:#087ec2;">3.题库管理：管理基本题库</p>
-            </div>
-            <div style="margin-bottom:70px;"></div>
-        </div>
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="teacherpage.html">首页</a></li>
+            <li><a href="question_list.html">选择题题库</a></li>
+            <li><a href="truefalse_list.html">判断题题库</a></li>
+            <li><a href="sub_list.html">主观题题库</a></li>
+            <li><a href="get_paper.html">发布考试</a></li>
+            <li><a href="student_grade.html">查询学生成绩</a></li>
+            <li><a href="teacher_test_list.html">试卷列表</a></li>
+            <li><a href="teacher_info.html">个人信息</a></li>
+        </ul>
     </div>
+
+    <div id="student_content" class="background1">
+        <blockquote><p style="color:#09679e;"><strong>功能介绍</strong></p></blockquote>
+        <h2 style="color:#166999;">欢迎来参加数据库考试</h2>
+        <p style="color:#09679e;"><strong>学生功能</strong></p>
+        <p style="color:#087ec2;">1.在线考试：选择时限内的考试并作答</p>
+        <p style="color:#087ec2;">2.成绩查询：查询考试的成绩</p>
+        <p style="color:#087ec2;">3.考题提交状态查询：查询考试中提交的答案判题状态</p>
+        <p style="color:#087ec2;">4.在线练习：进行数据库在线练习</p>
+        <p style="color:#087ec2;">5.练习提交状态查询：查询在线练习中提交答案的判题状态</p>
+        <p style="color:#09679e;"><strong>教师功能</strong></p>
+        <p style="color:#087ec2;">1.添加考试：开展一次新的考试</p>
+        <p style="color:#087ec2;">2.考题管理：管理考试题目</p>
+        <p style="color:#087ec2;">3.题库管理：管理基本题库</p>
+    </div>
+    <div style="margin-bottom:70px;"></div>
 </div>
+
 <div class="footer">
-    kdkfaj | kdalksdjf | djksajf | 2017.11.12
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
 </div>
 </body>
 

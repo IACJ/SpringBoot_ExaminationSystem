@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>批改试卷中</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+
+
+
+<body>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+                    <h1 id="examName"  style="color:#09679e;opacity: 0.7;"></h1>
+                </div>
+            <div id="mainPage" class="test_body">
+                <form id="examForm">
+                    <div id="choice"></div>
+                    <div id="truefalse"></div>
+                    <div id="sub"></div>
+                    <div class="test_right">
+                        <p class="time_text">当前时间</p>
+                        <p id="time_clock" class="time_clock">&nbsp;</p>
+                        <input id="submit" type="submit" value="提交" />
+                    </div>
+                </form>
+
+            </div>
+</div>
+
+<script>
+    /* <![CDATA[*/
+
+    function myTimer()
+    {
+        var d=new Date();
+        var t=d.toLocaleTimeString();
+        document.getElementById("time_clock").innerHTML=t;
+    }
+    setInterval(myTimer,200);
+
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        console.log("参数自动转1");
+        return(1);
+    }
+
+
+    var F_get_sub = function(id) {
+        $.get("/teacher/sub_get_questionByAns?id=" + id, function (data, status) {
+            console.log(data);
+            var str = '<div class="background1">'+
+                '<blockquote><p style="color:#09679e;"><strong>主观题</strong></p></blockquote>'+
+                '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
+                '<textarea disabled="true"  class="textareaStyle" >'+record['sub_'+id]+'</textarea>' +
+                '<label>参考答案：</label>'+
+                '<textarea disabled="true" class="textareaStyle" >'+data['refanswer']+'</textarea>' +
+                '<label>得分：(满分为'+8+')</label><input  oninput="checkNum(this.value,id)" type="number"  name="sub_' +data.id +'" id="input'+id+'"/></div>';
+            $("#sub").append(str);
+        });
+    };
+    var record;
+    var sid;
+    $(document).ready(function() {
+        var pid = getQueryVariable("pid");
+        $.get("/teacher/teacher_test_get_paper?pid=" + pid,function (data, status) {
+            console.log(data);
+            if(data.length === 0){
+                alert("已批改完所有该考卷的试卷~");
+                $("#submit").attr('disabled',"true");
+                $("#submit").css({'background-color':'gray'});
+                $("#submit").val("已改完");
+            }
+            $('#examName').text(data.name);
+            record = JSON.parse(data.record);
+            sid = data.sid;
+            subids = data.sub.split(',');
+            for (i in subids){
+                F_get_sub(subids[i]);
+            }
+        });
+    });
+
+    //ajax提交form表单的方式
+    function submit_paper() {
+
+        if (event != undefined){
+            event.preventDefault();
+        }
+        var pid = getQueryVariable("pid");
+        var AjaxURL= "/teacher/teacher_calc_grade";
+        var d = parseInt('0');
+        var t = $('form').serializeArray();
+
+        $.each(t, function() {
+            d += parseInt(this.value) ;
+        });
+        console.log(d);
+        $.ajax({
+            type: "POST",
+            url: AjaxURL,
+            data:  "ans="+d+"&pid="+pid+"&sid="+sid,
+            success: function (data) {
+                submitted = true;
+                alert(data);
+                $("#submit").attr('disabled',"true");
+                $("#submit").css({'background-color':'gray'});
+                $("#submit").val("已提交");
+            },
+            error: function(data) {
+                alert("提交失败！\n请保证每道题都被批改\n或请检查网络状态并重试！\n");
+            }
+        });
+    }
+    $('#examForm').submit(submit_paper);
+
+    function checkNum (val,id) {
+        document.getElementById(id).value = val >= 0 ? val : 0;
+        document.getElementById(id).value = val <= 8 ? val : 8;
+    }
+    /*]]>*/
+</script>
+
+</body>
+</html>

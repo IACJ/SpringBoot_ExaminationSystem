@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>数据库在线系统</title>
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/ccc.css"/>
+</head>
+
+<body>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="#"><span class="glyphicon glyphicon-user"
+                                  th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li><a href="teacherpage.html">首页</a></li>
+            <li><a href="question_list.html">选择题题库</a></li>
+            <li><a href="truefalse_list.html">判断题题库</a></li>
+            <li><a href="sub_list.html">主观题题库</a></li>
+            <li><a href="get_paper.html">发布考试</a></li>
+            <li><a href="student_grade.html">查询学生成绩</a></li>
+            <li><a href="teacher_test_list.html">试卷列表</a></li>
+            <li class="active"><a href="teacher_info.html">个人信息</a></li>
+        </ul>
+    </div>
+
+    <div id="student_content" class="background1">
+        <blockquote><p style="color:#09679e;"><strong>个人信息</strong></p></blockquote>
+        <div style="margin: 0 auto; width: 400px;">
+            <span style="color:#09679e;"><strong>姓名： </strong></span>
+            <span style="color:#087ec2;" th:text="' ' +${session.name}"></span><br/>
+            <span style="color:#09679e;"><strong>身份： </strong></span>
+            <span style="color:#087ec2;" th:text="' ' +${session.permission}"></span><br/>
+            <hr/>
+            <span class="left_txt"><strong>修改密码： </strong></span><br/><br/>
+
+            <span class="left2_txt">新的密码： </span>
+            <input style="height: 25px;" type="password" id="newpassword"/><br/>
+            <span class="left2_txt">确认密码： </span>
+            <input style="height: 25px;" type="password" id="confirmpassword" onchange="warning22()"/><span
+                style="color:red;" id="warning2"></span><br/>
+            <input type="button" style="width: 240px;" value="提交" onclick="submit()"/>
+
+
+        </div>
+    </div>
+    <div style="margin-bottom:70px;"></div>
+</div>
+
+<div class="footer">
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function warning22() {
+        var x = document.getElementById("newpassword").value;
+        var y = document.getElementById("confirmpassword").value;
+        var z = document.getElementById("warning2");
+        if (y != null && y != undefined && y != "" && x != y)
+            z.innerHTML = " !!!";
+        else
+            z.innerHTML = "";
+    }
+
+    function submit() {
+        var z = document.getElementById("warning2");
+        var y = document.getElementById("confirmpassword").value;
+        if (z.innerHTML == "") {
+            alert("修改成功");
+            window.location.href = "/change_info_submit?name=" + [[${session.name}]] + "&pw="
+                + y;
+        }
+    }
+
+    /*]]>*/
+</script>
+
+</body>
+
+</html>

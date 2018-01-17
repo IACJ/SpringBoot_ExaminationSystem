@@ -13,7 +13,7 @@
         SELECT pid,paper.name as pname,teacher.name as tname,paper.begintime,paper.finishtime,record.score
         FROM `record` INNER JOIN `paper` on paper.id=record.pid
             inner JOIN `teacher` on teacher.id=paper.tid
-        WHERE sid = #{sid}
+        WHERE sid = #{sid} AND `status` = '已批改';
     </select>
 
     <insert id="submit" parameterType="examination.entity.Record" useGeneratedKeys="true" keyProperty="runid">
@@ -21,5 +21,38 @@
         VALUES (#{sid},#{pid},#{record},'等待批改',0);
     </insert>
 
+
+    <select id="listExamByTid" resultType="Paper">
+        SELECT * FROM `paper` WHERE `tid`=#{tid}
+    </select>
+
+    <select id="listStudentGrade" resultType="Map">
+        SELECT name,score
+        FROM `record` INNER JOIN `student` on record.sid=student.id
+        WHERE pid = #{pid}
+    </select>
+
+    <update id="calcGrade" parameterType="examination.entity.Record" useGeneratedKeys="true" keyProperty="runid">
+        UPDATE `record`SET `status`=#{status},`score`=#{score} WHERE `sid`=#{sid} AND `pid` =#{pid};
+    </update>
+
+    <select id="paperTested" resultType="long">
+        SELECT COUNT(*) FROM `record` WHERE `sid`=#{sid} AND `pid`=#{pid}
+    </select>
+
+    <select id="listPaper" resultType="Map">
+        SELECT * FROM `paper` WHERE 1;
+    </select>
+
+    <select id="getOnePaperRecord" resultType="Map">
+        SELECT * FROM `record`,`paper`
+        WHERE  `record`.pid=`paper`.id AND `record`.pid = #{pid} AND `status`='等待批改' LIMIT 1;
+    </select>
+
+    <select id="getRecordBySidPid" resultType="examination.entity.Record">
+        SELECT * FROM `record`
+        WHERE  `record`.sid = #{sid} AND `record`.pid = #{pid} AND `status`='等待批改' LIMIT 1;
+
+    </select>
 
 </mapper>

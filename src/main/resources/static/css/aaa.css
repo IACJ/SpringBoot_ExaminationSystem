@@ -234,3 +234,92 @@ input[type='submit']:hover {
     color: white;
     background-color: #a0bcae;
 }
+
+.add_block {
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.add_btn1 {
+    background-color: #62b5dd;
+    border: 2px solid #4CAF50;
+    border-radius: 2px;
+    color:white;
+    border: none;
+    width: 120px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 16px;
+    padding: 5px;
+    cursor: pointer;
+    float: right;
+}
+
+.add_btn1:hover {
+    background-color: #3e9be8;
+}
+
+.tableStyle
+{
+    width:100%;
+    border-collapse:collapse;
+}
+.tableStyle td, .tableStyle th
+{
+    font-size:1em;
+    border:1px solid #4090ba;
+    padding:3px 7px 2px 7px;
+}
+.tableStyle th
+{
+    font-size:1.1em;
+    text-align:left;
+    padding-top:5px;
+    padding-bottom:4px;
+    background-color:#55a5da;
+    color:#ffffff;
+}
+.tableStyle td
+{
+    color:#000000;
+    background-color:#ffffff;
+}
+
+.add_bottom {
+    float: right;
+    margin: 10px;
+}
+
+.alii {
+    border-radius: 15px;
+    border: 1px solid #eeeeee;
+    background-color: #eeeeee;
+    padding: 20px;
+    width: 450px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+.left_txt {
+    color:#09679e;
+    font-weight: bold;
+    width: 80px;
+
+}
+
+.left2_txt {
+    color:#087ec2;
+    width: 80px;
+}
+
+.combine_fixed {
+    position: fixed;
+    top: 70px;
+    text-align: center;
+    background-color: #eeeeee;
+    opacity: 0.8;
+    padding-top: 10px;
+}

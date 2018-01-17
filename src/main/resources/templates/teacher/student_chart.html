@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>数据库在线系统</title>
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/ccc.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.2/echarts.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user"
+                                               th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a>
+            </li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+        </ul>
+    </div>
+</nav>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+        <ul class="nav nav-pills">
+            <li><a href="teacherpage.html">首页</a></li>
+            <li><a href="question_list.html">选择题题库</a></li>
+            <li><a href="truefalse_list.html">判断题题库</a></li>
+            <li><a href="sub_list.html">主观题题库</a></li>
+            <li><a href="get_paper.html">发布考试</a></li>
+            <li class="active"><a href="student_grade.html">查询学生成绩</a></li>
+            <li><a href="teacher_test_list.html">试卷列表</a></li>
+            <li><a href="teacher_info.html">个人信息</a></li>
+        </ul>
+    </div>
+    <div id="student_content" class="background1">
+        <div id="chart" style="width: 800px;height:600px;"></div>
+    </div>
+</div>
+<div class="footer">
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
+</div>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+        var myChart = echarts.init(document.getElementById('chart'));
+        console.log([[${data}]]);
+
+        myChart.setOption($.parseJSON([[${data}]]));
+    });
+
+</script>
+</body>
+</html>

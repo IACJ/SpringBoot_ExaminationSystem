@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>数据库在线系统</title>
+    <link href="/css/bbb.css" type="text/css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
+</head>
+
+<body>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+    <div class="container-fluid">
+        <img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+        <div class="nav-header">
+            <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
+        </div>
+        <ul class="nav navbar-nav nav-right" style="float:right;">
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div style="margin: 0 auto;width: 900px;">
+    <div style="margin-top:80px;margin-bottom:50px;">
+
+    </div>
+    <div class="combine_fixed">
+        <blockquote><span style="color:#09679e; font-size: 30px;"><strong>请在要选的选择题前面打勾，已选择 <span id="cnt">0</span> 题。</strong></span>
+        </blockquote>
+    </div>
+
+    <div id="student_content" class="background1">
+        <div class="add_block">
+
+        </div>
+        <br/>
+        <table class="tableStyle">
+
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="checkall" onclick="selectAll()"/></th>
+                <th>问题</th>
+                <th>选项A</th>
+                <th>选项B</th>
+                <th>选项C</th>
+                <th>选项D</th>
+                <th>答案</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="que,stat:${choiceQuestuon}" th:id="${que.id}+'tr'">
+                <td><input type="checkbox" name="id" th:id="${que.id}+'ch'" th:value="${que.id}"/></td>
+                <td th:text="${que.question}" th:id="${que.id}+'q'">数据库三级模式中，真正存在的是（）。
+                </td>
+                <td th:text="${que.option1}" th:id="${que.id}+'a'">外模式</td>
+                <td th:text="${que.option2}" th:id="${que.id}+'b'">模式</td>
+                <td th:text="${que.option3}" th:id="${que.id}+'c'">内模式</td>
+                <td th:text="${que.option4}" th:id="${que.id}+'d'">模式</td>
+                <td th:text="${que.rightAnswer}" th:id="${que.id}+'an'">D</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="add_block">
+            <div class="add_bottom">
+                <div class="add_btn1"  id="sub">下一步</div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-bottom:70px;"></div>
+</div>
+
+<div class="footer">
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
+</div>
+
+<script>
+
+
+    function selectAll(){
+        if ($("#checkall").prop("checked")) {
+            $("input[type='checkbox'][name='id']").prop("checked",true);//全选
+            cnt = $("input[type='checkbox'][name='id']").length;
+            $('#cnt').text(cnt);
+        } else {
+            $("input[type='checkbox'][name='id']").prop("checked",false);  //取消全选
+            cnt = 0;
+            $('#cnt').text(cnt);
+        }
+    }
+
+    $('#sub').click(function(){
+        var ans = "";//获得选中的id
+        $('input[name="id"]:checked').each(function(){
+            ans=ans+$(this).val()+",";
+        });
+        window.location.href="/teacher/choice/combine?choice="+ans.substr(0,ans.length-1);
+    });
+
+    var cnt = 0; //选中的题目个数
+
+    $(function(){
+        var s = $("input[type='checkbox'][name='id']");
+        s.each(function(i) {
+            //alert(i);
+            $(this).click(function(){
+                if(this.checked==true){
+                    cnt = cnt + 1;
+                }
+                else {
+                    cnt = cnt - 1;
+                }
+                //alert("klasdjfl");
+                $('#cnt').text(cnt);
+            });
+        });
+    })
+
+</script>
+</body>
+
+</html>

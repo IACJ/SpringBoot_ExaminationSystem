@@ -89,7 +89,7 @@ public class AdminService {
         return studentDao.update(student);
     }
 
-    public int deleteStudent(long id){
+    public int deleteStudent(long id) {
         return studentDao.delete(id);
     }
 
@@ -97,10 +97,17 @@ public class AdminService {
         return teacherDao.update(teacher);
     }
 
-    public int deleteTeacher(long id){
-        return teacherDao.delete(id);
+    public int deleteTeacherBatch(List<Long> list) {
+        return teacherDao.deleteByList(list);
     }
 
+    public int deleteStudentBatch(List<Long> list) {
+        return studentDao.deleteByList(list);
+    }
+
+    public int deleteTeacher(long id) {
+        return teacherDao.delete(id);
+    }
 
     public int addTeacherByExcel(InputStream inputStream) {
         List<Teacher> teachers = new ArrayList<Teacher>();
@@ -125,5 +132,11 @@ public class AdminService {
         return teacherDao.addByList(teachers);
     }
 
+    public int resetStudentPassword(long id) {
+        return studentDao.resetPassword(id);
+    }
 
+    public int resetTeacherPassword(long id) {
+        return teacherDao.resetPassword(id);
+    }
 }

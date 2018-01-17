@@ -15,8 +15,12 @@
     </select>
 
     <update id="update">
-        UPDATE student set account=#{account},name=#{name},sex=#{sex}
-        ,password=#{password},classid=#{classid} WHERE id=#{id}
+        UPDATE student set account=#{account},name=#{name}
+        ,classid=#{classid} WHERE id=#{id}
+    </update>
+
+    <update id="updateInfo">
+        UPDATE student set `name`=#{name},`password`=#{pw} WHERE id=#{id}
     </update>
 
     <insert id="addByList">
@@ -34,4 +38,15 @@
     <delete id="delete">
         DELETE from student WHERE id=#{id}
     </delete>
+
+    <delete id="deleteByList">
+        DELETE from student WHERE id in
+        <foreach item="id" collection="list" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="resetPassword">
+        UPDATE student set password="4QrcOUm6Wau+VuBX8g+IPg==" WHERE id=#{id}
+    </update>
 </mapper>
