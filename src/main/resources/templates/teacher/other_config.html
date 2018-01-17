@@ -51,7 +51,7 @@
                     <option>15计创</option>
                     <option>15计联</option>
                 </select><br/><br/>
-            <a id="aaa"  style="width: 240px;">提交</a>
+            <button id="aaa"  style="width: 240px;">提交</button>
         </div>
 
     </div>
@@ -68,8 +68,9 @@
     $("#aaa").click(function () {
         var begintime=$('#begindate').val()+" "+$('#begintime').val();
         var finishtime=$('#finishdate').val()+" "+$('#finishtime').val();
-        $("#aaa").attr("href", "/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
-            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val());
+
+        window.location.href="/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
+            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val();
     })
     /*]]>*/
 

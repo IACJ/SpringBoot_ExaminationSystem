@@ -1,9 +1,6 @@
 package examination.service;
 
-import examination.dao.ChoiceDao;
-import examination.dao.JudgeDao;
-import examination.dao.PaperDao;
-import examination.dao.SubjectDao;
+import examination.dao.*;
 import examination.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +18,9 @@ public class PaperService {
     SubjectDao subjectDao;
     @Autowired
     PaperDao paperDao;
+
+    @Autowired
+    ClassDao classDao;
 
     Page page = new Page();
 
@@ -62,6 +62,8 @@ public class PaperService {
     }
 
     public int addPaper(Paper paper) {
+        String classId = "[|"+classDao.getIdByName(paper.getClassid())+"|]";
+        paper.setClassid(classId);
         return paperDao.add(paper);
     }
 

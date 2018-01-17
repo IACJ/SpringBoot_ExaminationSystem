@@ -3,7 +3,7 @@
 <mapper namespace="examination.dao.PaperDao">
     <insert id="add">
         INSERT INTO paper(name,begintime,finishtime,choi,judg,sub,choiscore,judgscore,subscore,tid,classid)
-        VALUE(#{name},#{begintime},#{finishtime},#{choi},#{judg},#{sub},,#{choiscore},#{judgscore},#{subscore},#{tid},#{classid});
+        VALUE(#{name},#{begintime},#{finishtime},#{choi},#{judg},#{sub},#{choiscore},#{judgscore},#{subscore},#{tid},#{classid});
     </insert>
 
 </mapper>

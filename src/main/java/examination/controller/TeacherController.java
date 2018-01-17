@@ -160,7 +160,6 @@ public class TeacherController {
         String sub = (String) session.getAttribute("sub");
         long tid = (long) session.getAttribute("userid");
         String classid = request.getParameter("classid");
-
         String choiscore="";
         for (int i = 0; i < choi.split(",").length; i++) {
             choiscore+="4,";
@@ -169,13 +168,13 @@ public class TeacherController {
 
         String judgscore="";
         for (int i = 0; i < judg.split(",").length; i++) {
-            judg+="4,";
+            judgscore +="4,";
         }
         judgscore=judgscore.substring(0,judgscore.length()-1);
 
         String subscore="";
         for (int i = 0; i < sub.split(",").length; i++) {
-            judg+="4,";
+            subscore+="4,";
         }
         subscore=subscore.substring(0,subscore.length()-1);
 
