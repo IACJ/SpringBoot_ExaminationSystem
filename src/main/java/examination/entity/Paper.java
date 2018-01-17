@@ -8,9 +8,11 @@ public class Paper {
     private String choi;
     private String judg;
     private String sub;
+
     private String choiscore;
     private String judgscore;
     private String subscore;
+
     private long tid;
     private String classid;
 
@@ -103,16 +105,43 @@ public class Paper {
         this.classid = classid;
     }
 
+    public String getChoiscore() {
+        return choiscore;
+    }
+
+    public void setChoiscore(String choiscore) {
+        this.choiscore = choiscore;
+    }
+
+    public String getJudgscore() {
+        return judgscore;
+    }
+
+    public void setJudgscore(String judgscore) {
+        this.judgscore = judgscore;
+    }
+
+    public String getSubscore() {
+        return subscore;
+    }
+
+    public void setSubscore(String subscore) {
+        this.subscore = subscore;
+    }
+
     @Override
     public String toString() {
         return "Paper{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", begintime=" + begintime +
-                ", finishtime=" + finishtime +
+                ", begintime='" + begintime + '\'' +
+                ", finishtime='" + finishtime + '\'' +
                 ", choi='" + choi + '\'' +
                 ", judg='" + judg + '\'' +
                 ", sub='" + sub + '\'' +
+                ", choiscore='" + choiscore + '\'' +
+                ", judgscore='" + judgscore + '\'' +
+                ", subscore='" + subscore + '\'' +
                 ", tid=" + tid +
                 ", classid='" + classid + '\'' +
                 '}';

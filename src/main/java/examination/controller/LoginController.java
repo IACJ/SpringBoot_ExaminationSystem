@@ -23,6 +23,10 @@ public class LoginController {
     public String hello() {
         return "Hello World";
     }
+    @RequestMapping("/change_info")
+    public String changeInfo() {
+        return "change_info";
+    }
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
     @ResponseBody
@@ -80,5 +84,16 @@ public class LoginController {
     @RequestMapping(value = "/wrongpassword")
     String wrongpassword(Model model) {
         return "wrongpassword";
+    }
+
+    @RequestMapping("/change_info_submit")
+    public String changeInfoSubmit(HttpSession httpSession,String name, String pw) {
+
+        long uid = (long) httpSession.getAttribute("userid");
+        String s = (String) httpSession.getAttribute("permission");
+
+        loginService.chageInfo(uid,s,name,pw);
+        String pageName = s.toLowerCase();
+        return "/"+pageName+"/"+pageName+"page";
     }
 }

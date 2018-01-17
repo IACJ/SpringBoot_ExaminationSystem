@@ -15,18 +15,18 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
-		<div class="container-fluid">
-			<img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
-			<div class="nav-header">
-				<a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
-			</div>
-			<ul class="nav navbar-nav nav-right" style="float:right;">
-				<li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
-				<li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
-			</ul>
+<nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
+	<div class="container-fluid">
+		<img src="/images/login_icon.png" style="width:30px;float:left;margin-right:10px;margin-top:10px;"/>
+		<div class="nav-header">
+			<a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
 		</div>
-	</nav>
+		<ul class="nav navbar-nav nav-right" style="float:right;">
+			<li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+			<li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
+		</ul>
+	</div>
+</nav>
 	<div style="margin: 0 auto;width: 900px;">
 		<div style="margin-top:80px;margin-bottom:50px;">
 						<ul class="nav nav-pills">
@@ -52,9 +52,9 @@
 				<div style="margin-bottom:70px;"></div>
 
 	</div>
-	<div class="footer">
-		kdkfaj | kdalksdjf | djksajf | 2017.11.12
-	</div>
+<div class="footer">
+	Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
+</div>
 </body>
 
 </html>

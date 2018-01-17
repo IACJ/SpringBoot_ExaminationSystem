@@ -27,22 +27,23 @@
             <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
         </div>
         <ul class="nav navbar-nav nav-right" style="float:right;">
-            <li><a href="#"><span class="glyphicon glyphicon-user"
-                                  th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
-            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
         </ul>
     </div>
 </nav>
-
 <div style="margin: 0 auto;width: 900px;">
     <div style="margin-top:80px;margin-bottom:50px;">
         <ul class="nav nav-pills">
+
             <li><a href="teacherpage.html">首页</a></li>
             <li class="active"><a href="question_list.html">选择题题库</a></li>
             <li><a href="truefalse_list.html">判断题题库</a></li>
             <li><a href="sub_list.html">主观题题库</a></li>
             <li><a href="get_paper.html">发布考试</a></li>
             <li><a href="student_grade.html">查询学生成绩</a></li>
+            <li><a href="teacher_test_list.html">批改试卷</a></li>
+
         </ul>
     </div>
 

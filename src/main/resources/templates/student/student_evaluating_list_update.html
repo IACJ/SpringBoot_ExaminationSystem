@@ -24,7 +24,7 @@
             <a class="navbar-brand" href="#"> welcome to 华南理工大学</a>
         </div>
         <ul class="nav navbar-nav nav-right" style="float:right;">
-            <li><a href="#"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
+            <li><a href="../change_info"><span class="glyphicon glyphicon-user" th:text="'  欢迎你！' +${session.name} + ' ' +${session.permission}"></span></a></li>
             <li><a href="../logout.html"><span class="glyphicon glyphicon-log-in"></span>  退出</a></li>
         </ul>
     </div>
@@ -64,9 +64,8 @@
             <div style="margin-bottom:70px;"></div>
 </div>
 <div class="footer">
-    kdkfaj | kdalksdjf | djksajf | 2017.11.12
+    Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
 </div>
-
 <script>
 
     $.get("/student/student_evaluating_list_update_get",function(data,status){

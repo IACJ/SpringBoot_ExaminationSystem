@@ -12,11 +12,9 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
     <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
-    <link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.2/echarts.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"/>
 </head>
+
 <body>
 <nav class="navbar navbar-default" role="navigation" style="background-color: #eff4fa">
     <div class="container-fluid">
@@ -30,37 +28,29 @@
         </ul>
     </div>
 </nav>
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div style="margin: 0 auto;width: 900px;">
-    <div style="margin-top:80px;margin-bottom:50px;">
-        <ul class="nav nav-pills">
-            <li><a href="studentpage.html">首页</a></li>
-            <li><a href="student_test.html">在线考试</a></li>
-            <li class="active"><a href="student_grade.html">成绩查询</a></li>
-            <li><a href="student_exercise.html">随机练习</a></li>
-            <li><a href="student_evaluating_list_select.html">SQL练习</a></li>
-            <li><a href="student_status.html">状态查询</a></li>
-        </ul>
-    </div>
 
+    <div style="margin-top:70px;"></div>
     <div id="student_content" class="background1">
-        <blockquote><p style="color:#09679e;"><strong>考试信息</strong></p></blockquote>
-        <h4><a href="student_grade.html"> 表格分析 --></a></h4>
-        <div id="chart" style="width: 800px;height:600px;"></div>
+        <blockquote><p style="color:#09679e;"><strong>修改个人信息</strong></p></blockquote>
+        <form action="change_info_submit" method="post">
+            <label>昵称</label>
+            <input type="text" name="name" />
+            <label>密码</label>
+            <input type="password" name="pw" />
+            <label>再次输入密码</label>
+            <input type="password" name="pw2" /> <br/>
+            <input type="submit" value="Submit" />
+        </form>
     </div>
+    <div style="margin-bottom:70px;"></div>
 
 </div>
 <div class="footer">
     Website by @ACJ @WTY @ICY @ZYR @DUCK @ZAL
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var myChart = echarts.init(document.getElementById('chart'));
-        $.get("/student/get/chart", function (data) {
-            myChart.setOption($.parseJSON(data));
-        })
-    });
 
-</script>
+
 </body>
+
 </html>

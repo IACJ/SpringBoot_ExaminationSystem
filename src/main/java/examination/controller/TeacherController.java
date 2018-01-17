@@ -6,17 +6,18 @@ import examination.entity.JudgeQuestion;
 import examination.entity.Paper;
 import examination.entity.SubjectQuestion;
 import examination.service.ChartService;
+import examination.entity.Question.Subdba;
+import examination.service.ExamService;
+import examination.service.ExerciseService;
 import examination.service.PaperService;
 import examination.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/teacher")
@@ -38,6 +40,11 @@ public class TeacherController {
 
     @Autowired
     ChartService chartService;
+    @Autowired
+    ExerciseService exerciseService;
+
+    @Autowired
+    ExamService examService;
 
     @RequestMapping(value = "")
     String index(Model model, HttpSession httpSession) {
@@ -240,5 +247,39 @@ public class TeacherController {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @RequestMapping(value = "teacher_test_list")
+    String teacherTestList() {
+        return  path + "teacher_test_list";
+    }
+
+    @RequestMapping(value = "pigai_test_ing")
+    String pigaiTestIng() {
+        return  path + "pigai_test_ing";
+    }
+
+    @RequestMapping(value = "teacher_test_list_content")
+    @ResponseBody()
+    List<Map> teacherTestListContent(HttpSession httpSession){
+        long tid = (long) httpSession.getAttribute("userid");
+        return teacherService.listPaper(tid);
+    }
+
+    @RequestMapping(value = "teacher_test_get_paper")
+    @ResponseBody()
+    Map teacherTestGetPaper(long pid){
+        return teacherService.getOnePaperRecord(pid);
+    }
+    @RequestMapping(value = "sub_get_questionByAns")
+    @ResponseBody
+    Subdba subGetQuestionByAns(Long id) {
+        return  exerciseService.getSubdbaById_Ans(id);
+    }
+
+    @RequestMapping(value = "teacher_calc_grade",method= RequestMethod.POST)
+    @ResponseBody
+    String teacher_calc_grade(long ans,long pid,long sid) {
+        return examService.teacher_calc_grade(sid,pid,ans);
     }
 }

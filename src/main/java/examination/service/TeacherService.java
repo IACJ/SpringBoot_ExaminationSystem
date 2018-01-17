@@ -30,6 +30,7 @@ public class TeacherService {
     @Autowired
     ExamDao examDao;
 
+
     public int deleteChoiceQuestion(long id){
         return choiceDao.delete(id);
     }
@@ -41,6 +42,7 @@ public class TeacherService {
     public int updateChoiceQuestion(ChoiceQuestion choiceQuestion){
         return choiceDao.update(choiceQuestion);
     }
+
 
     public List<Paper> listExamById(long id){
         return examDao.listExamByTid(id);
@@ -147,5 +149,13 @@ public class TeacherService {
             e.printStackTrace();
         }
         return subjectDao.addByList(judgeQuestions);
+
+    public List<Map> listPaper(long tid){
+        return examDao.listPaper();
+    }
+
+    public Map getOnePaperRecord(long pid) {
+        return examDao.getOnePaperRecord(pid);
+
     }
 }

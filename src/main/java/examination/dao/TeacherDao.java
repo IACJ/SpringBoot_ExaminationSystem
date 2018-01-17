@@ -25,4 +25,7 @@ public interface TeacherDao {
     List<Teacher> queryAll();
 
     int resetPassword(long id);
+
+    void updateInfo(@Param("id") long id,@Param("name")  String name,@Param("pw")  String pw);
+
 }
