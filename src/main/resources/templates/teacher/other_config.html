@@ -37,13 +37,13 @@
     <div id="student_content" class="background1">
         <div class="alii">
 
-                考试名字 <input style="height: 25px;" type="text" id="name"/><br/>
-                开始时间 <input style="height: 25px; width: 120px;" type="date" id="begindate"/>
-                <input style="height: 25px; width: 80px;" type="time" id="begintime"/><br/>
-                结束时间 <input style="height: 25px; width: 120px;" type="date" id="finishdate"/>
-                <input style="height: 25px; width: 80px;" type="time" id="finishtime"/><br/>
+                考试名字 <input style="height: 25px; width: 323px;" type="text" id="name"/><br/>
+                开始时间 <input style="height: 25px; width: 190px;" type="date" id="begindate"/>
+                <input style="height: 25px; width: 130px;" type="time" id="begintime"/><br/>
+                结束时间 <input style="height: 25px; width: 190px;" type="date" id="finishdate"/>
+                <input style="height: 25px; width: 130px;" type="time" id="finishtime"/><br/>
                 班&nbsp;&nbsp;&nbsp;&nbsp;级&nbsp;&nbsp;&nbsp;
-                <select style="width:206px;" id="classid">
+                <select style="width:323px;" id="classid">
                     <option>15计科1</option>
                     <option>15计科2</option>
                     <option>15网工</option>
@@ -51,7 +51,7 @@
                     <option>15计创</option>
                     <option>15计联</option>
                 </select><br/><br/>
-            <button id="aaa"  style="width: 240px;">提交</button>
+            <button id="aaa"  class="exercise_btn1" style="width: 350px;">提交</button>
         </div>
 
     </div>
@@ -69,15 +69,8 @@
         var begintime=$('#begindate').val()+" "+$('#begintime').val();
         var finishtime=$('#finishdate').val()+" "+$('#finishtime').val();
 
-
-        $.post("/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
-            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val(), function (data, status) {
-            if (data) {
-                alert("提交成功！");
-            }
-            else
-                alert("提交失败！");
-        });
+        window.location.href="/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
+            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val();
     })
     /*]]>*/
 
