@@ -2,6 +2,7 @@ package examination.service;
 
 import examination.dao.*;
 import examination.entity.ChoiceQuestion;
+import examination.entity.Paper;
 import examination.entity.Student;
 import examination.entity.Teacher;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -48,5 +49,9 @@ public class TeacherService {
 
     public Map getOnePaperRecord(long pid) {
         return examDao.getOnePaperRecord(pid);
+    }
+
+    public Paper getPaper(long pid) {
+        return examDao.findPaperById(pid);
     }
 }
