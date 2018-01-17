@@ -61,7 +61,6 @@
                 <th>id</th>
                 <th>账号</th>
                 <th>姓名</th>
-                <th>性别</th>
                 <th>班级</th>
                 <th>
                     <button onclick="deleteBatch()">删除已选中的值</button>
@@ -74,7 +73,6 @@
                 <td th:text="${stu.id}" th:id="${stu.id}+'i'">2</td>
                 <td th:text="${stu.account}" contenteditable="true" th:id="${stu.id}+'a'">dsl2015</td>
                 <td th:text="${stu.name}" contenteditable="true" th:id="${stu.id}+'n'">董守玲</td>
-                <td th:text="${stu.sex}" contenteditable="true" th:id="${stu.id}+'s'">女</td>
                 <td th:text="${stu.classid}" contenteditable="true" th:id="${stu.id}+'c'">15网工</td>
                 <td>
                     <button class="btn" type="button" style="margin: 0px;" th:id="${stu.id}+'u'"
