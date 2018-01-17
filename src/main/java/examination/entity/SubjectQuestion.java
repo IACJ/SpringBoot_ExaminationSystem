@@ -6,6 +6,14 @@ public class SubjectQuestion {
     String refAnswer;
     byte secrecy;
 
+    public SubjectQuestion() {
+    }
+
+    public SubjectQuestion(String question, String refAnswer) {
+        this.question = question;
+        this.refAnswer = refAnswer;
+    }
+
     public long getId() {
         return id;
     }
@@ -22,11 +30,11 @@ public class SubjectQuestion {
         this.question = question;
     }
 
-    public String getRightAnswer() {
+    public String getRefAnswer() {
         return refAnswer;
     }
 
-    public void setRightAnswer(String rightAnswer) {
+    public void setRefAnswer(String rightAnswer) {
         this.refAnswer = rightAnswer;
     }
 

@@ -25,4 +25,16 @@
         UPDATE choicedba set question=#{question},option1=#{option1},option2=#{option2},
         option3=#{option3},option4=#{option4},rightanswer=#{rightAnswer} WHERE id=#{id}
     </update>
+
+    <insert id="addByList">
+        INSERT INTO choicedba(question,option1,option2,option3,option4,rightanswer,chapters)
+        VALUE
+        <foreach collection="list" item="choice" separator=",">
+            (#{choice.question},#{choice.option1},#{choice.option2},#{choice.option3},#{choice.option4},#{choice.rightAnswer},#{choice.chapters})
+        </foreach>
+    </insert>
+
+    <select id="queryAll" resultType="ChoiceQuestion">
+        select  * from choicedba
+    </select>
 </mapper>

@@ -6,6 +6,14 @@ public class JudgeQuestion {
     String rightAnswer;
     byte secrecy;
 
+    public JudgeQuestion() {
+    }
+
+    public JudgeQuestion(String question, String rightAnswer) {
+        this.question = question;
+        this.rightAnswer = rightAnswer;
+    }
+
     public long getId() {
         return id;
     }

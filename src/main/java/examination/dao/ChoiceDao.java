@@ -17,4 +17,8 @@ public interface ChoiceDao {
     int deleteByList(List<Long> ids);
 
     int update(ChoiceQuestion choiceQuestion);
+
+    int addByList(List<ChoiceQuestion> teachers);
+
+    List<ChoiceQuestion> queryAll();
 }
