@@ -197,14 +197,21 @@
         $.each(t, function() {
             d[this.name] = this.value;
         });
-
+        console.log(t);
+        console.log(d);
         var dd = Object.getOwnPropertyNames(d).length;
+        console.log(dd);
+        var will_submit = true;
 
         if(dd<choiids.length+judgids.length+subids.length){
-            event.preventDefault();
-            alert("还有题目没有完成！");
+            if(confirm("还有题目没有完成！真的要交卷吗?")){
+                will_submit = true;
+            }
+            else{
+                will_submit = false;
+            }
         }
-        else{
+        if (will_submit){
             $.ajax({
                 type: "POST",
                 url: AjaxURL,
