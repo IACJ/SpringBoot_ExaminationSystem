@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>ECharts</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.2/echarts.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 800px;height:600px;"></div>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+        var myChart = echarts.init(document.getElementById('main'));
+        console.log([[${data}]]);
+
+        myChart.setOption($.parseJSON([[${data}]]));
+    });
+
+</script>
+</body>
+</html>

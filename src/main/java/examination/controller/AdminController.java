@@ -102,16 +102,16 @@ public class AdminController {
 
     @RequestMapping(value = "student/delete_batch")
     @ResponseBody()
-    boolean deleteStudentBatch(HttpServletRequest request,@RequestParam("list[]")List<Long>list) {
+    boolean deleteStudentBatch(HttpServletRequest request, @RequestParam("list[]") List<Long> list) {
         //list.forEach(System.out::println);
-        return adminservice.deleteStudentBatch(list)!=0;
+        return adminservice.deleteStudentBatch(list) != 0;
     }
 
     @RequestMapping(value = "teacher/delete_batch")
     @ResponseBody()
-    boolean deleteTeacherBatch(HttpServletRequest request,@RequestParam("list[]")List<Long>list) {
+    boolean deleteTeacherBatch(HttpServletRequest request, @RequestParam("list[]") List<Long> list) {
         //list.forEach(System.out::println);
-        return adminservice.deleteTeacherBatch(list)!=0;
+        return adminservice.deleteTeacherBatch(list) != 0;
     }
 
     @RequestMapping(value = "teacher/delete")
@@ -119,6 +119,7 @@ public class AdminController {
     boolean deleteTeacher(long id) {
         return adminservice.deleteTeacher(id) != 0;
     }
+
     @RequestMapping(value = "/{type}/download")
     public void download(@PathVariable String type, HttpServletResponse res) {
         res.setHeader("Content-Disposition", "attachment; filename=" + type + "_template.xlsx");
@@ -145,4 +146,12 @@ public class AdminController {
         return false;
     }
 
+    @RequestMapping(value = "{type}/reset")
+    @ResponseBody()
+    boolean resetPassword(@PathVariable String type, long id) {
+        //list.forEach(System.out::println);
+        if ("student".equals(type))
+            return adminservice.resetStudentPassword(id) != 0;
+        else return adminservice.resetTeacherPassword(id) != 0;
+    }
 }

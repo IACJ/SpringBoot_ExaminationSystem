@@ -56,4 +56,27 @@ public class ChartService {
         option.series(line);
         return option.toPrettyString();
     }
+
+    public String teacherGetChart(long pid,String name1) {
+
+        List<Byte> data = chartDao.getScoreByPId(pid) ;
+        List<String> name = new ArrayList<>();
+        GsonOption option = new GsonOption();
+
+        option.title(name1).tooltip(Trigger.item).toolbox().feature(Feature.saveAsImage);
+
+        CategoryAxis categoryAxis = new CategoryAxis();
+        categoryAxis.setBoundaryGap(false);
+        categoryAxis.setData(name);
+        option.xAxis(categoryAxis);
+        option.yAxis(new ValueAxis());
+
+        Line line = new Line();
+        line.setData(data);
+        line.markPoint(new MarkPoint().data(new Data("max","最高分"),new Data("min","最低分")));
+        line.markLine(new MarkLine().data(new Data("average","平均分")));
+
+        option.series(line);
+        return option.toPrettyString();
+    }
 }

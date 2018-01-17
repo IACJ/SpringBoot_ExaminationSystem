@@ -1,9 +1,6 @@
 package examination.service;
 
-import examination.dao.ChoiceDao;
-import examination.dao.JudgeDao;
-import examination.dao.PaperDao;
-import examination.dao.SubjectDao;
+import examination.dao.*;
 import examination.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +19,22 @@ public class PaperService {
     @Autowired
     PaperDao paperDao;
 
+    @Autowired
+    ClassDao classDao;
+
     Page page = new Page();
 
-    public Page getPage(String cp) {
+    public Page getPage(String cp, String type) {
         page = new Page();
         int pageNumber = page.getPageNumber();
         int currentPage = cp != null ? Integer.parseInt(cp) : 1;
-        int count = choiceDao.getCount();
+        int count=0;
+        if ("choice".equals(type))
+            count = choiceDao.getCount();
+        else if ("judge".equals(type))
+            count = judgeDao.getCount();
+        else if ("sub".equals(type))
+            count = subjectDao.getCount();
         int totalPage = count % pageNumber == 0 ? count / pageNumber : count / pageNumber + 1;
 
         page.setCount(count);
@@ -56,7 +62,20 @@ public class PaperService {
     }
 
     public int addPaper(Paper paper) {
+        String classId = "[|"+classDao.getIdByName(paper.getClassid())+"|]";
+        paper.setClassid(classId);
         return paperDao.add(paper);
     }
 
+    public List<SubjectQuestion> getAllSubjectQuestion() {
+        return subjectDao.queryAll();
+    }
+
+    public List<ChoiceQuestion> getAllChoiceQuestion() {
+        return choiceDao.queryAll();
+    }
+
+    public List<JudgeQuestion> getAllJudgeQuestion() {
+        return judgeDao.queryAll();
+    }
 }

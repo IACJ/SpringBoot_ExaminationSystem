@@ -21,6 +21,16 @@
         VALUES (#{sid},#{pid},#{record},'等待批改',0);
     </insert>
 
+
+    <select id="listExamByTid" resultType="Paper">
+        SELECT * FROM `paper` WHERE `tid`=#{tid}
+    </select>
+
+    <select id="listStudentGrade" resultType="Map">
+        SELECT name,score
+        FROM `record` INNER JOIN `student` on record.sid=student.id
+        WHERE pid = #{pid}
+
     <update id="calcGrade" parameterType="examination.entity.Record" useGeneratedKeys="true" keyProperty="runid">
         UPDATE `record`SET `status`=#{status},`score`=#{score} WHERE `sid`=#{sid} AND `pid` =#{pid};
     </update>
@@ -41,6 +51,7 @@
     <select id="getRecordBySidPid" resultType="examination.entity.Record">
         SELECT * FROM `record`
         WHERE  `record`.sid = #{sid} AND `record`.pid = #{pid} AND `status`='等待批改' LIMIT 1;
+
     </select>
 
 </mapper>

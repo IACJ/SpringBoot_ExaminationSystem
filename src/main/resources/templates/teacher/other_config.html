@@ -31,15 +31,17 @@
 
 <div style="margin: 0 auto;width: 900px;">
     <div style="margin-top:80px;margin-bottom:50px;">
-        <a id="aaa" href="">其他配置</a>
+        <strong>其他配置</strong>
     </div>
 
     <div id="student_content" class="background1">
         <div class="alii">
-            <form id="add">
+
                 考试名字 <input style="height: 25px;" type="text" id="name"/><br/>
-                开始时间 <input style="height: 25px;" type="date" id="begintime"/><br/>
-                结束时间 <input style="height: 25px;" type="date" id="finishtime"/><br/>
+                开始时间 <input style="height: 25px; width: 120px;" type="date" id="begindate"/>
+                <input style="height: 25px; width: 80px;" type="time" id="begintime"/><br/>
+                结束时间 <input style="height: 25px; width: 120px;" type="date" id="finishdate"/>
+                <input style="height: 25px; width: 80px;" type="time" id="finishtime"/><br/>
                 班&nbsp;&nbsp;&nbsp;&nbsp;级&nbsp;&nbsp;&nbsp;
                 <select style="width:206px;" id="classid">
                     <option>15计科1</option>
@@ -49,8 +51,7 @@
                     <option>15计创</option>
                     <option>15计联</option>
                 </select><br/><br/>
-                <input type="submit"  style="width: 240px;" value="提交"/>
-            </form>
+            <button id="aaa"  style="width: 240px;">提交</button>
         </div>
 
     </div>
@@ -65,8 +66,11 @@
 
     /* <![CDATA[*/
     $("#aaa").click(function () {
-        $("#aaa").attr("href", "/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
-            $('#begintime').val()+"&finishtime="+ $('#finishtime').val()+"&classid="+ $('#classid').val());
+        var begintime=$('#begindate').val()+" "+$('#begintime').val();
+        var finishtime=$('#finishdate').val()+" "+$('#finishtime').val();
+
+        window.location.href="/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
+            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val();
     })
     /*]]>*/
 

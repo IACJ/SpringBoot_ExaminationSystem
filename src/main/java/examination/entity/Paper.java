@@ -13,21 +13,22 @@ public class Paper {
     private String judgscore;
     private String subscore;
 
-
     private long tid;
     private String classid;
 
     public Paper() {
     }
 
-    public Paper(String name, String begintime, String finishtime, String choi,
-                 String judg, String sub, long tid, String classid) {
+    public Paper(String name, String begintime, String finishtime, String choi, String judg, String sub, String choiscore, String judgscore, String subscore, long tid, String classid) {
         this.name = name;
         this.begintime = begintime;
         this.finishtime = finishtime;
         this.choi = choi;
         this.judg = judg;
         this.sub = sub;
+        this.choiscore = choiscore;
+        this.judgscore = judgscore;
+        this.subscore = subscore;
         this.tid = tid;
         this.classid = classid;
     }

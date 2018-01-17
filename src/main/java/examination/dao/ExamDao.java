@@ -2,9 +2,6 @@ package examination.dao;
 
 
 import examination.entity.Paper;
-import examination.entity.Question.Choicedba;
-import examination.entity.Question.Judgedba;
-import examination.entity.Question.Subdba;
 import examination.entity.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,6 +19,10 @@ public interface ExamDao {
 
     void submit(Record record);
 
+    List<Paper> listExamByTid(@Param("tid") long tid);
+
+    List<Map> listStudentGrade(@Param("pid") long pid);
+
     void calcGrade(Record record);
 
     long paperTested(@Param("sid") Long sid,@Param("pid") Long pid);
@@ -31,4 +32,5 @@ public interface ExamDao {
     Map getOnePaperRecord(@Param("pid") Long pid);
 
     Record getRecordBySidPid(@Param("sid") Long sid,@Param("pid") Long pid);
+
 }

@@ -8,4 +8,9 @@
     <select id="getScore" resultType="byte">
         SELECT score from record where sid=#{studentId};
     </select>
+
+    <select id="getScoreByPId" resultType="byte">
+        SELECT score from record where pid=#{pId};
+    </select>
+
 </mapper>
