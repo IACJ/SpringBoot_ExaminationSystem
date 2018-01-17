@@ -1,5 +1,10 @@
 package examination.service;
 
+import examination.dao.*;
+import examination.entity.ChoiceQuestion;
+import examination.entity.Paper;
+import examination.entity.Student;
+import examination.entity.Teacher;
 import examination.dao.ChoiceDao;
 import examination.dao.ExamDao;
 import examination.dao.JudgeDao;
@@ -158,5 +163,9 @@ public class TeacherService {
     public Map getOnePaperRecord(long pid) {
         return examDao.getOnePaperRecord(pid);
 
+    }
+
+    public Paper getPaper(long pid) {
+        return examDao.findPaperById(pid);
     }
 }

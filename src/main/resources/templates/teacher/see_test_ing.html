@@ -43,7 +43,7 @@
                     <div class="test_right">
                         <p class="time_text">当前时间</p>
                         <p id="time_clock" class="time_clock">&nbsp;</p>
-                        <input id="submit" type="submit" value="提交" />
+                        <input id="submit" type="submit" value="返回" />
                     </div>
                 </form>
 
@@ -72,80 +72,77 @@
         console.log("参数自动转1");
         return(1);
     }
+    var F_get_choice = function(id) {
+        $.get("/teacher/choice_get_questionByAns?id=" + id, function (data, status) {
+            var str = '<div class="background1">'+
+                '<blockquote><p style="color:#09679e;"><strong>选择题</strong></p></blockquote>'+
+                '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
+                '<label class="d_label"><input disabled="true" class="d_radio" type="radio" name="cho_' +data.id +'" value="A"/>'+
+                '<span class="d_radioInput"></span>'+data.option1+'</label>'+
+                '<label class="d_label"><input disabled="true" class="d_radio" type="radio" name="cho_' +data.id +'" value="B"/>'+
+                '<span class="d_radioInput"></span>'+data.option2+'</label>'+
+                '<label class="d_label"><input disabled="true" class="d_radio" type="radio" name="cho_' +data.id +'" value="C"/>'+
+                '<span class="d_radioInput"></span>'+data.option3+'</label>'+
+                '<label class="d_label"><input disabled="true" class="d_radio" type="radio" name="cho_' +data.id +'" value="D"/>'+
+                '<span class="d_radioInput"></span>'+data.option4+'</label>' +
+                '<label >参考答案：'+data.rightanswer +'</label></div>';
+            $("#choice").append(str);
+        });
+    };
 
-
+    var F_get_truefalse = function(id) {
+        $.get("/teacher/truefalse_get_questionByAns?id=" + id, function (data, status) {
+            console.log(data);
+            var str = '<div class="background1">'+
+                '<blockquote><p style="color:#09679e;"><strong>判断题</strong></p></blockquote>'+
+                '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
+                '<label class="d_label"><input disabled="true" class="d_radio" type="radio" name="tf_' +data.id +'" value="T"/>'+
+                '<span class="d_radioInput"></span>True</label>'+
+                '<label class="d_label"><input disabled="true" class="d_radio" type="radio" name="tf_' +data.id +'" value="T"/>'+
+                '<span class="d_radioInput"></span>False</label>' +
+                '<label >参考答案：'+data.rightanswer +'</label></div>';
+            $("#truefalse").append(str);
+        });
+    };
     var F_get_sub = function(id) {
         $.get("/teacher/sub_get_questionByAns?id=" + id, function (data, status) {
-            console.log(data);
             var str = '<div class="background1">'+
                 '<blockquote><p style="color:#09679e;"><strong>主观题</strong></p></blockquote>'+
                 '<h2 class="question" style="color:#5f5f5f;">'+data.question+'</h2>' +
-                '<textarea disabled="true"  class="textareaStyle" >'+record['sub_'+id]+'</textarea>' +
                 '<label>参考答案：</label>'+
-                '<textarea disabled="true" class="textareaStyle" >'+data['refanswer']+'</textarea>' +
-                '<label>得分：(满分为'+8+')</label><input  oninput="checkNum(this.value,id)" type="number"  name="sub_' +data.id +'" id="input'+id+'"/></div>';
+                '<textarea disabled="true" class="textareaStyle" >'+data['refanswer']+'</textarea></div>';
             $("#sub").append(str);
         });
     };
     var record;
-    var sid;
+    var choiids;
+    var judgids;
+    var subids;
     $(document).ready(function() {
         var pid = getQueryVariable("pid");
-        $.get("/teacher/teacher_test_get_paper?pid=" + pid,function (data, status) {
+        $.get("/teacher/teacher_see_paper?pid=" + pid,function (data, status) {
             console.log(data);
-            if(data.length === 0){
-                alert("已批改完所有该考卷的试卷~");
-                $("#submit").attr('disabled',"true");
-                $("#submit").css({'background-color':'gray'});
-                $("#submit").val("已改完");
-            }
             $('#examName').text(data.name);
-            record = JSON.parse(data.record);
-            sid = data.sid;
+
+            choiids = data.choi.split(',');
+            judgids = data.judg.split(',');
             subids = data.sub.split(',');
+            for (i in choiids){
+                F_get_choice(choiids[i]);
+            }
+            for (i in judgids){
+                F_get_truefalse(judgids[i]);
+            }
             for (i in subids){
                 F_get_sub(subids[i]);
             }
         });
     });
-
-    //ajax提交form表单的方式
-    function submit_paper() {
-
-        if (event != undefined){
-            event.preventDefault();
-        }
-        var pid = getQueryVariable("pid");
-        var AjaxURL= "/teacher/teacher_calc_grade";
-        var d = parseInt('0');
-        var t = $('form').serializeArray();
-
-        $.each(t, function() {
-            d += parseInt(this.value) ;
-        });
-        console.log(d);
-        $.ajax({
-            type: "POST",
-            url: AjaxURL,
-            data:  "ans="+d+"&pid="+pid+"&sid="+sid,
-            success: function (data) {
-                submitted = true;
-                alert(data);
-                $("#submit").attr('disabled',"true");
-                $("#submit").css({'background-color':'gray'});
-                $("#submit").val("已提交");
-            },
-            error: function(data) {
-                alert("提交失败！\n请保证每道题都被批改\n或请检查网络状态并重试！\n");
-            }
-        });
-    }
-    $('#examForm').submit(submit_paper);
-
-    function checkNum (val,id) {
-        document.getElementById(id).value = val >= 0 ? val : 0;
-        document.getElementById(id).value = val <= 8 ? val : 8;
-    }
+//
+//
+    $('#examForm').submit(function () {
+        window.history.back(-1);
+    });
     /*]]>*/
 </script>
 

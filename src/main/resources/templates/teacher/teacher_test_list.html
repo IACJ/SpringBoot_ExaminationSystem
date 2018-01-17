@@ -50,7 +50,8 @@
 				<th>考试名称</th>
 				<th>开始时间</th>
 				<th>交卷时间</th>
-				<th>信息</th>
+				<th>批改</th>
+				<th>查看</th>
 			</tr>
 			</thead>
 			<tbody></tbody>
@@ -81,9 +82,9 @@
         var str ;
         for (i in data){
             if (i % 2){
-                str = '<tr class="biaogekuang"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="pigai_test_ing?pid='+data[i].id+'">批改试卷</a></td>  </tr>'
+                str = '<tr class="biaogekuang"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="pigai_test_ing?pid='+data[i].id+'">批改试卷</a></td> <td><a href="see_test_ing?pid='+data[i].id+'">查看试卷</a></td>  </tr>'
             }else{
-                str = '<tr class="biaogekuang2"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="pigai_test_ing?pid='+data[i].id+'">批改试卷</a></td>  </tr>'
+                str = '<tr class="biaogekuang2"><td>'+data[i].id+'</td> <td>'+data[i].name+'</td> <td>'+tm(data[i].begintime)+'</td> <td>'+tm(data[i].finishtime)+'</td> <td><a href="pigai_test_ing?pid='+data[i].id+'">批改试卷</a></td> <td><a href="see_test_ing?pid='+data[i].id+'">查看试卷</a></td>  </tr>'
             }
             $("tbody").append(str);
         }

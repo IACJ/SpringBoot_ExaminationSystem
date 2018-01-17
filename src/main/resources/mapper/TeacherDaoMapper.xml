@@ -46,6 +46,6 @@
     </delete>
 
     <update id="resetPassword">
-        UPDATE teacher set password="123456" WHERE id=#{id}
+        UPDATE teacher set password="4QrcOUm6Wau+VuBX8g+IPg==" WHERE id=#{id}
     </update>
 </mapper>

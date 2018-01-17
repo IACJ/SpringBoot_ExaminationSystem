@@ -58,4 +58,10 @@ public class StudentDaoTest {
         List<Student> student = studentDao.queryAll();
         student.forEach(System.out::println);
     }
+
+    @Test
+    public void md5_123456() throws Exception {
+        Student student = studentDao.findById(5);
+        System.out.println(student);
+    }
 }

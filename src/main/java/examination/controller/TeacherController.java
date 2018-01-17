@@ -4,6 +4,8 @@ package examination.controller;
 import examination.entity.ChoiceQuestion;
 import examination.entity.JudgeQuestion;
 import examination.entity.Paper;
+import examination.entity.Question.Choicedba;
+import examination.entity.Question.Judgedba;
 import examination.entity.SubjectQuestion;
 import examination.service.ChartService;
 import examination.entity.Question.Subdba;
@@ -259,6 +261,17 @@ public class TeacherController {
         return  path + "pigai_test_ing";
     }
 
+    @RequestMapping(value = "see_test_ing")
+    String seeTestIng() {
+        return  path + "see_test_ing";
+    }
+
+    @RequestMapping(value = "teacher_see_paper")
+    @ResponseBody()
+    Paper teacherSeePaper(long pid){
+        return teacherService.getPaper(pid);
+    }
+
     @RequestMapping(value = "teacher_test_list_content")
     @ResponseBody()
     List<Map> teacherTestListContent(HttpSession httpSession){
@@ -275,6 +288,18 @@ public class TeacherController {
     @ResponseBody
     Subdba subGetQuestionByAns(Long id) {
         return  exerciseService.getSubdbaById_Ans(id);
+    }
+
+    @RequestMapping(value = "choice_get_questionByAns")
+    @ResponseBody
+    Choicedba choiceGetQuestionByAns(Long id) {
+        return  exerciseService.getChoicedbaById_Ans(id);
+    }
+
+    @RequestMapping(value = "truefalse_get_questionByAns")
+    @ResponseBody
+    Judgedba truefalseGetQuestionByAns(Long id) {
+        return  exerciseService.getJudgedbaById_Ans(id);
     }
 
     @RequestMapping(value = "teacher_calc_grade",method= RequestMethod.POST)
