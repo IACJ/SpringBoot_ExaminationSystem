@@ -154,4 +154,9 @@ public class AdminController {
             return adminservice.resetStudentPassword(id) != 0;
         else return adminservice.resetTeacherPassword(id) != 0;
     }
+
+    @RequestMapping(value = "admin_info")
+    String admin_info() {
+        return path+"admin_info";
+    }
 }

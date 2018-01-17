@@ -69,8 +69,16 @@
         var begintime=$('#begindate').val()+" "+$('#begintime').val();
         var finishtime=$('#finishdate').val()+" "+$('#finishtime').val();
 
-        window.location.href="/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
-            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val();
+
+        $.post("/teacher/paper_finish?name=" + $('#name').val()+"&begintime="+
+            begintime+"&finishtime="+ finishtime+"&classid="+ $('#classid').val(), function (data, status) {
+            if (data) {
+                alert("提交成功！");
+                window.location.href="/teacher";
+            }
+            else
+                alert("提交失败！");
+        });
     })
     /*]]>*/
 

@@ -282,4 +282,9 @@ public class TeacherController {
     String teacher_calc_grade(long ans,long pid,long sid) {
         return examService.teacher_calc_grade(sid,pid,ans);
     }
+
+    @RequestMapping(value = "teacher_info")
+    String teacher_info() {
+        return path+"teacher_info";
+    }
 }
