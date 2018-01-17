@@ -214,7 +214,7 @@ public class TeacherController {
         return path + "student_grade_list";
     }
 
-    @RequestMapping(value = "get/chart")
+    @RequestMapping(value = "get_chart")
     String getChart(HttpServletRequest request, Model model) {
         long pid = Long.parseLong(request.getParameter("pid"));
         model.addAttribute("data", chartService.teacherGetChart(pid, request.getParameter("name")));
