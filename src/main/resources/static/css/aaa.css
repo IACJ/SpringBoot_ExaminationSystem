@@ -314,3 +314,12 @@ input[type='submit']:hover {
     color:#087ec2;
     width: 80px;
 }
+
+.combine_fixed {
+    position: fixed;
+    top: 70px;
+    text-align: center;
+    background-color: #eeeeee;
+    opacity: 0.8;
+    padding-top: 10px;
+}

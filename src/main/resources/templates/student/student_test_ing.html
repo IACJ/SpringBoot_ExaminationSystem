@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"  />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"  />
     <link rel="stylesheet" type="text/css" href="/css/aaa.css"  />
-    <link rel="stylesheet" type="text/css" href="/css/ccc.css"  />
 
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -199,23 +198,31 @@
             d[this.name] = this.value;
         });
 
-        $.ajax({
-            type: "POST",
-            url: AjaxURL,
-            data:  "ans="+JSON.stringify(d)+"&pid="+pid,
-            success: function (data) {
-                submitted = true;
-                clearTimeout(timer);
-                alert(data);
-                $("#submit").attr('disabled',"true");
-                $("#submit").css({'background-color':'gray'});
-                $("#submit").val("已提交");
+        var dd = Object.getOwnPropertyNames(d).length;
 
-            },
-            error: function(data) {
-                alert("提交失败！\n请检查网络！请重试！");
-            }
-        });
+        if(dd<choiids.length+judgids.length+subids.length){
+            event.preventDefault();
+            alert("还有题目没有完成！");
+        }
+        else{
+            $.ajax({
+                type: "POST",
+                url: AjaxURL,
+                data:  "ans="+JSON.stringify(d)+"&pid="+pid,
+                success: function (data) {
+                    submitted = true;
+                    clearTimeout(timer);
+                    alert(data);
+                    $("#submit").attr('disabled',"true");
+                    $("#submit").css({'background-color':'gray'});
+                    $("#submit").val("已提交");
+
+                },
+                error: function(data) {
+                    alert("提交失败！\n请检查网络！请重试！");
+                }
+            });
+        }
     }
 
     $('#examForm').submit(submit_paper);
