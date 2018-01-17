@@ -12,7 +12,6 @@ import examination.service.ExamService;
 import examination.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -228,5 +227,9 @@ public class StudentController {
         long uid = (long) httpSession.getAttribute("userid");
         evaluatingService.EvaluateSQL(uid,eid,sql2);
         return "redirect:" + path + "student_status";
+    }
+    @RequestMapping(value = "student_info")
+    String student_info() {
+        return path+"student_info";
     }
 }

@@ -298,7 +298,19 @@ input[type='submit']:hover {
     border: 1px solid #eeeeee;
     background-color: #eeeeee;
     padding: 20px;
-    width: 320px;
+    width: 450px;
     margin: 0 auto;
     margin-bottom: 5px;
+}
+
+.left_txt {
+    color:#09679e;
+    font-weight: bold;
+    width: 80px;
+
+}
+
+.left2_txt {
+    color:#087ec2;
+    width: 80px;
 }

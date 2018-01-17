@@ -40,7 +40,7 @@
             </blockquote>
         </div>
         <br/>
-        <table class="table">
+        <table class="tableStyle">
 
             <thead>
             <tr>
@@ -54,8 +54,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="que,stat:${choiceQuestuon}" th:id="${que.id}+'tr'"
-                th:class="${stat.even}? 'biaogekuang' : 'biaogekuang2'">
+            <tr th:each="que,stat:${choiceQuestuon}" th:id="${que.id}+'tr'">
                 <td><input type="checkbox" name="id" th:id="${que.id}+'ch'" th:value="${que.id}"/></td>
                 <td th:text="${que.question}" th:id="${que.id}+'q'">数据库三级模式中，真正存在的是（）。
                 </td>

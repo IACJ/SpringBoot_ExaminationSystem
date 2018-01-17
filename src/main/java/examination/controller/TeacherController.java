@@ -216,7 +216,7 @@ public class TeacherController {
         return path + "student_grade_list";
     }
 
-    @RequestMapping(value = "get/chart")
+    @RequestMapping(value = "get_chart")
     String getChart(HttpServletRequest request, Model model) {
         long pid = Long.parseLong(request.getParameter("pid"));
         model.addAttribute("data", chartService.teacherGetChart(pid, request.getParameter("name")));
@@ -306,5 +306,10 @@ public class TeacherController {
     @ResponseBody
     String teacher_calc_grade(long ans,long pid,long sid) {
         return examService.teacher_calc_grade(sid,pid,ans);
+    }
+
+    @RequestMapping(value = "teacher_info")
+    String teacher_info() {
+        return path+"teacher_info";
     }
 }
