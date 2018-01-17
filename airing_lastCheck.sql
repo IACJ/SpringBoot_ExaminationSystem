@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-01-17 02:11:16
+-- Generation Time: 2018-01-17 21:07:13
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `id` bigint(20) NOT NULL,
   `account` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `name` char(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `password` char(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `password` char(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
@@ -40,10 +40,10 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `account`, `name`, `password`) VALUES
-(1, 'acj', '贾中昊', 'acj'),
-(2, 'wty', '王腾叶', 'wty'),
-(3, 'zyr', '钟燕榕', 'zyr'),
-(4, 'lyt', '鲁雅婷', 'lyt');
+(1, 'acj', 'acj', 'mgiOTEVA6f18FVjuqc7KUw=='),
+(2, 'wty', '王腾叶', '4QrcOUm6Wau+VuBX8g+IPg=='),
+(3, 'zyr', '钟燕榕', '4QrcOUm6Wau+VuBX8g+IPg=='),
+(4, 'lyt', '鲁雅婷', '4QrcOUm6Wau+VuBX8g+IPg==');
 
 -- --------------------------------------------------------
 
@@ -309,7 +309,7 @@ INSERT INTO `paper` (`id`, `name`, `begintime`, `finishtime`, `choi`, `judg`, `s
 (1, '数据库平时练习第一次', '2017-12-09 18:00:00', '2018-12-09 19:00:00', '1,2,3,4,5,6,7,8,9,10', '1,2,3,4,5,', '1,2,3,4,5', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|2|,|3|]'),
 (2, '数据库平时练习第二次', '2017-12-09 19:00:00', '2018-12-09 20:00:00', '2,3,4,5,6,7,8,9,10,11', '2,3,4,5,6', '2,3,4,5,6', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 2, '[|1|,|2|]'),
 (3, '数据库平时练习第三次', '2017-12-10 14:00:00', '2018-12-10 15:00:00', '21,22,23,24,25,26,27,28,29,30', '3,4,5,6,7', '1,2,3,4,5', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 3, '[|1|,|2|,|4|,|6|,|3|,|5|]'),
-(4, '数据库平时练习第四次', '2017-12-09 15:00:00', '2018-12-09 16:00:00', '22,23,24,25,26,27,28,29,30,31', '4,5,6,7,8', '2,3,4,5,6', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|5|,|2|,|3|]'),
+(4, '数据库平时练习第四次', '2017-12-09 15:00:00', '2018-12-09 16:00:00', '22,23,24,25,26,27,28,29,30,31', '4,5,6,7,8', '2,3,4,5,6', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|5|,|2|,|3|]'),
 (5, '数据库平时练习第五次', '2017-12-09 15:00:00', '2018-12-09 16:00:00', '22,23,24,25,26,27,28,29,30,31', '4,5,6,7,8', '1,3,4,5,6', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|4|]'),
 (6, '数据库期中考试', '2017-12-11 19:00:00', '2018-12-11 20:00:00', '1,11,21,31,41,51,61,71,81,91', '1,3,5,7,9', '1,3,5,7,9', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 2, '[|1|,|3|]'),
 (7, '数据库期末考试', '2017-12-20 19:00:00', '2018-12-20 20:00:00', '2,12,22,32,42,52,62,72,82,92', '2,4,6,8,10', '2,4,6,8,10', '4,4,4,4,4,4,4,4,4,4', '4,4,4,4,4', '8,8,8,8,8', 1, '[|1|,|2|,|4|,|6|,|3|,|5|]');
@@ -333,14 +333,24 @@ CREATE TABLE `record` (
 --
 
 INSERT INTO `record` (`sid`, `pid`, `record`, `status`, `score`) VALUES
+(1, 1, '', '已批改', 20),
 (2, 1, '{\"cho_1\":\"B\",\"cho_4\":\"C\",\"cho_5\":\"C\",\"cho_6\":\"D\",\"cho_2\":\"A\",\"cho_8\":\"C\",\"tf_2\":\"T\",\"tf_4\":\"T\",\"tf_6\":\"T\",\"sub_1\":\"zxcdscsd\",\"sub_2\":\"asd \",\"sub_3\":\"打撒大三的思维卫峰\",\"sub_4\":\"额分分\",\"sub_5\":\"第三次多少\"}', '已批改', 20),
+(3, 1, '', '已批改', 10),
+(4, 1, '', '已批改', 40),
+(5, 1, '', '已批改', 50),
+(6, 1, '', '已批改', 80),
+(1, 2, '', '已批改', 80),
 (2, 2, '{\"cho_3\":\"B\",\"cho_6\":\"C\",\"cho_2\":\"A\",\"cho_4\":\"A\",\"cho_5\":\"C\",\"cho_7\":\"B\",\"cho_8\":\"A\",\"cho_11\":\"A\",\"cho_10\":\"C\",\"cho_9\":\"B\",\"tf_3\":\"T\",\"tf_4\":\"T\",\"tf_2\":\"T\",\"tf_6\":\"T\",\"tf_5\":\"T\",\"sub_2\":\"是是是\",\"sub_4\":\"好好好\",\"sub_6\":\"对对对\",\"sub_5\":\"嗯嗯嗯\",\"sub_3\":\"呵呵呵呵呵呵\"}', '已批改', 60),
+(3, 2, '', '已批改', 50),
+(5, 2, '', '已批改', 55),
+(6, 2, '', '已批改', 30),
 (2, 3, '{\"cho_21\":\"B\",\"cho_26\":\"A\",\"cho_27\":\"D\",\"cho_28\":\"C\",\"cho_30\":\"A\",\"cho_22\":\"A\",\"cho_23\":\"A\",\"cho_25\":\"A\",\"cho_29\":\"A\",\"cho_24\":\"A\",\"tf_3\":\"T\",\"tf_5\":\"T\",\"tf_4\":\"T\",\"tf_6\":\"T\",\"tf_7\":\"T\",\"sub_4\":\"没有\",\"sub_3\":\"不知道\",\"sub_1\":\"母鸡 \",\"sub_5\":\"不懂\",\"sub_2\":\"哈哈哈哈哈哈哈\"}', '已批改', 28),
+(5, 3, '{\"cho_21\":\"B\",\"cho_26\":\"A\",\"sub_1\":\"\",\"sub_2\":\"\",\"sub_4\":\"\",\"sub_3\":\"\",\"sub_5\":\"\"}', '已批改', 0),
+(2, 4, '', '已批改', 90),
 (2, 5, '{\"cho_26\":\"C\",\"cho_22\":\"B\",\"cho_27\":\"B\",\"cho_25\":\"A\",\"cho_23\":\"A\",\"cho_30\":\"B\",\"cho_29\":\"D\",\"cho_28\":\"C\",\"cho_31\":\"B\",\"cho_24\":\"B\",\"tf_5\":\"T\",\"tf_4\":\"T\",\"tf_7\":\"T\",\"tf_6\":\"T\",\"tf_8\":\"T\",\"sub_1\":\"123\",\"sub_3\":\"234\",\"sub_4\":\"345\",\"sub_5\":\"567\",\"sub_6\":\"888\"}', '已批改', 31),
 (2, 6, '{\"cho_1\":\"A\",\"cho_41\":\"B\",\"cho_51\":\"B\",\"sub_1\":\"\",\"sub_undefined\":\"\"}', '已批改', 100),
-(2, 7, '{\"sub_2\":\"\",\"sub_4\":\"\",\"sub_6\":\"\",\"sub_8\":\"\",\"sub_10\":\"\"}', '已批改', 100),
 (3, 7, '{\"cho_2\":\"D\",\"cho_22\":\"B\",\"cho_12\":\"B\",\"cho_62\":\"B\",\"cho_32\":\"B\",\"cho_52\":\"A\",\"cho_72\":\"C\",\"cho_82\":\"B\",\"cho_92\":\"D\",\"tf_2\":\"T\",\"tf_4\":\"T\",\"tf_6\":\"T\",\"tf_8\":\"T\",\"tf_10\":\"T\",\"sub_4\":\"qqqqrve\",\"sub_6\":\"adsdsvrve\",\"sub_2\":\"asdvdevrerve\",\"sub_8\":\"rvfdvfdververev\",\"sub_10\":\"dfvsdfverevr\"}', '已批改', 22),
-(5, 7, '{\"cho_2\":\"B\",\"cho_32\":\"C\",\"cho_42\":\"B\",\"cho_22\":\"C\",\"cho_52\":\"D\",\"cho_92\":\"B\",\"cho_62\":\"B\",\"cho_72\":\"B\",\"tf_4\":\"T\",\"tf_2\":\"T\",\"tf_10\":\"T\",\"tf_6\":\"T\",\"tf_8\":\"T\",\"sub_2\":\"dscsdcwewfsdf\",\"sub_6\":\"\",\"sub_8\":\"dascaewcaawaef\",\"sub_4\":\"acecwedscsaewf\",\"sub_10\":\"wecwaecwecaewf\"}', '已批改', 36);
+(4, 7, '{\"cho_2\":\"B\",\"cho_32\":\"C\",\"cho_42\":\"B\",\"cho_22\":\"C\",\"cho_52\":\"D\",\"cho_92\":\"B\",\"cho_62\":\"B\",\"cho_72\":\"B\",\"tf_4\":\"T\",\"tf_2\":\"T\",\"tf_10\":\"T\",\"tf_6\":\"T\",\"tf_8\":\"T\",\"sub_2\":\"dscsdcwewfsdf\",\"sub_6\":\"\",\"sub_8\":\"dascaewcaawaef\",\"sub_4\":\"acecwedscsaewf\",\"sub_10\":\"wecwaecwecaewf\"}', '已批改', 36);
 
 -- --------------------------------------------------------
 
@@ -445,7 +455,9 @@ INSERT INTO `status` (`runid`, `eid`, `uid`, `sql2`, `time`, `status`) VALUES
 (81, 25, 2, 'DELETE SC,Students FROM SC,Students\r\nWHERE students.sex=\'女\';', '2017-12-11 16:38:50', '答案错误，你真笨!'),
 (82, 1, 5, 'select * from students', '2017-12-11 17:01:24', '答案错误，你真笨!'),
 (83, 1, 2, 'select sno, sname from students where height > 1.8 and sex = \'男\';', '2017-12-20 18:20:37', '答案正确，你真棒！'),
-(84, 17, 5, 'a', '2017-12-20 18:26:01', 'SQL语句出错：You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near \'a\' at line 1');
+(84, 17, 5, 'a', '2017-12-20 18:26:01', 'SQL语句出错：You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near \'a\' at line 1'),
+(85, 22, 2, 'update students set `sex` =\'女\' where sname like \'张*\'', '2018-01-18 03:28:25', '答案错误，你真笨!'),
+(86, 22, 2, 'update students set sex=\'女\'\r\nwhere sname like \'张%\';', '2018-01-18 03:29:01', '答案正确，你真棒！');
 
 -- --------------------------------------------------------
 
@@ -457,7 +469,7 @@ CREATE TABLE `student` (
   `id` bigint(20) NOT NULL,
   `account` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `name` char(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `password` char(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `password` char(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `classid` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -466,12 +478,12 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `account`, `name`, `password`, `classid`) VALUES
-(2, 'zal', '张爱玲', 'zal', 1),
-(3, 'gyq', '高雨晴', '123456', 6),
-(4, 'zcl', '郑春玲', '123456', 4),
-(5, 'ln', '黎宁', 'ln', 5),
-(6, 'laq', '林安琪', 'laq', 2),
-(8, 'wff', '魏凤凤', '123456', 3);
+(2, 'zal', '张爱玲', 'VQQ3hkE+cjZBYZQtG/noNg==', 1),
+(3, 'gyq', '高雨晴', '4QrcOUm6Wau+VuBX8g+IPg==', 6),
+(4, 'zcl', '郑春玲', '4QrcOUm6Wau+VuBX8g+IPg==', 4),
+(5, 'ln', '黎宁', '4QrcOUm6Wau+VuBX8g+IPg==', 5),
+(6, 'laq', '林安琪', '4QrcOUm6Wau+VuBX8g+IPg==', 2),
+(8, 'wff', '魏凤凤', '4QrcOUm6Wau+VuBX8g+IPg==', 3);
 
 -- --------------------------------------------------------
 
@@ -512,7 +524,7 @@ CREATE TABLE `teacher` (
   `id` bigint(20) NOT NULL,
   `account` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `name` char(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `password` char(20) COLLATE utf8mb4_bin NOT NULL
+  `password` char(40) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
@@ -520,9 +532,13 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`id`, `account`, `name`, `password`) VALUES
-(1, 'dsl2015', '董守玲', 'dsl2015'),
-(2, 'zjw2015', '张见威', 'zjw2015'),
-(3, 'dsb2015', '董守斌', 'dsb');
+(1, 'dsl2015', '董守玲', 'V/YuCFz98gs54S3osZkxEg=='),
+(2, 'zjw2015', '张见威', '4QrcOUm6Wau+VuBX8g+IPg=='),
+(3, 'dsb2015', '董守斌', '9PYXLrJlgZUqcNcZm/0t2w=='),
+(5, 'zs', '张三', '123456'),
+(6, 'ls', '李四', '123456'),
+(7, 'wu', '王五', '123456'),
+(8, '123', '顺', '123456');
 
 --
 -- Indexes for dumped tables
@@ -640,13 +656,13 @@ ALTER TABLE `judgedba`
 -- 使用表AUTO_INCREMENT `paper`
 --
 ALTER TABLE `paper`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- 使用表AUTO_INCREMENT `status`
 --
 ALTER TABLE `status`
-  MODIFY `runid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `runid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- 使用表AUTO_INCREMENT `student`
@@ -664,7 +680,7 @@ ALTER TABLE `subdba`
 -- 使用表AUTO_INCREMENT `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
