@@ -83,7 +83,7 @@
                 '<textarea disabled="true"  class="textareaStyle" >'+record['sub_'+id]+'</textarea>' +
                 '<label>参考答案：</label>'+
                 '<textarea disabled="true" class="textareaStyle" >'+data['refanswer']+'</textarea>' +
-                '<label>得分：(满分为'+8+')</label><input type="number"  name="sub_' +data.id +'" /></div>';
+                '<label>得分：(满分为'+8+')</label><input  oninput="checkNum(this.value,id)" type="number"  name="sub_' +data.id +'" id="input'+id+'"/></div>';
             $("#sub").append(str);
         });
     };
@@ -141,6 +141,13 @@
         });
     }
     $('#examForm').submit(submit_paper);
+
+    function checkNum (val,id) {
+        console.log(id);
+
+        document.getElementById(id).value = val >= 0 ? val : 0;
+        document.getElementById(id).value = val <= 8 ? val : 8;
+    }
     /*]]>*/
 </script>
 
