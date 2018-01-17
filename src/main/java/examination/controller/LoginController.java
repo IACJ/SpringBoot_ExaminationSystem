@@ -98,7 +98,7 @@ public class LoginController {
 
         loginService.chageInfo(uid,s,name,pw);
         String pageName = s.toLowerCase();
-        return "/"+pageName+"/"+pageName+"page";
+        return "redirect:/"+pageName+"/"+pageName+"page";
     }
 
 

@@ -23,7 +23,7 @@ public class LoginService {
     AdminDao adminDao;
 
     public User doLogin(String account, String password){
-//        password = EncoderByMd5(password);
+        password = EncoderByMd5(password);
         Student student=studentDao.findByLogin(account,password);
         if (student != null){
             return student;
