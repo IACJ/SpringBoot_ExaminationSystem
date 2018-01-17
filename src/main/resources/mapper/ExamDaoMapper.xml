@@ -30,7 +30,7 @@
         SELECT name,score
         FROM `record` INNER JOIN `student` on record.sid=student.id
         WHERE pid = #{pid}
-
+    </select>
     <update id="calcGrade" parameterType="examination.entity.Record" useGeneratedKeys="true" keyProperty="runid">
         UPDATE `record`SET `status`=#{status},`score`=#{score} WHERE `sid`=#{sid} AND `pid` =#{pid};
     </update>

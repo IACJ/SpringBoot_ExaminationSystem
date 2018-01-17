@@ -144,7 +144,7 @@ public class TeacherService {
                 Row row = sheet.getRow(i);
                 String question = formatter.formatCellValue(row.getCell(0));
                 String rightAnswer = formatter.formatCellValue(row.getCell(1));
-                SubjectQuestion  judgeQuestion= new SubjectQuestion(question,rightAnswer);
+                SubjectQuestion judgeQuestion = new SubjectQuestion(question, rightAnswer);
                 judgeQuestions.add(judgeQuestion);
             }
 
@@ -154,6 +154,7 @@ public class TeacherService {
             e.printStackTrace();
         }
         return subjectDao.addByList(judgeQuestions);
+    }
 
     public List<Map> listPaper(long tid){
         return examDao.listPaper();
