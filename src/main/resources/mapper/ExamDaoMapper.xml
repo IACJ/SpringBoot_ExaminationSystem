@@ -13,7 +13,7 @@
         SELECT pid,paper.name as pname,teacher.name as tname,paper.begintime,paper.finishtime,record.score
         FROM `record` INNER JOIN `paper` on paper.id=record.pid
             inner JOIN `teacher` on teacher.id=paper.tid
-        WHERE sid = #{sid}
+        WHERE sid = #{sid} AND `status` = '已批改';
     </select>
 
     <insert id="submit" parameterType="examination.entity.Record" useGeneratedKeys="true" keyProperty="runid">
