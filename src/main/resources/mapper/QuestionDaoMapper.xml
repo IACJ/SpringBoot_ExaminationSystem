@@ -15,7 +15,7 @@
     </select>
 
     <select id="findJudgedbaById_noAns" resultType="Judgedba">
-        SELECT `id`, `question` FROM `Judgedba` WHERE `id`=#{id}
+        SELECT `id`, `question` FROM `judgedba` WHERE `id`=#{id}
     </select>
 
     <select id="findSubdbaById_Ans" resultType="Subdba">
@@ -23,7 +23,7 @@
     </select>
 
     <select id="findSubdbaById_noAns" resultType="Subdba">
-        SELECT `id`, `question` FROM `Subdba` WHERE `id`=#{id}
+        SELECT `id`, `question` FROM `subdba` WHERE `id`=#{id}
     </select>
 
     <select id="findEvadbaById_Ans" resultType="Evadba">
