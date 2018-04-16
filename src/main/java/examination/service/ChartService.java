@@ -34,7 +34,7 @@ public class ChartService {
     public String studentGetChart(long studentId) {
         List<String> name = chartDao.getPaperName(studentId) ;
         List<Byte> data = chartDao.getScore(studentId) ;
-        List<String> reformatName = new ArrayList<>();
+        List<String> reformatName = new ArrayList<String>();
 
         name.forEach((item -> reformatName.add(String.join("\n", item.split("")))));
         GsonOption option = new GsonOption();
@@ -60,7 +60,7 @@ public class ChartService {
     public String teacherGetChart(long pid,String name1) {
 
         List<Byte> data = chartDao.getScoreByPId(pid) ;
-        List<String> name = new ArrayList<>();
+        List<String> name = new ArrayList<String>();
         GsonOption option = new GsonOption();
 
         option.title(name1).tooltip(Trigger.item).toolbox().feature(Feature.saveAsImage);

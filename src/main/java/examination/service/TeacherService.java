@@ -84,7 +84,7 @@ public class TeacherService {
     }
 
     public int addChoiceQuestionByExcel(InputStream inputStream) {
-        List<ChoiceQuestion> choiceQuestions = new ArrayList<>();
+        List<ChoiceQuestion> choiceQuestions = new ArrayList<ChoiceQuestion>();
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);

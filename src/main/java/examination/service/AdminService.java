@@ -68,7 +68,7 @@ public class AdminService {
 
     public List<Student> queryAllStudent() {
         List<Student> students = studentDao.queryAll();
-        List<Student> studentsReplaceClassIdWithName = new ArrayList<>();
+        List<Student> studentsReplaceClassIdWithName = new ArrayList<Student>();
         students.forEach(student -> {
             student.setClassid(classDao.getNameById(student.getClassid()));
             studentsReplaceClassIdWithName.add(student);
