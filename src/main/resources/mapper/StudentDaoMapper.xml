@@ -7,7 +7,7 @@
 
     <insert id="add">
         INSERT INTO student(account,name,password,classid)
-        VALUE(#{account},#{name},'123456',#{classid});
+        VALUE(#{account},#{name},'4QrcOUm6Wau+VuBX8g+IPg==',#{classid});
     </insert>
 
     <select id="findById" resultType="Student">
@@ -27,7 +27,7 @@
         INSERT INTO student(account,name,password,classid)
         VALUE
         <foreach collection="list" item="student" separator=",">
-            (#{student.account},#{student.name},"123456",#{student.classid})
+            (#{student.account},#{student.name},'4QrcOUm6Wau+VuBX8g+IPg==',#{student.classid})
         </foreach>
     </insert>
 
@@ -47,6 +47,6 @@
     </delete>
 
     <update id="resetPassword">
-        UPDATE student set password="4QrcOUm6Wau+VuBX8g+IPg==" WHERE id=#{id}
+        UPDATE student set password='4QrcOUm6Wau+VuBX8g+IPg==' WHERE id=#{id}
     </update>
 </mapper>

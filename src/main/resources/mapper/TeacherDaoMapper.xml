@@ -6,7 +6,7 @@
     </select>
 
     <insert id="add">
-        INSERT INTO teacher(account,name,password) VALUE(#{account},#{name},'123456');
+        INSERT INTO teacher(account,name,password) VALUE(#{account},#{name},'4QrcOUm6Wau+VuBX8g+IPg==');
     </insert>
 
     <select id="findById" resultType="Teacher">
@@ -25,7 +25,7 @@
         INSERT INTO teacher(account,name,password)
         VALUE
         <foreach collection="list" item="teacher" separator=",">
-            (#{teacher.account},#{teacher.name},"123456")
+            (#{teacher.account},#{teacher.name},'4QrcOUm6Wau+VuBX8g+IPg==')
         </foreach>
     </insert>
 
