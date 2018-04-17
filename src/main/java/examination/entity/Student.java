@@ -11,10 +11,9 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(String account, String name, String sex, String classid) {
+    public Student(String account, String name, String classid) {
         this.account = account;
         this.name = name;
-        this.sex = sex;
         this.classid = classid;
     }
 
