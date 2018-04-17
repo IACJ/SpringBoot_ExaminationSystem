@@ -51,10 +51,9 @@ public class AdminService {
                 Row row = sheet.getRow(i);
                 String account = formatter.formatCellValue(row.getCell(0));
                 String name = formatter.formatCellValue(row.getCell(1));
-                String sex = formatter.formatCellValue(row.getCell(2));
-                String className = formatter.formatCellValue(row.getCell(3));
+                String className = formatter.formatCellValue(row.getCell(2));
                 String classId = classDao.getIdByName(className);
-                Student student = new Student(account, name, sex, classId);
+                Student student = new Student(account, name,classId);
                 students.add(student);
             }
 
