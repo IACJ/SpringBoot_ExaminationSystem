@@ -226,7 +226,7 @@ public class StudentController {
     String studentEvaluatingDoPost(long eid, HttpSession httpSession,String sql2){
         long uid = (long) httpSession.getAttribute("userid");
         evaluatingService.EvaluateSQL(uid,eid,sql2);
-        return "redirect:" + path + "student_status";
+        return "redirect:/" + path + "student_status";
     }
     @RequestMapping(value = "student_info")
     String student_info() {

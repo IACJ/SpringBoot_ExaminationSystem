@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -228,9 +229,10 @@ public class TeacherController {
         res.setHeader("Content-Disposition", "attachment; filename=" + type + "_template.xlsx");
         res.setContentType("application/octet-stream; charset=utf-8");
         try {
-            String path = "src/main/resources/templates/excel/" + type + "_template.xlsx";
-
-            FileCopyUtils.copy(new FileInputStream(path), res.getOutputStream());
+//            String path = "src/main/resources/templates/excel/" + type + "_template.xlsx";
+//            FileCopyUtils.copy(new FileInputStream(path), res.getOutputStream());
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/excel/" + type + "_template.xlsx");
+            FileCopyUtils.copy(is, res.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

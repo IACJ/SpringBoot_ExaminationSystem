@@ -1,6 +1,7 @@
 package examination.service;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -26,6 +27,10 @@ import static java.sql.Connection.TRANSACTION_READ_UNCOMMITTED;
 @Service
 public class CompareSQLService {
 
+    @Value("${spring.datasource.password}")
+    private String PASS ;
+    @Value("${spring.datasource.username}")
+    private String USER ;
 
     private void showTransactionIsolation(Connection conn) throws SQLException {
 
@@ -47,8 +52,8 @@ public class CompareSQLService {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn ;
             final String DB_URL = "jdbc:mysql://localhost:3306/"+DBName+"?useUnicode=true&characterEncoding=UTF-8";
-            final String USER = "root";
-            final String PASS = "";
+
+
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             conn.setAutoCommit(false);  //将自动提交设置为false
             System.out.print("获得一个conn :");
